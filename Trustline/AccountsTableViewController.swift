@@ -9,14 +9,9 @@
 import UIKit
 import DRCellSlideGestureRecognizer
 
-class AccountsTableViewController: UITableViewController {
-  lazy var accountDict: AccountInfos.AccountDict = {
-    var accountInfos = AccountInfos.getAccountInfo();
-    return accountInfos.accountDict;
-  }()
+class AccountsTableViewController: UITableViewController, AddAccountDelegate {
+  var accountInfos = AccountInfos()
   
-  let greenColor = UIColor(red: 91/255.0, green: 220/255.0, blue: 88/255.0, alpha: 1)
-  let blueColor  = UIColor(red: 24/255.0, green: 182/255.0, blue: 222/255.0, alpha: 1)
   
   var bleManager :BleManager2!
   var token :Token2!
@@ -25,60 +20,16 @@ class AccountsTableViewController: UITableViewController {
   
   var accountSectionTitles = [String]()
   
-  let accountIndexTitles = ["A", "B", "C", "D", "E", "F", "G",
-                            "H", "I", "J", "K", "L", "M", "N",
-                            "O", "P", "Q", "R", "S", "T", "U",
-                            "V", "W", "X", "Y", "Z"]
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     bleManager = BleManager2(managerStateErrorHandler: self.bleManagerStateChange, keyMaterial: keyMaterial)
-
-
-    bleManager.discoverTokens { (tokens, error) -> (Void) in
-      if let err = error {
-        print(err.description)
-        return
-      }
-      
-      if (tokens.count != 1) {
-        print("tokens count: \(tokens.count)")
-        return
-      }
-      
-      self.token = tokens[0]
-      
-      self.token.connect({ (error) -> (Void) in
-        if let err = error {
-          print("Cannot connect to token: \(err.description)")
-        } else {
-          print("token connected!")
-        }
-        
-      })
-      
-    }
+    initializeToken();
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    accountSectionTitles = Array(accountDict.keys);
+    accountSectionTitles = Array(accountInfos.accountDict.keys);
     accountSectionTitles.sortInPlace();
   }
   
-  func bleManagerStateChange(error: NSError?) {
-    if let err = error {
-      print(err.description)
-    }
-  }
-  
-  
-  override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-    return accountSectionTitles
-  }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -86,9 +37,8 @@ class AccountsTableViewController: UITableViewController {
   }
 
   // MARK: - Table view data source
-
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return accountSectionTitles.count
+    return accountInfos.accountDict.count
   }
 
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -97,58 +47,21 @@ class AccountsTableViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     let sectionTitle = accountSectionTitles[section];
-    return accountDict[sectionTitle]!.count;
+    return accountInfos.accountDict[sectionTitle]!.count;
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as UITableViewCell;
-
+    let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountTableViewCell;
     let account = accountAtIndexPath(indexPath)
     
-    cell.textLabel?.text = account.title;
-    cell.detailTextLabel?.text = account.login;
-    
-    
-    let slideGestureRecognizer = DRCellSlideGestureRecognizer();
-    
-    let sendKeystrokesAction = DRCellSlideAction(forFraction: 0.35)
-    sendKeystrokesAction.elasticity = 40
-    sendKeystrokesAction.icon = UIImage(named: "keyboard")
-    sendKeystrokesAction.activeBackgroundColor = greenColor
-    
-    sendKeystrokesAction.didTriggerBlock = {(tableview, indexPath) in
-      print("left yeah")
-    }
-    
-    let copyToClipboardAction = DRCellSlideAction(forFraction: -0.35)
-    copyToClipboardAction.activeBackgroundColor = blueColor
-    copyToClipboardAction.icon = UIImage(named: "clipboard")
-    copyToClipboardAction.elasticity = 40
-    copyToClipboardAction.didTriggerBlock = {(tableView, indexPath) in
-      print("Rigth Yeah")
-    }
-    
-    slideGestureRecognizer.addActions(sendKeystrokesAction)
-    slideGestureRecognizer.addActions(copyToClipboardAction)
-    
-    cell.addGestureRecognizer(slideGestureRecognizer)
+    cell.account = account
+    cell.onKeyboardTriggered(self.onKeyboardTriggered)
+    cell.onKeyboardEnterTriggered(self.onKeyboardEnterTriggered)
+    cell.onClipBoardTriggered(self.onClipboardTriggered)
     
     return cell;
   }
   
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-      let indexTitle = accountSectionTitles[indexPath.section]
-      accountDict[indexTitle]!.removeAtIndex(indexPath.row)
-      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-      
-      if accountDict[indexTitle]!.isEmpty {
-        accountDict.removeValueForKey(indexTitle)
-        accountSectionTitles.removeAtIndex(indexPath.section)
-        tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Automatic)
-      }
-    }
-  }
   
   
   // MARK: - Navigation
@@ -164,9 +77,21 @@ class AccountsTableViewController: UITableViewController {
           let addAccountVC = segue.destinationViewController as! AddAccountViewController
           addAccountVC.settings = settings
           addAccountVC.token = token
+          addAccountVC.delegate = self
+        
         default: break;
       }
     }
+  }
+  
+  
+  // MARK: - AddAccountDelegate
+  func accoundAdded(controller: AddAccountViewController, newAccount: Account) {
+    accountInfos.add(newAccount)
+    accountSectionTitles = Array(accountInfos.accountDict.keys);
+    accountSectionTitles.sortInPlace();
+    tableView.reloadData()
+    controller.navigationController?.popViewControllerAnimated(true)
   }
   
   
@@ -174,10 +99,92 @@ class AccountsTableViewController: UITableViewController {
   // MARK: - Helper Methods
   func accountAtIndexPath(indexPath: NSIndexPath) -> Account {
     let sectionTitle = accountSectionTitles[indexPath.section]
-    let accounts = accountDict[sectionTitle]!
+    let accounts = accountInfos.accountDict[sectionTitle]!
     let account = accounts[indexPath.row]
     return account
   }
   
   
+  // MARK: - Ble Token discovery, connection and state management
+  func initializeToken() {
+    bleManager.discoverTokens(self.onTokensDiscovered)
+  }
+  
+  
+  // MARK: - Shortcuts Events Management
+  func onKeyboardTriggered(account :Account) {
+    if token == nil {
+      print("Cannot handle action : Token is nil")
+      return
+    }
+    
+    token.writePassword(account.password) { (error) in
+      if let err = error {
+        print("Error typing password: \(err.description)")
+      } else {
+        print("Password typed!!")
+      }
+    }
+  }
+
+  func onKeyboardEnterTriggered(account :Account) {
+    if token == nil {
+      print("Cannot handle action : Token is nil")
+      return
+    }
+    
+  }
+  
+  
+
+  func onClipboardTriggered(account :Account) {
+    if token == nil {
+      print("Cannot handle action : Token is nil")
+      return
+    }
+    
+  }
+
+  
+  
+  func onTokensDiscovered(tokens: [Token2], error: NSError?) {
+    if let err = error {
+      print(err.description)
+      return
+    }
+    if (tokens.count != 1) {
+      print("tokens count: \(tokens.count)")
+      return
+    }
+    print("Discovered \(tokens.count) Tokens")
+    self.token = tokens[0]
+
+    print("Connecting to token 1...")
+    token.connect(self.onTokenConnected)
+  }
+  
+  
+  func onTokenConnected(error: NSError?) {
+    if let err = error {
+      print("Cannot connect to token: \(err.description)")
+    } else {
+      print("token connected!")
+      print("Pairing...")
+      
+      token.pair({ (error) -> (Void) in
+        if let err = error {
+          print("error pairing device: \(err.description)")
+        } else {
+          print("Token Paired and Ready!!")
+        }
+      })
+    }
+  }
+  
+  
+  func bleManagerStateChange(error: NSError?) {
+    if let err = error {
+      print(err.description)
+    }
+  }
 }

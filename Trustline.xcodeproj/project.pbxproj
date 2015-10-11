@@ -25,6 +25,7 @@
 		C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473961BC90B3F00FE2E0B /* BleManager.swift */; settings = {ASSET_TAGS = (); }; };
 		C9D473991BC91EF900FE2E0B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473981BC91EF900FE2E0B /* Token.swift */; settings = {ASSET_TAGS = (); }; };
 		C9D4739B1BC91F3000FE2E0B /* KeyMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */; settings = {ASSET_TAGS = (); }; };
+		C9D4739F1BCA6F2A00FE2E0B /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739E1BCA6F2A00FE2E0B /* AccountTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		E407975E356EA248299AD716 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A17CE91AF788180EC9881E /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		C9D473961BC90B3F00FE2E0B /* BleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
 		C9D473981BC91EF900FE2E0B /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMaterial.swift; sourceTree = "<group>"; };
+		C9D4739E1BCA6F2A00FE2E0B /* AccountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				C9ACF8D61BC11DA80040D21A /* ViewController.swift */,
+				C9D4739E1BCA6F2A00FE2E0B /* AccountTableViewCell.swift */,
 				C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */,
 				C91C71861BC310E400579B15 /* AccountsTableViewController.swift */,
 				C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */,
@@ -407,6 +410,7 @@
 				C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */,
 				C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */,
 				C93D49A11BC1218900B19C0F /* Command.swift in Sources */,
+				C9D4739F1BCA6F2A00FE2E0B /* AccountTableViewCell.swift in Sources */,
 				C9D4739B1BC91F3000FE2E0B /* KeyMaterial.swift in Sources */,
 				C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */,
 			);

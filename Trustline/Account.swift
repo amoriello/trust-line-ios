@@ -14,10 +14,12 @@ class AccountInfos {
   typealias AccountDict = [String: [Account]]
   var accountDict = AccountDict();
   
+  init() {
+    createFakeInfo()
+  }
   
-  class func getAccountInfo() -> AccountInfos {
-    let accountInfos = AccountInfos();
-    
+  
+  func createFakeInfo() {
     let CreateFakeAccount = {(title: String) -> Account in
       let fakePassData = [UInt8]();
       let fakeLogin = "amoriello.hutti@gmail.com"
@@ -31,26 +33,27 @@ class AccountInfos {
       let QAs = [SecurityQA(question: q1, answer: a1),
                  SecurityQA(question: q2, answer: a2)]
       
-      return Account(title: title, login: fakeLogin, password: fakePassData, securityQA: QAs)
+      let account = Account(title: title, password: fakePassData, login: fakeLogin, securityQA: QAs)
+      account.usageInfo = UsageInfo(usageType: .Keyboard)
+      
+      return account
     }
     
-    accountInfos.add(CreateFakeAccount("Abricot"))
-    accountInfos.add(CreateFakeAccount("Absinthe"))
-    accountInfos.add(CreateFakeAccount("Acajou"))
-    accountInfos.add(CreateFakeAccount("Acide"))
-    accountInfos.add(CreateFakeAccount("acidulé"))
-    accountInfos.add(CreateFakeAccount("acier"))
+    add(CreateFakeAccount("Abricot"))
+    add(CreateFakeAccount("Absinthe"))
+    add(CreateFakeAccount("Acajou"))
+    add(CreateFakeAccount("Acide"))
+    add(CreateFakeAccount("acidulé"))
+    add(CreateFakeAccount("acier"))
     
-    accountInfos.add(CreateFakeAccount("délavé"))
-    accountInfos.add(CreateFakeAccount("diapré"))
-    accountInfos.add(CreateFakeAccount("doux"))
+    add(CreateFakeAccount("délavé"))
+    add(CreateFakeAccount("diapré"))
+    add(CreateFakeAccount("doux"))
 
     
-    accountInfos.add(CreateFakeAccount("nacarat"))
-    accountInfos.add(CreateFakeAccount("Naples"))
-    accountInfos.add(CreateFakeAccount("noir"))
-    
-    return accountInfos
+    add(CreateFakeAccount("nacarat"))
+    add(CreateFakeAccount("Naples"))
+    add(CreateFakeAccount("noir"))
   }
     
   
@@ -62,6 +65,26 @@ class AccountInfos {
       accountDict[keyCharacter] = [account];
     }
   }
+}
+
+
+class UsageInfo {
+  enum UsageType {
+    case Keyboard, Clipboard
+  }
+  
+  var usageType :UsageType
+  var date   :NSDate
+  
+  init(usageType: UsageType) {
+    self.usageType = usageType
+    self.date = NSDate()
+  }
+}
+
+
+class AccountUsageHistory {
+  
 }
 
 
@@ -78,17 +101,18 @@ class SecurityQA {
 
 class Account {
   var title: String
-  var login: String
   var password: [UInt8]  // Password is encrypted using token
+  var login: String?
   var securityQA: [SecurityQA]?
+  var usageInfo: UsageInfo?
 
-  init (title: String, login: String, password: [UInt8]) {
+  init (title: String, password: [UInt8], login: String?) {
     self.title = title
     self.login = login
     self.password = password;
   }
   
-  init(title: String, login: String, password: [UInt8], securityQA: [SecurityQA]) {
+  init(title: String, password: [UInt8], login: String?, securityQA: [SecurityQA]) {
     self.title = title
     self.login = login
     self.password = password;

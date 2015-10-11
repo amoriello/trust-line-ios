@@ -8,11 +8,18 @@
 
 import UIKit
 
+
+protocol AddAccountDelegate {
+  func accoundAdded(controller: AddAccountViewController, newAccount: Account)
+}
+
 class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   @IBOutlet weak var picker: UIPickerView!
   @IBOutlet weak var accountName: UITextField!
   @IBOutlet weak var login: UITextField!
 
+  var delegate: AddAccountDelegate?
+  
   var settings :TrustLineSettings!
   var token: Token2!
   
@@ -51,11 +58,30 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
   
   
   @IBAction func onGenerate(sender: AnyObject) {
-    var passwordLength = 8;
-    var newAccountName = accountName.text;
-    var newLogin = login.text
+    let accountTitle = accountName.text!;
+    let accountLogin = login.text
+    let row = picker.selectedRowInComponent(0);
+    let strengthValue = settings.strengths[row].nbCharacters
+
+    if token == nil {
+      print("No token connected");
+      return
+    }
     
-    performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+    token.createPassword(strengthValue) { (data, error) -> (Void) in
+      if let err = error {
+        print("Error Creating password: \(err.description)")
+      } else {
+        print("Password succesfully created: \(data)")
+        let newAccount = Account(title: accountTitle, password: data, login: accountLogin)
+        
+        if let _ = self.delegate {
+          self.delegate?.accoundAdded(self, newAccount: newAccount)
+        }
+        
+      }
+    }
+    
   }
   
   

@@ -12,12 +12,14 @@ import CoreBluetooth
 class Token2 {
   // MARK - Type definitions
   typealias CompletionHandler = (error: NSError?) -> (Void);
+  typealias DataCompletionHandler = (data: [UInt8], error: NSError?) -> (Void);
   
   // MARK - Variable on init
   var centralManager :CBCentralManager
   var tokenPeriperal :CBPeripheral
-  var keyMaterial :KeyMaterial?
-  var tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
+  var tokenPeriperalProtocolImpl :TokenPeripheralProtocolImpl
+  var tokenCommander :TokenCommander
+  var keyMaterial :KeyMaterial
   
   // MARK - member varibales
   var isConnected = false
@@ -30,8 +32,16 @@ class Token2 {
   init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :KeyMaterial?) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
+    self.tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
-    self.keyMaterial = keyMaterial
+    
+    if let material = keyMaterial {
+      self.keyMaterial = material
+    } else {
+      self.keyMaterial = KeyMaterial()
+    }
+    
+    self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial, protocolImpl: tokenPeriperalProtocolImpl)
   }
   
   func connect(hanlder: CompletionHandler) {
@@ -40,8 +50,18 @@ class Token2 {
     self.centralManager.connectPeripheral(tokenPeriperal, options: nil);
   }
   
-  func Pair(keyMaterial: KeyMaterial, handler: CompletionHandler) {
+  func pair(handler: CompletionHandler) {
+    tokenCommander.PairWithDevice(handler)
   }
+  
+  func createPassword(strength: UInt8, handler: DataCompletionHandler) {
+    tokenCommander.CreatePassword(strength, handler: handler)
+  }
+  
+  func writePassword(password: [UInt8], handler: CompletionHandler) {
+    tokenCommander.keystrokesPassword(password, handler: handler)
+  }
+  
   
   func onConnected(error: NSError?) {
     if let _ = error {
@@ -57,14 +77,16 @@ class Token2 {
   }
   
   
+  
 }
 
 
-class TokenCommand {
+class TokenCommander {
   // MARK - Type definitions
   typealias ResponseHandler = (Response, error: NSError?) -> (Void);
   typealias CreatePasswordHandler = (cipheredPassword:[UInt8], error: NSError?) -> (Void);
   typealias PairWithDeviceHandler = (NSError?) -> (Void);
+  typealias CompletionHandler = (NSError?) -> (Void)
   typealias AuthCmdHandler = (nonce: [UInt8], error: NSError?) -> (Void);
   
   
@@ -75,29 +97,6 @@ class TokenCommand {
   init(keyMaterial :KeyMaterial, protocolImpl :TokenPeripheralProtocolImpl) {
     self.keyMaterial = keyMaterial;
     self.protocolImpl = protocolImpl;
-  }
-  
-  
-  func CreatePassword(length: UInt8, handler: CreatePasswordHandler) {
-    if length > 63 {
-      let error = NSError(domain: "Invalid password size", code: 1, userInfo: nil)
-      handler(cipheredPassword: [UInt8](), error: error)
-      return;
-    }
-    
-    
-    let arg:[UInt8] = [length];
-    let cmd = Command(cmdId: Command.Id.CreatePassword, arg: arg)!
-    
-    send(cmd) { (response, error) in
-      if let _ = error {
-        let cipherPassword = [UInt8]()
-        handler(cipheredPassword: cipherPassword, error: error)
-      }
-      
-      let cipheredPassword = Array(response.bytes[2...79]);
-      handler(cipheredPassword: cipheredPassword, error: error);
-    }
   }
   
   
@@ -126,6 +125,44 @@ class TokenCommand {
       handler(NSError(domain: "Invalid Response", code: 1, userInfo: nil))
     }
   }
+  
+  
+  func CreatePassword(length: UInt8, handler: CreatePasswordHandler) {
+    if length > 63 {
+      let error = NSError(domain: "Invalid password size", code: 1, userInfo: nil)
+      handler(cipheredPassword: [UInt8](), error: error)
+      return;
+    }
+    
+    
+    let arg:[UInt8] = [length];
+    let cmd = Command(cmdId: Command.Id.CreatePassword, arg: arg)!
+    
+    send(cmd) { (response, error) in
+      if let _ = error {
+        let cipherPassword = [UInt8]()
+        handler(cipheredPassword: cipherPassword, error: error)
+        return
+      }
+      
+      let cipheredPassword = Array(response.bytes[2...79]);
+      handler(cipheredPassword: cipheredPassword, error: error);
+    }
+  }
+
+  
+  func keystrokesPassword(password: [UInt8], handler: CompletionHandler) {
+    let cmd = Command(cmdId: .TypePassword, arg: password)!
+    
+    send(cmd) { (reponse, error) in
+      if let _ = error {
+        handler(error)
+      } else {
+        handler(nil)
+      }
+    }
+  }
+
   
   
   func send(cmd: Command, handler: ResponseHandler) {
