@@ -1,0 +1,957 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0035D331D770B1A963D520B2D2080307 /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC72EC9A7AB60E4A226A22238176C7F /* CryptoSwift-dummy.m */; };
+		015B330CC9CCFE7480126586A5B5F552 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48153A80E246C8D786564F16DA9D29F2 /* HMAC.swift */; };
+		08DC98C2E9D65C78508ED093763B0753 /* NSDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735B738F370087D59B7CCB102E12B16C /* NSDataExtension.swift */; };
+		0B925DA31BFA8006CC76FA7A09DE50D4 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC256B9C09D1AE049B0C054765465FC /* Padding.swift */; };
+		0CD693253016057F641DCBBD4BFCF3DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
+		0EB55BB629D45055B38C832F02D4E497 /* UInt64Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DA5ABF1A10395E6EE93ADDC04C39C1 /* UInt64Extension.swift */; };
+		0F5BB0A63D9D24FA576CAA0450D88161 /* DRCellSlideGestureRecognizer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D997CDD72C33D1BF1008B4BA18D89EA4 /* DRCellSlideGestureRecognizer-dummy.m */; };
+		1019B9270175A73E23EFAB0859660588 /* DRCellSlideAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DAD34B241F7039921515F2C5C8A986C /* DRCellSlideAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12B214FB2E29AE7E335155AF447F3DA1 /* DRCellSlideGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4770D101DB6FF993FDD213D4220D5585 /* DRCellSlideGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		154CF70110952FB9F4C46F225911260D /* UInt16Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752CCB42E264A30D708E4EB04A839807 /* UInt16Extension.swift */; };
+		1912D7EA42EBA53E685360C8610FFB3C /* BitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E58180E3BB48E22AA95F44B51103EA /* BitExtension.swift */; };
+		247C7280C5A77920949F378D0EC4F064 /* DRCellSlideGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FEDCC9D6C41CE53CF469567C3AEA8F /* DRCellSlideGestureRecognizer.m */; };
+		333CED000027E433C39382B0B7904B77 /* DRCellSlideActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E91CF16D47E5660A228B5B81EB3AD6 /* DRCellSlideActionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		349DFB0EDF98745291A378C227DB3676 /* CryptoSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE2FB4B2D64D387378E3B23CD870BA2 /* CryptoSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35B2E1F71173C51E9F1024B318052E12 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A84F0A801B22405DF150856E13E7FB /* StringExtension.swift */; };
+		3793222C42A58BBA8AB0AE3B8ECEC5C8 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D25B8DD497C84827A45DEA723CDAC1F /* IntExtension.swift */; };
+		456623D0F5858A9B17DCDD49A278CCE5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
+		4B5F21EFFD5B557A3C3F2B5CF619534B /* NSDataSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD446F1F52DE297B7E3268C17139FEB0 /* NSDataSequence.swift */; };
+		4D531C177B0BB11225E8C75F3972F05C /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB64B92BEA11C76780C03074BF7E0B1 /* AES.swift */; };
+		4D924443AB548AA24ED073AAEABE3D24 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9594D5B30CD08A119CDB14C24BEFFA /* Operators.swift */; };
+		4E478FF25AC1BC5798B602A11C34695D /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491163FB30512F4EA4CF105E2788839D /* MD5.swift */; };
+		528FCB9606266149CAA479740D4D149D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
+		563F67F540994301DAE8D56C198884FE /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189A22D70099C872749F89CB215C3BF /* SHA2.swift */; };
+		57BAE3FB99DE9905149C4B5B3D69DE57 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401562F350EE1B939956FF1E6257045C /* Authenticator.swift */; };
+		5A7924C1C14AA0E4F073286CE26A2D91 /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A110C2D61F5F182D2442266AB24F24 /* ChaCha20.swift */; };
+		5E12036EE50C290F9C32C5186EF05F60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */; };
+		683AD15AD54A309A40918D0DB0B75711 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286578753BE6651A6C00278B915A5740 /* SwiftyJSON.swift */; };
+		6C193CF99649B127370644A2D525803F /* Pods-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		72FEDEB67E8FAACE57C4E2ADD2B3FF58 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBEC863901B44182C0E90A1141D720B /* Hash.swift */; };
+		78A4186CF48EE64E7A4F676AB6B3A12C /* DRCellSlideActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4726D8349B266DB902B42043CEDA8BB7 /* DRCellSlideActionView.m */; };
+		78BFB69E221BCD786DAD3523ED9E98B4 /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A0EC949857EA47AD9976DBD19C7D8239 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		83240D6D25A0F511CEE17062E7D1C2ED /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 624A6E57014D7F0DE6CE3E26226AFA22 /* SwiftyJSON-dummy.m */; };
+		890FC8DC215992DA0C6863CF449478A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */; };
+		92D7D4760DC903E27E2FF29F1D5788A3 /* PKCS7.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A41C16D1941109B4475F9B1067130E /* PKCS7.swift */; };
+		9AAEA6A27DC772E49EC3449AD45AC8D3 /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F76C66424169EC6AA39DDE0E3113E4 /* Cipher.swift */; };
+		9C832FC71118D49334A7998390D495A1 /* PKCS5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D5FC3220D7974BFFBD31FE958F0A3D /* PKCS5.swift */; };
+		AE390F2B8B555E86E17958F18D619A44 /* DRCellSlideGestureRecognizer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FAC92F74DE829B71B4A6F04533BB412 /* DRCellSlideGestureRecognizer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B2CCA06C61E0ED73D0EAECBBA98AA921 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDD0F1F874D51A14E936B58A4CD874 /* ArrayExtension.swift */; };
+		B630BAC5F3D091D1C519B5E09C03B190 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 894E5DA93A9F359521A89826BE6DA777 /* Pods-dummy.m */; };
+		B8FE84D9E7B9FE0C94BC72ED128DC06B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755AE83FAE4C63ED8A792A816C10929E /* Utils.swift */; };
+		C7C77CE1B8B73B6BC3327AD051E8A2CF /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396E5F417A6CF06E0B42C97E3A1F2311 /* Generics.swift */; };
+		CB1BAC6EA0A7FF2F3FC508594123E91D /* UInt32Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69737B03E008ED01E151FF5BF9DC62B9 /* UInt32Extension.swift */; };
+		D039C4DD85E0E5B4B2BE70C4C83AFCF6 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B2DA420A7225DA5D872B53E4D6719 /* SHA1.swift */; };
+		E08000A1B9B01738CA44790018E06E7A /* IntegerConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61888CDE9B8469BCC5DCBA1161F531 /* IntegerConvertible.swift */; };
+		E59908654C8F42DB55CE74F35BDFB6E4 /* CRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C4BA3CB6F79A4C5BF5C3467AD861F /* CRC.swift */; };
+		E7987398F64E3C02C05466B63B12CCF4 /* CipherBlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79160D06388209E3B68124ABD96D9C26 /* CipherBlockMode.swift */; };
+		E80312E91485545B5D1A7D33F21839E4 /* UInt8Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6C69E31FB2855A5FB48B666F248CB /* UInt8Extension.swift */; };
+		EC4A5A25F95C27E61EF60EAD736A1359 /* HashProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB4A9532CF82C740D1E3CA96508673 /* HashProtocol.swift */; };
+		F1AD6688F875967C4B7FB209D153C563 /* Poly1305.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239744B3AB6EF8AFD0B3E0EB6AD8C2EA /* Poly1305.swift */; };
+		FE3FA8FBFD4D95321C46463F0325B7B3 /* DRCellSlideAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 65719EF285145F8E6A9B60E4B262EF0D /* DRCellSlideAction.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B00FA655193C9807889BB3956667EAB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC417D75697800AD5843F668176B7DA5;
+			remoteInfo = DRCellSlideGestureRecognizer;
+		};
+		8E5ECB3A8EA9FB85435BBE1DFE619517 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ABF234354A36005782F010C1236A9C7;
+			remoteInfo = SwiftyJSON;
+		};
+		B0971093B1F135512BA289CD10764BC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DA5AC3C1B549565E20220F77D296F4E;
+			remoteInfo = CryptoSwift;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06D5FC3220D7974BFFBD31FE958F0A3D /* PKCS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS5.swift; path = CryptoSwift/PKCS5.swift; sourceTree = "<group>"; };
+		171B2DA420A7225DA5D872B53E4D6719 /* SHA1.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA1.swift; path = CryptoSwift/SHA1.swift; sourceTree = "<group>"; };
+		1B2C4BA3CB6F79A4C5BF5C3467AD861F /* CRC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CRC.swift; path = CryptoSwift/CRC.swift; sourceTree = "<group>"; };
+		1DAD34B241F7039921515F2C5C8A986C /* DRCellSlideAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DRCellSlideAction.h; path = DRCellSlideGestureRecognizer/DRCellSlideAction.h; sourceTree = "<group>"; };
+		229961C58A82099F6BBA40C667675F21 /* CryptoSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-prefix.pch"; sourceTree = "<group>"; };
+		239744B3AB6EF8AFD0B3E0EB6AD8C2EA /* Poly1305.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Poly1305.swift; path = CryptoSwift/Poly1305.swift; sourceTree = "<group>"; };
+		24DA5ABF1A10395E6EE93ADDC04C39C1 /* UInt64Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UInt64Extension.swift; path = CryptoSwift/UInt64Extension.swift; sourceTree = "<group>"; };
+		27D6C69E31FB2855A5FB48B666F248CB /* UInt8Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UInt8Extension.swift; path = CryptoSwift/UInt8Extension.swift; sourceTree = "<group>"; };
+		286578753BE6651A6C00278B915A5740 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		2A9594D5B30CD08A119CDB14C24BEFFA /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = CryptoSwift/Operators.swift; sourceTree = "<group>"; };
+		2AC256B9C09D1AE049B0C054765465FC /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = CryptoSwift/Padding.swift; sourceTree = "<group>"; };
+		2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-umbrella.h"; sourceTree = "<group>"; };
+		2FB64B92BEA11C76780C03074BF7E0B1 /* AES.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.swift; path = CryptoSwift/AES.swift; sourceTree = "<group>"; };
+		36BEC6AF8CBB3AA94E91683E3434BF21 /* DRCellSlideGestureRecognizer-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DRCellSlideGestureRecognizer-prefix.pch"; sourceTree = "<group>"; };
+		38A110C2D61F5F182D2442266AB24F24 /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
+		396E5F417A6CF06E0B42C97E3A1F2311 /* Generics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Generics.swift; path = CryptoSwift/Generics.swift; sourceTree = "<group>"; };
+		3B6C1317C423FCAC36AF5BBFDAFDCBFC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D25B8DD497C84827A45DEA723CDAC1F /* IntExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IntExtension.swift; path = CryptoSwift/IntExtension.swift; sourceTree = "<group>"; };
+		401562F350EE1B939956FF1E6257045C /* Authenticator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authenticator.swift; path = CryptoSwift/Authenticator.swift; sourceTree = "<group>"; };
+		4726D8349B266DB902B42043CEDA8BB7 /* DRCellSlideActionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DRCellSlideActionView.m; path = DRCellSlideGestureRecognizer/DRCellSlideActionView.m; sourceTree = "<group>"; };
+		4770D101DB6FF993FDD213D4220D5585 /* DRCellSlideGestureRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DRCellSlideGestureRecognizer.h; path = DRCellSlideGestureRecognizer/DRCellSlideGestureRecognizer.h; sourceTree = "<group>"; };
+		48153A80E246C8D786564F16DA9D29F2 /* HMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HMAC.swift; path = CryptoSwift/HMAC.swift; sourceTree = "<group>"; };
+		491163FB30512F4EA4CF105E2788839D /* MD5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = CryptoSwift/MD5.swift; sourceTree = "<group>"; };
+		4967682B9F61A4138ECB3815CBF1443E /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		49FEDCC9D6C41CE53CF469567C3AEA8F /* DRCellSlideGestureRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DRCellSlideGestureRecognizer.m; path = DRCellSlideGestureRecognizer/DRCellSlideGestureRecognizer.m; sourceTree = "<group>"; };
+		4FAC92F74DE829B71B4A6F04533BB412 /* DRCellSlideGestureRecognizer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DRCellSlideGestureRecognizer-umbrella.h"; sourceTree = "<group>"; };
+		520D8911486878DDBA0FF6072EE7FAA2 /* DRCellSlideGestureRecognizer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DRCellSlideGestureRecognizer.xcconfig; sourceTree = "<group>"; };
+		52A84F0A801B22405DF150856E13E7FB /* StringExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringExtension.swift; path = CryptoSwift/StringExtension.swift; sourceTree = "<group>"; };
+		5F11D92201CC1AEF9FFCB73DCDCBD2E5 /* CryptoSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = CryptoSwift.modulemap; sourceTree = "<group>"; };
+		61BE38E17684C7C06CD113BB2CFB8A94 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		622005AB9F8A7F8C01BD9A3F61854E31 /* DRCellSlideGestureRecognizer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = DRCellSlideGestureRecognizer.modulemap; sourceTree = "<group>"; };
+		624A6E57014D7F0DE6CE3E26226AFA22 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
+		65719EF285145F8E6A9B60E4B262EF0D /* DRCellSlideAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DRCellSlideAction.m; path = DRCellSlideGestureRecognizer/DRCellSlideAction.m; sourceTree = "<group>"; };
+		65F76C66424169EC6AA39DDE0E3113E4 /* Cipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cipher.swift; path = CryptoSwift/Cipher.swift; sourceTree = "<group>"; };
+		69737B03E008ED01E151FF5BF9DC62B9 /* UInt32Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UInt32Extension.swift; path = CryptoSwift/UInt32Extension.swift; sourceTree = "<group>"; };
+		6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		735B738F370087D59B7CCB102E12B16C /* NSDataExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSDataExtension.swift; path = CryptoSwift/NSDataExtension.swift; sourceTree = "<group>"; };
+		752CCB42E264A30D708E4EB04A839807 /* UInt16Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UInt16Extension.swift; path = CryptoSwift/UInt16Extension.swift; sourceTree = "<group>"; };
+		755AE83FAE4C63ED8A792A816C10929E /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = CryptoSwift/Utils.swift; sourceTree = "<group>"; };
+		79160D06388209E3B68124ABD96D9C26 /* CipherBlockMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CipherBlockMode.swift; path = CryptoSwift/CipherBlockMode.swift; sourceTree = "<group>"; };
+		79A9DEDC89FE8336BF5FEDAAF75BF7FC /* Pods.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Pods.modulemap; sourceTree = "<group>"; };
+		79B0FA773EA1D37CA3E662197B1656FB /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		87B213035BAC5F75386F62D3C75D2342 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		894E5DA93A9F359521A89826BE6DA777 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		8BBEC863901B44182C0E90A1141D720B /* Hash.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Hash.swift; path = CryptoSwift/Hash.swift; sourceTree = "<group>"; };
+		8EAB4A9532CF82C740D1E3CA96508673 /* HashProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HashProtocol.swift; path = CryptoSwift/HashProtocol.swift; sourceTree = "<group>"; };
+		977577C045EDA9D9D1F46E2598D19FC7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
+		9F61888CDE9B8469BCC5DCBA1161F531 /* IntegerConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IntegerConvertible.swift; path = CryptoSwift/IntegerConvertible.swift; sourceTree = "<group>"; };
+		A0E91CF16D47E5660A228B5B81EB3AD6 /* DRCellSlideActionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DRCellSlideActionView.h; path = DRCellSlideGestureRecognizer/DRCellSlideActionView.h; sourceTree = "<group>"; };
+		A0EC949857EA47AD9976DBD19C7D8239 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
+		A960ECB231A5229D3C173245C8364350 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB2FC4127373BBC515E868CF5B4911B6 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B24B1F85CCA0E4282C190EB8B29D3BED /* DRCellSlideGestureRecognizer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DRCellSlideGestureRecognizer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8610929625EFAB04E63611ACE4B0AAB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8A41C16D1941109B4475F9B1067130E /* PKCS7.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS7.swift; path = CryptoSwift/PKCS7.swift; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C26A70995FAF1AE074C17F216D4BD5C2 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		CBC0F7C552B739C909B650A0F42F7F38 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		D0405803033A2A777B8E4DFA0C1800ED /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D0E58180E3BB48E22AA95F44B51103EA /* BitExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BitExtension.swift; path = CryptoSwift/BitExtension.swift; sourceTree = "<group>"; };
+		D5EDD0F1F874D51A14E936B58A4CD874 /* ArrayExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArrayExtension.swift; path = CryptoSwift/ArrayExtension.swift; sourceTree = "<group>"; };
+		D997CDD72C33D1BF1008B4BA18D89EA4 /* DRCellSlideGestureRecognizer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DRCellSlideGestureRecognizer-dummy.m"; sourceTree = "<group>"; };
+		DA312349A49333542E6F4B36B329960E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		DAE2FB4B2D64D387378E3B23CD870BA2 /* CryptoSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-umbrella.h"; sourceTree = "<group>"; };
+		E189A22D70099C872749F89CB215C3BF /* SHA2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA2.swift; path = CryptoSwift/SHA2.swift; sourceTree = "<group>"; };
+		E7F21354943D9F42A70697D5A5EF72E9 /* Pods-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-frameworks.sh"; sourceTree = "<group>"; };
+		E8446514FBAD26C0E18F24A5715AEF67 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAC0DB325F368D96FCEA48584A40382F /* CryptoSwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CryptoSwift.xcconfig; sourceTree = "<group>"; };
+		F4D21CEC1B3891B7FB3ADEF2F4B460C1 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCC72EC9A7AB60E4A226A22238176C7F /* CryptoSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CryptoSwift-dummy.m"; sourceTree = "<group>"; };
+		FD446F1F52DE297B7E3268C17139FEB0 /* NSDataSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NSDataSequence.swift; path = CryptoSwift/NSDataSequence.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		33CC7F53EE13CA85245780EA841BE342 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CD693253016057F641DCBBD4BFCF3DE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A204E2BA7446E3C24DA8B451E47B0877 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				456623D0F5858A9B17DCDD49A278CCE5 /* Foundation.framework in Frameworks */,
+				5E12036EE50C290F9C32C5186EF05F60 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2A77D160B119F3D41465E7243DA74F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				890FC8DC215992DA0C6863CF449478A6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E789C8533A5C885B75CE9CD32FA0F6B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				528FCB9606266149CAA479740D4D149D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		02F88020C707A1F42516CA91822D73CD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				62FEDD35B3F887CAFC5138CCC30CEB6C /* CryptoSwift */,
+				C29B87187756B17C19FC9993C9B24DAC /* DRCellSlideGestureRecognizer */,
+				2F758C29F12975CCA2961BD034617C82 /* SwiftyJSON */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		18340F12838DEE43507667CC74401EB1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6E7E5AF37923BFA48D6994B9BFC6535F /* Foundation.framework */,
+				C3B7BDF5CE5CB8F095FE12DA55D9A9BB /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		2EC95905B722BBC2073786B0D25B02CD /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5F11D92201CC1AEF9FFCB73DCDCBD2E5 /* CryptoSwift.modulemap */,
+				EAC0DB325F368D96FCEA48584A40382F /* CryptoSwift.xcconfig */,
+				FCC72EC9A7AB60E4A226A22238176C7F /* CryptoSwift-dummy.m */,
+				229961C58A82099F6BBA40C667675F21 /* CryptoSwift-prefix.pch */,
+				DAE2FB4B2D64D387378E3B23CD870BA2 /* CryptoSwift-umbrella.h */,
+				B8610929625EFAB04E63611ACE4B0AAB /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CryptoSwift";
+			sourceTree = "<group>";
+		};
+		2F758C29F12975CCA2961BD034617C82 /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				286578753BE6651A6C00278B915A5740 /* SwiftyJSON.swift */,
+				7234028ED619A309E0B8749AA4853111 /* Support Files */,
+			);
+			path = SwiftyJSON;
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18340F12838DEE43507667CC74401EB1 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		61FF58A617BEE42AA4878785F63A0BE5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				622005AB9F8A7F8C01BD9A3F61854E31 /* DRCellSlideGestureRecognizer.modulemap */,
+				520D8911486878DDBA0FF6072EE7FAA2 /* DRCellSlideGestureRecognizer.xcconfig */,
+				D997CDD72C33D1BF1008B4BA18D89EA4 /* DRCellSlideGestureRecognizer-dummy.m */,
+				36BEC6AF8CBB3AA94E91683E3434BF21 /* DRCellSlideGestureRecognizer-prefix.pch */,
+				4FAC92F74DE829B71B4A6F04533BB412 /* DRCellSlideGestureRecognizer-umbrella.h */,
+				A960ECB231A5229D3C173245C8364350 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/DRCellSlideGestureRecognizer";
+			sourceTree = "<group>";
+		};
+		62FEDD35B3F887CAFC5138CCC30CEB6C /* CryptoSwift */ = {
+			isa = PBXGroup;
+			children = (
+				2FB64B92BEA11C76780C03074BF7E0B1 /* AES.swift */,
+				D5EDD0F1F874D51A14E936B58A4CD874 /* ArrayExtension.swift */,
+				401562F350EE1B939956FF1E6257045C /* Authenticator.swift */,
+				D0E58180E3BB48E22AA95F44B51103EA /* BitExtension.swift */,
+				38A110C2D61F5F182D2442266AB24F24 /* ChaCha20.swift */,
+				65F76C66424169EC6AA39DDE0E3113E4 /* Cipher.swift */,
+				79160D06388209E3B68124ABD96D9C26 /* CipherBlockMode.swift */,
+				1B2C4BA3CB6F79A4C5BF5C3467AD861F /* CRC.swift */,
+				396E5F417A6CF06E0B42C97E3A1F2311 /* Generics.swift */,
+				8BBEC863901B44182C0E90A1141D720B /* Hash.swift */,
+				8EAB4A9532CF82C740D1E3CA96508673 /* HashProtocol.swift */,
+				48153A80E246C8D786564F16DA9D29F2 /* HMAC.swift */,
+				9F61888CDE9B8469BCC5DCBA1161F531 /* IntegerConvertible.swift */,
+				3D25B8DD497C84827A45DEA723CDAC1F /* IntExtension.swift */,
+				491163FB30512F4EA4CF105E2788839D /* MD5.swift */,
+				735B738F370087D59B7CCB102E12B16C /* NSDataExtension.swift */,
+				FD446F1F52DE297B7E3268C17139FEB0 /* NSDataSequence.swift */,
+				2A9594D5B30CD08A119CDB14C24BEFFA /* Operators.swift */,
+				2AC256B9C09D1AE049B0C054765465FC /* Padding.swift */,
+				06D5FC3220D7974BFFBD31FE958F0A3D /* PKCS5.swift */,
+				B8A41C16D1941109B4475F9B1067130E /* PKCS7.swift */,
+				239744B3AB6EF8AFD0B3E0EB6AD8C2EA /* Poly1305.swift */,
+				171B2DA420A7225DA5D872B53E4D6719 /* SHA1.swift */,
+				E189A22D70099C872749F89CB215C3BF /* SHA2.swift */,
+				52A84F0A801B22405DF150856E13E7FB /* StringExtension.swift */,
+				752CCB42E264A30D708E4EB04A839807 /* UInt16Extension.swift */,
+				69737B03E008ED01E151FF5BF9DC62B9 /* UInt32Extension.swift */,
+				24DA5ABF1A10395E6EE93ADDC04C39C1 /* UInt64Extension.swift */,
+				27D6C69E31FB2855A5FB48B666F248CB /* UInt8Extension.swift */,
+				755AE83FAE4C63ED8A792A816C10929E /* Utils.swift */,
+				2EC95905B722BBC2073786B0D25B02CD /* Support Files */,
+			);
+			path = CryptoSwift;
+			sourceTree = "<group>";
+		};
+		7234028ED619A309E0B8749AA4853111 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3B6C1317C423FCAC36AF5BBFDAFDCBFC /* Info.plist */,
+				4967682B9F61A4138ECB3815CBF1443E /* SwiftyJSON.modulemap */,
+				61BE38E17684C7C06CD113BB2CFB8A94 /* SwiftyJSON.xcconfig */,
+				624A6E57014D7F0DE6CE3E26226AFA22 /* SwiftyJSON-dummy.m */,
+				79B0FA773EA1D37CA3E662197B1656FB /* SwiftyJSON-prefix.pch */,
+				A0EC949857EA47AD9976DBD19C7D8239 /* SwiftyJSON-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftyJSON";
+			sourceTree = "<group>";
+		};
+		75D98FF52E597A11900E131B6C4E1ADA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E8446514FBAD26C0E18F24A5715AEF67 /* Info.plist */,
+				79A9DEDC89FE8336BF5FEDAAF75BF7FC /* Pods.modulemap */,
+				D0405803033A2A777B8E4DFA0C1800ED /* Pods-acknowledgements.markdown */,
+				87B213035BAC5F75386F62D3C75D2342 /* Pods-acknowledgements.plist */,
+				894E5DA93A9F359521A89826BE6DA777 /* Pods-dummy.m */,
+				E7F21354943D9F42A70697D5A5EF72E9 /* Pods-frameworks.sh */,
+				CBC0F7C552B739C909B650A0F42F7F38 /* Pods-resources.sh */,
+				2BCC458FDD5F692BBB2BFC64BB5701FC /* Pods-umbrella.h */,
+				977577C045EDA9D9D1F46E2598D19FC7 /* Pods.debug.xcconfig */,
+				DA312349A49333542E6F4B36B329960E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			path = "Target Support Files/Pods";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				02F88020C707A1F42516CA91822D73CD /* Pods */,
+				EA0FFE956E6A7AE2CBF0C40B24A6DF4F /* Products */,
+				B7B80995527643776607AFFA75B91E24 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		B7B80995527643776607AFFA75B91E24 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				75D98FF52E597A11900E131B6C4E1ADA /* Pods */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		C29B87187756B17C19FC9993C9B24DAC /* DRCellSlideGestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				1DAD34B241F7039921515F2C5C8A986C /* DRCellSlideAction.h */,
+				65719EF285145F8E6A9B60E4B262EF0D /* DRCellSlideAction.m */,
+				A0E91CF16D47E5660A228B5B81EB3AD6 /* DRCellSlideActionView.h */,
+				4726D8349B266DB902B42043CEDA8BB7 /* DRCellSlideActionView.m */,
+				4770D101DB6FF993FDD213D4220D5585 /* DRCellSlideGestureRecognizer.h */,
+				49FEDCC9D6C41CE53CF469567C3AEA8F /* DRCellSlideGestureRecognizer.m */,
+				61FF58A617BEE42AA4878785F63A0BE5 /* Support Files */,
+			);
+			path = DRCellSlideGestureRecognizer;
+			sourceTree = "<group>";
+		};
+		EA0FFE956E6A7AE2CBF0C40B24A6DF4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C26A70995FAF1AE074C17F216D4BD5C2 /* CryptoSwift.framework */,
+				B24B1F85CCA0E4282C190EB8B29D3BED /* DRCellSlideGestureRecognizer.framework */,
+				F4D21CEC1B3891B7FB3ADEF2F4B460C1 /* Pods.framework */,
+				AB2FC4127373BBC515E868CF5B4911B6 /* SwiftyJSON.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0D4680E738894C6216C5B8BBFE1CAC2C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				349DFB0EDF98745291A378C227DB3676 /* CryptoSwift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EAAA7DBD489995C8DB36D165CC37BBB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6C193CF99649B127370644A2D525803F /* Pods-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9436C06926FE56DAD009FEA4595AEFC5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1019B9270175A73E23EFAB0859660588 /* DRCellSlideAction.h in Headers */,
+				333CED000027E433C39382B0B7904B77 /* DRCellSlideActionView.h in Headers */,
+				AE390F2B8B555E86E17958F18D619A44 /* DRCellSlideGestureRecognizer-umbrella.h in Headers */,
+				12B214FB2E29AE7E335155AF447F3DA1 /* DRCellSlideGestureRecognizer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBB3716C3A2E5069E09E57B63FC3FC97 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78BFB69E221BCD786DAD3523ED9E98B4 /* SwiftyJSON-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4DA5AC3C1B549565E20220F77D296F4E /* CryptoSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67F73F1139445F2CCD8857DE79BF0485 /* Build configuration list for PBXNativeTarget "CryptoSwift" */;
+			buildPhases = (
+				FCD03F06CF3B0A9CC95C46DF4B5C3C53 /* Sources */,
+				E2A77D160B119F3D41465E7243DA74F8 /* Frameworks */,
+				0D4680E738894C6216C5B8BBFE1CAC2C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CryptoSwift;
+			productName = CryptoSwift;
+			productReference = C26A70995FAF1AE074C17F216D4BD5C2 /* CryptoSwift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7ABF234354A36005782F010C1236A9C7 /* SwiftyJSON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBE7AAB105AC8088250B570CEBD6E2FE /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildPhases = (
+				F81DF43F337DF630B835D30DD4E1EDA9 /* Sources */,
+				33CC7F53EE13CA85245780EA841BE342 /* Frameworks */,
+				FBB3716C3A2E5069E09E57B63FC3FC97 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyJSON;
+			productName = SwiftyJSON;
+			productReference = AB2FC4127373BBC515E868CF5B4911B6 /* SwiftyJSON.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BEEABB7EE2AC7E7B5521EE33D20CD232 /* Pods */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C6A64D896FC1F8FA1C9DFE7DCC095A2 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildPhases = (
+				B25A68F717A5721312925A30AD6CAD0F /* Sources */,
+				E789C8533A5C885B75CE9CD32FA0F6B0 /* Frameworks */,
+				5EAAA7DBD489995C8DB36D165CC37BBB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13BF5DDD1509F2F17E0B60C9D86AAB98 /* PBXTargetDependency */,
+				7977108321C98BF4FE03EA9E38D3B401 /* PBXTargetDependency */,
+				41779A83FE1223E756E6C343ED9E0831 /* PBXTargetDependency */,
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = F4D21CEC1B3891B7FB3ADEF2F4B460C1 /* Pods.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DC417D75697800AD5843F668176B7DA5 /* DRCellSlideGestureRecognizer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1AA5248911A43AA4A65387605A624BB /* Build configuration list for PBXNativeTarget "DRCellSlideGestureRecognizer" */;
+			buildPhases = (
+				480E6F4F3ED2151DE3E5707BEB12D4A7 /* Sources */,
+				A204E2BA7446E3C24DA8B451E47B0877 /* Frameworks */,
+				9436C06926FE56DAD009FEA4595AEFC5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DRCellSlideGestureRecognizer;
+			productName = DRCellSlideGestureRecognizer;
+			productReference = B24B1F85CCA0E4282C190EB8B29D3BED /* DRCellSlideGestureRecognizer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = EA0FFE956E6A7AE2CBF0C40B24A6DF4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4DA5AC3C1B549565E20220F77D296F4E /* CryptoSwift */,
+				DC417D75697800AD5843F668176B7DA5 /* DRCellSlideGestureRecognizer */,
+				BEEABB7EE2AC7E7B5521EE33D20CD232 /* Pods */,
+				7ABF234354A36005782F010C1236A9C7 /* SwiftyJSON */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		480E6F4F3ED2151DE3E5707BEB12D4A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE3FA8FBFD4D95321C46463F0325B7B3 /* DRCellSlideAction.m in Sources */,
+				78A4186CF48EE64E7A4F676AB6B3A12C /* DRCellSlideActionView.m in Sources */,
+				0F5BB0A63D9D24FA576CAA0450D88161 /* DRCellSlideGestureRecognizer-dummy.m in Sources */,
+				247C7280C5A77920949F378D0EC4F064 /* DRCellSlideGestureRecognizer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B25A68F717A5721312925A30AD6CAD0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B630BAC5F3D091D1C519B5E09C03B190 /* Pods-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F81DF43F337DF630B835D30DD4E1EDA9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83240D6D25A0F511CEE17062E7D1C2ED /* SwiftyJSON-dummy.m in Sources */,
+				683AD15AD54A309A40918D0DB0B75711 /* SwiftyJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCD03F06CF3B0A9CC95C46DF4B5C3C53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D531C177B0BB11225E8C75F3972F05C /* AES.swift in Sources */,
+				B2CCA06C61E0ED73D0EAECBBA98AA921 /* ArrayExtension.swift in Sources */,
+				57BAE3FB99DE9905149C4B5B3D69DE57 /* Authenticator.swift in Sources */,
+				1912D7EA42EBA53E685360C8610FFB3C /* BitExtension.swift in Sources */,
+				5A7924C1C14AA0E4F073286CE26A2D91 /* ChaCha20.swift in Sources */,
+				9AAEA6A27DC772E49EC3449AD45AC8D3 /* Cipher.swift in Sources */,
+				E7987398F64E3C02C05466B63B12CCF4 /* CipherBlockMode.swift in Sources */,
+				E59908654C8F42DB55CE74F35BDFB6E4 /* CRC.swift in Sources */,
+				0035D331D770B1A963D520B2D2080307 /* CryptoSwift-dummy.m in Sources */,
+				C7C77CE1B8B73B6BC3327AD051E8A2CF /* Generics.swift in Sources */,
+				72FEDEB67E8FAACE57C4E2ADD2B3FF58 /* Hash.swift in Sources */,
+				EC4A5A25F95C27E61EF60EAD736A1359 /* HashProtocol.swift in Sources */,
+				015B330CC9CCFE7480126586A5B5F552 /* HMAC.swift in Sources */,
+				E08000A1B9B01738CA44790018E06E7A /* IntegerConvertible.swift in Sources */,
+				3793222C42A58BBA8AB0AE3B8ECEC5C8 /* IntExtension.swift in Sources */,
+				4E478FF25AC1BC5798B602A11C34695D /* MD5.swift in Sources */,
+				08DC98C2E9D65C78508ED093763B0753 /* NSDataExtension.swift in Sources */,
+				4B5F21EFFD5B557A3C3F2B5CF619534B /* NSDataSequence.swift in Sources */,
+				4D924443AB548AA24ED073AAEABE3D24 /* Operators.swift in Sources */,
+				0B925DA31BFA8006CC76FA7A09DE50D4 /* Padding.swift in Sources */,
+				9C832FC71118D49334A7998390D495A1 /* PKCS5.swift in Sources */,
+				92D7D4760DC903E27E2FF29F1D5788A3 /* PKCS7.swift in Sources */,
+				F1AD6688F875967C4B7FB209D153C563 /* Poly1305.swift in Sources */,
+				D039C4DD85E0E5B4B2BE70C4C83AFCF6 /* SHA1.swift in Sources */,
+				563F67F540994301DAE8D56C198884FE /* SHA2.swift in Sources */,
+				35B2E1F71173C51E9F1024B318052E12 /* StringExtension.swift in Sources */,
+				154CF70110952FB9F4C46F225911260D /* UInt16Extension.swift in Sources */,
+				CB1BAC6EA0A7FF2F3FC508594123E91D /* UInt32Extension.swift in Sources */,
+				0EB55BB629D45055B38C832F02D4E497 /* UInt64Extension.swift in Sources */,
+				E80312E91485545B5D1A7D33F21839E4 /* UInt8Extension.swift in Sources */,
+				B8FE84D9E7B9FE0C94BC72ED128DC06B /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13BF5DDD1509F2F17E0B60C9D86AAB98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			target = 4DA5AC3C1B549565E20220F77D296F4E /* CryptoSwift */;
+			targetProxy = B0971093B1F135512BA289CD10764BC1 /* PBXContainerItemProxy */;
+		};
+		41779A83FE1223E756E6C343ED9E0831 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftyJSON;
+			target = 7ABF234354A36005782F010C1236A9C7 /* SwiftyJSON */;
+			targetProxy = 8E5ECB3A8EA9FB85435BBE1DFE619517 /* PBXContainerItemProxy */;
+		};
+		7977108321C98BF4FE03EA9E38D3B401 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DRCellSlideGestureRecognizer;
+			target = DC417D75697800AD5843F668176B7DA5 /* DRCellSlideGestureRecognizer */;
+			targetProxy = 3B00FA655193C9807889BB3956667EAB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		04858F491828E699EBDDD01771664A53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAC0DB325F368D96FCEA48584A40382F /* CryptoSwift.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift/CryptoSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CryptoSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = CryptoSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		37A33236FDFB49535D9D9C8B9A6F516B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAC0DB325F368D96FCEA48584A40382F /* CryptoSwift.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CryptoSwift/CryptoSwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CryptoSwift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = CryptoSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		74857149DC1E0D599B8A01A78349A926 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B24366DE608F2E5856CD70C64F3296C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 520D8911486878DDBA0FF6072EE7FAA2 /* DRCellSlideGestureRecognizer.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/DRCellSlideGestureRecognizer/DRCellSlideGestureRecognizer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DRCellSlideGestureRecognizer/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DRCellSlideGestureRecognizer/DRCellSlideGestureRecognizer.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = DRCellSlideGestureRecognizer;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BA6976B81E8F58A6FF39F1A1EF336357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA312349A49333542E6F4B36B329960E /* Pods.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods/Pods.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C571EDCA7179C4BDAD8D3CE6A8706878 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 977577C045EDA9D9D1F46E2598D19FC7 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods/Pods.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D8C2EF539501EC1FD64C4C8BB99E4C9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61BE38E17684C7C06CD113BB2CFB8A94 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E1D313E3202732323E8A8BF2B949F649 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61BE38E17684C7C06CD113BB2CFB8A94 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F340DFF9538F85EBC75284B9FE0AEB59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 520D8911486878DDBA0FF6072EE7FAA2 /* DRCellSlideGestureRecognizer.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/DRCellSlideGestureRecognizer/DRCellSlideGestureRecognizer-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DRCellSlideGestureRecognizer/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DRCellSlideGestureRecognizer/DRCellSlideGestureRecognizer.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = DRCellSlideGestureRecognizer;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */,
+				74857149DC1E0D599B8A01A78349A926 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67F73F1139445F2CCD8857DE79BF0485 /* Build configuration list for PBXNativeTarget "CryptoSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				04858F491828E699EBDDD01771664A53 /* Debug */,
+				37A33236FDFB49535D9D9C8B9A6F516B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C6A64D896FC1F8FA1C9DFE7DCC095A2 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C571EDCA7179C4BDAD8D3CE6A8706878 /* Debug */,
+				BA6976B81E8F58A6FF39F1A1EF336357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1AA5248911A43AA4A65387605A624BB /* Build configuration list for PBXNativeTarget "DRCellSlideGestureRecognizer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F340DFF9538F85EBC75284B9FE0AEB59 /* Debug */,
+				B24366DE608F2E5856CD70C64F3296C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBE7AAB105AC8088250B570CEBD6E2FE /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1D313E3202732323E8A8BF2B949F649 /* Debug */,
+				D8C2EF539501EC1FD64C4C8BB99E4C9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

@@ -1,0 +1,6 @@
+framework module DRCellSlideGestureRecognizer {
+  umbrella header "DRCellSlideGestureRecognizer-umbrella.h"
+
+  export *
+  module * { export * }
+}
