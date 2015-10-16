@@ -34,7 +34,7 @@ class AccountInfos {
                  SecurityQA(question: q2, answer: a2)]
       
       let account = Account(title: title, password: fakePassData, login: fakeLogin, securityQA: QAs)
-      account.usageInfo = UsageInfo(usageType: .Keyboard)
+      account.usageInfos = [UsageInfo(usageType: .Keyboard)]
       
       return account
     }
@@ -104,7 +104,7 @@ class Account {
   var password: [UInt8]  // Password is encrypted using token
   var login: String?
   var securityQA: [SecurityQA]?
-  var usageInfo: UsageInfo?
+  var usageInfos: [UsageInfo] = []
 
   init (title: String, password: [UInt8], login: String?) {
     self.title = title
@@ -117,6 +117,10 @@ class Account {
     self.login = login
     self.password = password;
     self.securityQA = securityQA;
+  }
+  
+  func updateUsageInfo(usageType: UsageInfo.UsageType) {
+    usageInfos.append(UsageInfo(usageType: usageType))
   }
   
 }

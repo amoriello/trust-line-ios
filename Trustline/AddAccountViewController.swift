@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftSpinner
 
 
 protocol AddAccountDelegate {
@@ -28,6 +29,7 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
     super.viewDidLoad()
 
     // Do any additional setup after loading the view.
+    picker.selectRow(settings.defaultStrengthIndex, inComponent: 0, animated: false)
   }
 
   override func didReceiveMemoryWarning() {
@@ -47,7 +49,7 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
   
   func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     let strength = settings.strengths[row];
-    return strength.description;
+    return strength.picketDescription;
   }
   
   
@@ -61,29 +63,32 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
     let accountTitle = accountName.text!;
     let accountLogin = login.text
     let row = picker.selectedRowInComponent(0);
-    let strengthValue = settings.strengths[row].nbCharacters
+    let strength = settings.strengths[row]
 
     if token == nil {
-      print("No token connected");
+      showMessage("No token connected")
       return
     }
+
+    showMessage("Creating a password...", subtitle: "Working on \(strength.userDescription) one!", hideOnTap: false, showAnnimation: true)
     
-    token.createPassword(strengthValue) { (data, error) -> (Void) in
+    token.createPassword(strength.nbCharacters) { (data, error) -> (Void) in
       if let err = error {
-        print("Error Creating password: \(err.description)")
+        showError("Wowww", error: err)
       } else {
-        print("Password succesfully created: \(data)")
+        hideMessage()
+        print("############ Password Data: ")
+        print(data)
+        print(data.count)
+        print("############################")
         let newAccount = Account(title: accountTitle, password: data, login: accountLogin)
-        
-        if let _ = self.delegate {
+        if self.delegate != nil {
           self.delegate?.accoundAdded(self, newAccount: newAccount)
         }
         
       }
     }
-    
   }
-  
   
   /*
   // MARK: - Navigation

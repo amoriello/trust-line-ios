@@ -12,6 +12,7 @@
 		C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C91C71951BC849C500579B15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71941BC849C500579B15 /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
+		C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D499F1BC1217200B19C0F /* BleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D499E1BC1217200B19C0F /* BleToken.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D49A11BC1218900B19C0F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D49A01BC1218900B19C0F /* Command.swift */; settings = {ASSET_TAGS = (); }; };
 		C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */; };
@@ -55,6 +56,7 @@
 		C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewController.swift; sourceTree = "<group>"; };
 		C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		C91C71941BC849C500579B15 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHelpers.swift; sourceTree = "<group>"; };
 		C93D499E1BC1217200B19C0F /* BleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleToken.swift; sourceTree = "<group>"; };
 		C93D49A01BC1218900B19C0F /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		C9ACF8D11BC11DA80040D21A /* Trustline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trustline.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +163,14 @@
 			name = Ble;
 			sourceTree = "<group>";
 		};
+		C93BC3971BCAD33D0094DF1A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		C9ACF8C81BC11DA80040D21A = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */,
+				C93BC3971BCAD33D0094DF1A /* Helpers */,
 				C91C71811BC3063500579B15 /* Model */,
 				C91C718C1BC4603400579B15 /* View */,
 				C91C718B1BC45F3F00579B15 /* Controllers */,
@@ -402,6 +413,7 @@
 				C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */,
 				C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */,
 				C91C71831BC3067300579B15 /* Account.swift in Sources */,
+				C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */,
 				C9D473991BC91EF900FE2E0B /* Token.swift in Sources */,
 				C9ACF8D71BC11DA80040D21A /* ViewController.swift in Sources */,
 				C91C71951BC849C500579B15 /* Settings.swift in Sources */,

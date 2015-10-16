@@ -67,7 +67,7 @@ class AccountTableViewCell: UITableViewCell {
       login.text = ""
     }
     
-    if let lastUseInfo = account.usageInfo {
+    if let lastUseInfo = account.usageInfos.last {
       let dateFormater = NSDateFormatter()
       dateFormater.dateFormat = "MMM, d 'at' HH:mm"
       lastUse.text = dateFormater.stringFromDate(lastUseInfo.date)
@@ -75,7 +75,8 @@ class AccountTableViewCell: UITableViewCell {
       lastUse.text = "Nerver used"
     }
   }
-  
+
+
   private func addAnimationToCell() {
     let slideGestureRecognizer = DRCellSlideGestureRecognizer();
     

@@ -24,16 +24,18 @@ class Token2 {
   // MARK - member varibales
   var isConnected = false
   var connectHandler :CompletionHandler?
+  var connectionStateHandler: BleManager2.ManagerStateErrorHandler
   
   
   
   
   
-  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :KeyMaterial?) {
+  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :KeyMaterial?, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
     self.tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
+    self.connectionStateHandler = connectionStateHandler
     
     if let material = keyMaterial {
       self.keyMaterial = material
@@ -45,7 +47,7 @@ class Token2 {
   }
   
   func connect(hanlder: CompletionHandler) {
-    self.tokenPeriperalProtocolImpl.connectionHandler = self.onConnected
+    self.tokenPeriperalProtocolImpl.connectionHandler = self.connectHandlerHook
     self.connectHandler = hanlder;
     self.centralManager.connectPeripheral(tokenPeriperal, options: nil);
   }
@@ -58,12 +60,12 @@ class Token2 {
     tokenCommander.CreatePassword(strength, handler: handler)
   }
   
-  func writePassword(password: [UInt8], handler: CompletionHandler) {
-    tokenCommander.keystrokesPassword(password, handler: handler)
+  func writePassword(password: [UInt8], additionalKeys: [UInt8]? = nil, handler: CompletionHandler) {
+    tokenCommander.keystrokesPassword(password, additionalKeys: additionalKeys, handler: handler)
   }
   
   
-  func onConnected(error: NSError?) {
+  func connectHandlerHook(error: NSError?) {
     if let _ = error {
       isConnected = false;
     } else {
@@ -74,6 +76,8 @@ class Token2 {
     if let _ = connectHandler {
       connectHandler!(error: error)
     }
+    
+    connectionStateHandler(error)
   }
   
   
@@ -144,16 +148,23 @@ class TokenCommander {
         handler(cipheredPassword: cipherPassword, error: error)
         return
       }
-      
-      let cipheredPassword = Array(response.bytes[2...79]);
+      let cipheredPassword = response.argData()!
       handler(cipheredPassword: cipheredPassword, error: error);
     }
   }
 
   
-  func keystrokesPassword(password: [UInt8], handler: CompletionHandler) {
-    let cmd = Command(cmdId: .TypePassword, arg: password)!
+  func keystrokesPassword(password: [UInt8], additionalKeys: [UInt8]? = nil, handler: CompletionHandler) {
+    var cmd :Command!
     
+    if let addKeys = additionalKeys {
+      var arg = password;
+      arg.appendContentsOf(addKeys)
+      cmd = Command(cmdId: .TypePassword, arg: arg)!
+    } else {
+      cmd = Command(cmdId: .TypePassword, arg: password)!
+    }
+
     send(cmd) { (reponse, error) in
       if let _ = error {
         handler(error)
@@ -219,7 +230,7 @@ class TokenCommander {
 
 class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
   typealias ResponseHandler = (Response, error: NSError?) -> (Void);
-  typealias ConnectionHandler = (NSError?) -> (Void)
+  typealias ConnectionHandler = BleManager2.ManagerStateErrorHandler
   
   private var handler: ResponseHandler?
   
@@ -341,8 +352,8 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       return;
     }
     
-    print("Successful Read:");
-    print(data.hexString());
+    //print("Successful Read:");
+    //print(data.hexString());
     // Successful read
     
     if data.length == 1 && wCtx.isWaitingAck { // Wait for ack
@@ -407,7 +418,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       let bytes_to_write = min(size, kMaxBurst - wCtx.bytesSent);
       let rangeToSend = NSRange(location: session_bytes_sent, length: bytes_to_write)
       let bytesToSend = data.subdataWithRange(rangeToSend)
-      print("sending \(bytesToSend.hexString())")
+      //print("sending \(bytesToSend.hexString())")
       writeDataToBle(bytesToSend);
       
       size -= bytes_to_write;
@@ -420,6 +431,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
           wCtx.isAck = false;
         } else {
           print("No ack for write");
+          handler!(Response(), error: createError("Error during communication"))
           break;
         }
       }
@@ -427,7 +439,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
     }
   }
   
-  
+
   func writeDataToBle(data: NSData, type: CBCharacteristicWriteType = .WithoutResponse) {
     tokenPeripheral.writeValue(data, forCharacteristic: tokenWriteCharacteristic, type: type);
   }

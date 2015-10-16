@@ -35,11 +35,7 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
     self.keyMaterial = keyMaterial
   }
   
-  func createError(description: String, code: Int = 1) -> NSError {
-    let userInfo = [NSLocalizedDescriptionKey: description]
-    return NSError(domain: "BletoothManager", code: code, userInfo: userInfo)
-  }
-  
+
   func discoverTokens(completion: DiscoverHandler) {
     print("initializing central manager");
     discoverHandler = completion
@@ -94,16 +90,26 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
 
     if let pairedTokenIdentifier = pairedIdentifier {
       if peripheral.identifier == pairedTokenIdentifier {
-        let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial)
+        let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, connectionStateHandler: managerStateErrorHandler)
         discoveredPaired = true;
         discoverHandler!([token], nil)
         centralManager.stopScan()
         return
       }
     }
-    tokens.append(Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial))
+    tokens.append(Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, connectionStateHandler: managerStateErrorHandler))
   }
   
+  
+  func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
+    print("Here")
+    if let err = error {
+      managerStateErrorHandler(err);
+    } else {
+      managerStateErrorHandler(createError("Disconnected"))
+    }
+  }
+
   func scanTimeout(timer: NSTimer) {
     print("Yeah!")
     if !discoveredPaired {

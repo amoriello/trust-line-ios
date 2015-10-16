@@ -20,10 +20,12 @@ class Command {
   enum Id : UInt8 {
     case Pair = 0,
     CreateChallenge,
+    Reset,
     CreatePassword,
     TypePassword,
     ReturnPassword,
-    Reset,
+    LockComputer,
+    TypeString,
     TestEcho,
     TestPassword,
     TestKey,
@@ -61,6 +63,10 @@ class Command {
     }
     
     bytes[33] = (UInt8)(arg.count);
+    print("========================== \(arg.count)")
+    print(arg)
+    print("========================== \(arg.count)")
+    
     
     if arg.count == 0 {
       return true;
@@ -115,7 +121,7 @@ class Response {
   var bytes = [UInt8]();
   
   let sizeOfHeader = 2;
-  let sizeOfSecurityToken = 32;
+  //let sizeOfSecurityToken = 32;
   
   
   enum Status: UInt8 {
@@ -136,7 +142,7 @@ class Response {
       return false;
     }
     if (bytes.count > 1) {
-      print("hdr.size: \(bytes[1])   bytes.count - 2: \(bytes.count - 2)")
+      //print("hdr.size: \(bytes[1])   bytes.count - 2: \(bytes.count - 2)")
       return bytes[1] == (UInt8)(bytes.count - 2);
     } else {
       return false;
@@ -172,33 +178,18 @@ class Response {
   }
   
   
-  func securityToken() -> [UInt8]? {
-    let securityTokenStartIndex = sizeOfHeader;
-    let securityTokenEndIndex = securityTokenStartIndex + sizeOfSecurityToken - 1;
-    
-    if bytes.count < (sizeOfHeader + sizeOfSecurityToken) {
-      return nil;
-    }
-    
-    return Array(bytes[securityTokenStartIndex...securityTokenEndIndex]);
-  }
-  
-  
   func argData() -> [UInt8]? {
-    let dataStartIndex = sizeOfHeader + sizeOfSecurityToken;
-    let dataEndIndex = dataStartIndex + (Int)(argSize()) - 1;
+    let dataStartIndex = sizeOfHeader;
     
     if !isComplete() {
       return nil;
     }
     
-    if bytes.count < dataEndIndex + 1 {
-      return nil;
-    }
+    let maxIndex = (Int)(argSize()) - 1 + dataStartIndex;
     
-    return Array(bytes[dataStartIndex...dataEndIndex]);
+    return Array(bytes[dataStartIndex...maxIndex]);
   }
-  
+
   
   func appendBytes(data: NSData) -> Bool {
     let p_data = UnsafePointer<UInt8>(data.bytes);

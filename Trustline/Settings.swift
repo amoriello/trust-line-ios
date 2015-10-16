@@ -14,12 +14,14 @@ class PairedDevice {
 
 class TrustLineSettings {
   class Strength {
-    var description: String
+    var picketDescription: String
+    var userDescription: String
     var nbCharacters: UInt8
     var pairedDevice: PairedDevice?
     
-    init(description: String, nbCharacters: UInt8) {
-      self.description = description
+    init(picketDescription: String, userDescription: String, nbCharacters: UInt8) {
+      self.picketDescription = picketDescription
+      self.userDescription = userDescription
       self.nbCharacters = nbCharacters
     }
   }
@@ -29,12 +31,13 @@ class TrustLineSettings {
   }
 
   var strengths: [Strength] = { [
-    Strength(description: "Serious (8)", nbCharacters: 8),
-    Strength(description: "Strong (15)", nbCharacters: 15),
-    Strength(description: "Insane (25)", nbCharacters: 25),
-    Strength(description: "Ludicrous (40)", nbCharacters: 40)
+    Strength(picketDescription: "Serious (8)", userDescription: "a serious", nbCharacters: 8),
+    Strength(picketDescription: "Strong (15)", userDescription: "a strong", nbCharacters: 15),
+    Strength(picketDescription: "Insane (25)", userDescription: "an insane", nbCharacters: 25),
+    Strength(picketDescription: "Ludicrous (40)", userDescription: "a ludicrous", nbCharacters: 40)
     ]}()
   
+  var defaultStrengthIndex = 1;
   
   var currentLayout :KeyboardLayout = .Qwerty
   
