@@ -13,11 +13,14 @@ class PairedDevice {
 }
 
 class TrustLineSettings {
+  var isPaired: Bool = false
+  var pairedDevice: PairedDevice?
+
+  
   class Strength {
     var picketDescription: String
     var userDescription: String
     var nbCharacters: UInt8
-    var pairedDevice: PairedDevice?
     
     init(picketDescription: String, userDescription: String, nbCharacters: UInt8) {
       self.picketDescription = picketDescription

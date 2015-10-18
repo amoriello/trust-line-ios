@@ -43,6 +43,8 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
     if centralManager == nil {
       print("Creating central manager")
       centralManager = CBCentralManager(delegate:self, queue:nil)
+    } else {
+      centralManager.scanForPeripheralsWithServices([tokenServiceCBUUID], options: nil)
     }
 
     NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "scanTimeout:", userInfo: nil, repeats: false)
@@ -114,7 +116,10 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
     print("Yeah!")
     if !discoveredPaired {
       centralManager.stopScan()
-      discoverHandler!(tokens, nil)
+      // discoverHandler normaly set to nil in notify function
+      if discoverHandler != nil {
+        discoverHandler!(tokens, nil)
+      }
     }
   }
   

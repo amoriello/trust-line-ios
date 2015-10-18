@@ -23,6 +23,7 @@
 		C9ACF8E21BC11DA80040D21A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8E01BC11DA80040D21A /* LaunchScreen.storyboard */; };
 		C9ACF8ED1BC11DA90040D21A /* TrustlineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8EC1BC11DA90040D21A /* TrustlineTests.swift */; };
 		C9ACF8F81BC11DA90040D21A /* TrustlineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8F71BC11DA90040D21A /* TrustlineUITests.swift */; };
+		C9B684441BD106320096590B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B684431BD106320096590B /* PairingViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473961BC90B3F00FE2E0B /* BleManager.swift */; settings = {ASSET_TAGS = (); }; };
 		C9D473991BC91EF900FE2E0B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473981BC91EF900FE2E0B /* Token.swift */; settings = {ASSET_TAGS = (); }; };
 		C9D4739B1BC91F3000FE2E0B /* KeyMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */; settings = {ASSET_TAGS = (); }; };
@@ -73,6 +74,7 @@
 		C9ACF8F31BC11DA90040D21A /* TrustlineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrustlineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9ACF8F71BC11DA90040D21A /* TrustlineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustlineUITests.swift; sourceTree = "<group>"; };
 		C9ACF8F91BC11DA90040D21A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B684431BD106320096590B /* PairingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairingViewController.swift; sourceTree = "<group>"; };
 		C9D473961BC90B3F00FE2E0B /* BleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleManager.swift; sourceTree = "<group>"; };
 		C9D473981BC91EF900FE2E0B /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMaterial.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */,
 				C91C71861BC310E400579B15 /* AccountsTableViewController.swift */,
 				C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */,
+				C9B684431BD106320096590B /* PairingViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				C9D4739F1BCA6F2A00FE2E0B /* AccountTableViewCell.swift in Sources */,
 				C9D4739B1BC91F3000FE2E0B /* KeyMaterial.swift in Sources */,
 				C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */,
+				C9B684441BD106320096590B /* PairingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

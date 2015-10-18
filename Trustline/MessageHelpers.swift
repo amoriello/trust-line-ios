@@ -24,7 +24,7 @@ func delay(seconds seconds: Double, completion:()->()) {
 }
 
 func showError(title: String, error: NSError) {
-  SwiftSpinner.show(title, animated: false).addTapHandler({SwiftSpinner.hide()}, subtitle: "Error: \(error.description)")
+  SwiftSpinner.show(title, animated: false).addTapHandler({SwiftSpinner.hide()}, subtitle: error.localizedDescription)
   print("Error: \(title): \(error.description)")
 }
 

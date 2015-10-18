@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bXp-HV-6EM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Y8f-jc-HRC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                             <rect key="frame" x="8" y="22" width="207" height="25"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nerver used" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sot-kf-7QS">
@@ -93,7 +93,7 @@
                                 <rect key="frame" x="20" y="225" width="189" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4KT-Vo-sDH">
@@ -185,14 +185,14 @@
                                                     <rect key="frame" x="8" y="124" width="304" height="21"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7B-sF-K3u">
                                                     <rect key="frame" x="80" y="20" width="241" height="40"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -262,7 +262,7 @@
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                         <animations/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -295,6 +295,63 @@
             </objects>
             <point key="canvasLocation" x="1237" y="431"/>
         </scene>
+        <!--Pairing View Controller-->
+        <scene sceneID="EAr-bC-dpL">
+            <objects>
+                <viewController id="Y8f-jc-HRC" customClass="PairingViewController" customModule="Trustline" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="44W-rD-rVE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Amk-en-eXq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s0D-2S-45u">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Link a new token" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7a-uV-GiI">
+                                <rect key="frame" x="97" y="107" width="128" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0MU-GI-eIT">
+                                <rect key="frame" x="80" y="518" width="163" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                <state key="normal" title="or pair with existing one">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trustline Pairing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AB-YM-gJq">
+                                <rect key="frame" x="51" y="66" width="218" height="33"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HEt-xF-JNF">
+                                <rect key="frame" x="96" y="238" width="128" height="128"/>
+                                <animations/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                <state key="normal" title="Button" image="link"/>
+                                <connections>
+                                    <action selector="onPairNewPushed:" destination="Y8f-jc-HRC" eventType="touchUpInside" id="bby-8h-daQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="bXp-HV-6EM" kind="show" identifier="showNavigationSegue" id="1HU-Oj-0oq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4yT-td-I2R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="63" y="431"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1WG-Og-fX9">
             <objects>
@@ -320,5 +377,6 @@
         <image name="arrow" width="24" height="44"/>
         <image name="contact" width="50" height="50"/>
         <image name="info" width="256" height="256"/>
+        <image name="link" width="128" height="128"/>
     </resources>
 </document>
