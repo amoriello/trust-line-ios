@@ -115,13 +115,14 @@ class TokenCommander {
       }
       
       if response.isValid() {  // Token is Paired
-        self.passKey = Array(response.bytes[2...17]);
-        self.keyMaterial.CRKey = Array(response.bytes[18...33])
-        self.keyMaterial.ReqKey = Array(response.bytes[34...49])
+//        self.passKey = Array(response.bytes[2...17]);
+        self.keyMaterial.passKey = Array(response.bytes[2...17])
+        self.keyMaterial.crKey = Array(response.bytes[18...33])
+        self.keyMaterial.reqKey = Array(response.bytes[34...49])
         
-        print("Pass Key: \(self.passKey)");
-        print("Cr   Key: \(self.keyMaterial.CRKey)");
-        print("Req  Key: \(self.keyMaterial.ReqKey)");
+        print("Pass Key: \(self.keyMaterial.passKey)");
+        print("Cr   Key: \(self.keyMaterial.crKey)");
+        print("Req  Key: \(self.keyMaterial.reqKey)");
         handler(nil);
         return;
       }
@@ -211,7 +212,7 @@ class TokenCommander {
         return;
       }
       
-      cmd.setSecurityToken(nonce, key: self.keyMaterial.CRKey!);
+      cmd.setSecurityToken(nonce, key: self.keyMaterial.crKey!);
       
       self.doSend(cmd, handler: handler);
     }
