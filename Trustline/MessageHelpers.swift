@@ -34,6 +34,10 @@ func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true,
   print("Message: \(title): \(subtitle)")
 }
 
+func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true, showAnnimation :Bool = false, tapAction: ()->(Void)) {
+  SwiftSpinner.show(title, animated: showAnnimation).addTapHandler({ if hideOnTap { SwiftSpinner.hide() }; tapAction() }, subtitle: subtitle)
+  print("Message: \(title): \(subtitle)")
+}
 
 func hideMessage() {
   SwiftSpinner.hide()
