@@ -15,6 +15,8 @@
 		C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D499F1BC1217200B19C0F /* BleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D499E1BC1217200B19C0F /* BleToken.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D49A11BC1218900B19C0F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D49A01BC1218900B19C0F /* Command.swift */; settings = {ASSET_TAGS = (); }; };
+		C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */; };
 		C9ACF8D71BC11DA80040D21A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D61BC11DA80040D21A /* ViewController.swift */; };
 		C9ACF8DA1BC11DA80040D21A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8D81BC11DA80040D21A /* Main.storyboard */; };
@@ -60,6 +62,8 @@
 		C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHelpers.swift; sourceTree = "<group>"; };
 		C93D499E1BC1217200B19C0F /* BleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleToken.swift; sourceTree = "<group>"; };
 		C93D49A01BC1218900B19C0F /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratorViewController.swift; sourceTree = "<group>"; };
+		C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadQrCodeViewController.swift; sourceTree = "<group>"; };
 		C9ACF8D11BC11DA80040D21A /* Trustline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trustline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9ACF8D61BC11DA80040D21A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				C91C71861BC310E400579B15 /* AccountsTableViewController.swift */,
 				C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */,
 				C9B684431BD106320096590B /* PairingViewController.swift */,
+				C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */,
+				C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -413,8 +419,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */,
 				C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */,
 				C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */,
+				C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */,
 				C91C71831BC3067300579B15 /* Account.swift in Sources */,
 				C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */,
 				C9D473991BC91EF900FE2E0B /* Token.swift in Sources */,

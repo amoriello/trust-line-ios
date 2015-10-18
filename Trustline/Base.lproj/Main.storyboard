@@ -75,7 +75,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zAy-YX-gG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="841" y="431"/>
+            <point key="canvasLocation" x="881" y="683"/>
         </scene>
         <!--Add Account View Controller-->
         <scene sceneID="0WG-ZG-T94">
@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQ1-rO-HXa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="841" y="1158"/>
+            <point key="canvasLocation" x="881" y="1366"/>
         </scene>
         <!--Account Detail Table View Controller-->
         <scene sceneID="nIq-sG-emx">
@@ -293,7 +293,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFR-Dv-Tj8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1237" y="431"/>
+            <point key="canvasLocation" x="1317" y="683"/>
         </scene>
         <!--Pairing View Controller-->
         <scene sceneID="EAr-bC-dpL">
@@ -322,9 +322,12 @@
                                 <state key="normal" title="or pair with existing one">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="2mc-fp-rYf" kind="show" identifier="showQrReader" id="clq-DM-krg"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trustline Pairing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AB-YM-gJq">
-                                <rect key="frame" x="51" y="66" width="218" height="33"/>
+                                <rect key="frame" x="51" y="70" width="218" height="33"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -346,11 +349,97 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <segue destination="bXp-HV-6EM" kind="show" identifier="showNavigationSegue" id="1HU-Oj-0oq"/>
+                        <segue destination="Sbs-A7-Vri" kind="show" identifier="showQRGenerator" id="2C9-P7-3dx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4yT-td-I2R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="63" y="431"/>
+            <point key="canvasLocation" x="-298" y="683"/>
+        </scene>
+        <!--Qr Code Generator View Controller-->
+        <scene sceneID="mnf-4B-zIT">
+            <objects>
+                <viewController id="Sbs-A7-Vri" customClass="QrCodeGeneratorViewController" customModule="Trustline" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fLZ-ND-DVR"/>
+                        <viewControllerLayoutGuide type="bottom" id="kaN-P7-q73"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PWy-0C-tR0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Zj-j6-zgq">
+                                <rect key="frame" x="60" y="516" width="200" height="38"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <state key="normal" title="Start using Trustline"/>
+                                <connections>
+                                    <segue destination="bXp-HV-6EM" kind="show" identifier="startUsingTrustline" id="s8i-IE-XHI"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gpl-kf-pNt">
+                                <rect key="frame" x="32" y="141" width="256" height="256"/>
+                                <animations/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trustline Secrets" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dda-uX-OFe">
+                                <rect key="frame" x="20" y="70" width="280" height="40"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SLRCamera" translatesAutoresizingMaskIntoConstraints="NO" id="raj-Rw-Uke">
+                                <rect key="frame" x="20" y="440" width="30" height="30"/>
+                                <animations/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="printer" translatesAutoresizingMaskIntoConstraints="NO" id="t2Y-yO-LLb">
+                                <rect key="frame" x="145" y="440" width="30" height="30"/>
+                                <animations/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="safe" translatesAutoresizingMaskIntoConstraints="NO" id="up4-ov-qUQ">
+                                <rect key="frame" x="270" y="440" width="30" height="30"/>
+                                <animations/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right" translatesAutoresizingMaskIntoConstraints="NO" id="0Rm-dQ-Imy">
+                                <rect key="frame" x="194" y="435" width="40" height="40"/>
+                                <animations/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="right" translatesAutoresizingMaskIntoConstraints="NO" id="spT-xd-EyP">
+                                <rect key="frame" x="71" y="435" width="40" height="40"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="codeImageView" destination="gpl-kf-pNt" id="CtC-Qh-EtD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tbQ-Qj-Lzu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="143" y="-34"/>
+        </scene>
+        <!--Read Qr Code View Controller-->
+        <scene sceneID="9ge-rn-hdi">
+            <objects>
+                <viewController id="2mc-fp-rYf" customClass="ReadQrCodeViewController" customModule="Trustline" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E6G-eQ-HVg"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cuk-Ta-iFY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rXA-Fy-Dk1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lQm-OE-fmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="143" y="1397"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1WG-Og-fX9">
@@ -370,13 +459,20 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2d-ck-VZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="457.5" y="431.5"/>
+            <point key="canvasLocation" x="443" y="683"/>
         </scene>
     </scenes>
     <resources>
+        <image name="SLRCamera" width="100" height="100"/>
         <image name="arrow" width="24" height="44"/>
         <image name="contact" width="50" height="50"/>
         <image name="info" width="256" height="256"/>
         <image name="link" width="128" height="128"/>
+        <image name="printer" width="100" height="100"/>
+        <image name="right" width="50" height="50"/>
+        <image name="safe" width="100" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="1HU-Oj-0oq"/>
+    </inferredMetricsTieBreakers>
 </document>

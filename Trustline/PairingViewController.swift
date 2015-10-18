@@ -71,7 +71,7 @@ class PairingViewController: UIViewController {
       return;
     }
     showMessage("Connected!")
-    self.performLoadAccountTableViewSegue()
+    performSegueWithIdentifier("showNavigationSegue", sender: self)
   }
   
   
@@ -115,8 +115,9 @@ class PairingViewController: UIViewController {
         if let err = error {
           showError("Cannot Pair", error: err)
         } else {
-          showMessage("Token Paired and Ready")
-          self.performLoadAccountTableViewSegue()
+          showMessage("Token Paired and Ready", tapAction: {
+            self.performSegueWithIdentifier("showQRGenerator", sender: self)
+          })
         }
       })
     }
@@ -131,10 +132,6 @@ class PairingViewController: UIViewController {
     }
   }
   
-  
-  func performLoadAccountTableViewSegue() {
-    performSegueWithIdentifier("showNavigationSegue", sender: self)
-  }
 
   // MARK: - Navigation
 
@@ -147,6 +144,12 @@ class PairingViewController: UIViewController {
         let accountsNavigationVC = navigationVC.childViewControllers[0] as! AccountsTableViewController
         accountsNavigationVC.token = token
         accountsNavigationVC.settings = settings
+        
+      case "showQRGenerator":
+        let qrCodeGeneratorVC = segue.destinationViewController as! QrCodeGeneratorViewController
+        qrCodeGeneratorVC.keyMaterial = keyMaterial
+        qrCodeGeneratorVC.settings = settings
+        qrCodeGeneratorVC.token = token
       default: break;
       }
     }
