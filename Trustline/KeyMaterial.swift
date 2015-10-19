@@ -23,13 +23,14 @@ class KeyMaterial {
     self.reqKey = reqKey
   }
   
-  func rawData() -> [UInt8] {
+  func base64Data() -> NSData {
     var result: [UInt8] = []
     
     result.append(version)
     result.appendContentsOf(passKey!)
     result.appendContentsOf(crKey!)
     result.appendContentsOf(reqKey!)
-    return result
+    
+    return NSData(bytes: result, length: result.count).base64EncodedDataWithOptions(.Encoding64CharacterLineLength)
   }
 }
