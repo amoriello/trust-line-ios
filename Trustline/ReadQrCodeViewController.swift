@@ -7,11 +7,34 @@
 //
 
 import UIKit
+import AVFoundation
 
-class ReadQrCodeViewController: UIViewController {
+protocol ReadKeyMaterialDelegate {
+  func keyMaterialRead(controller: ReadQrCodeViewController, readKeyMaterial: KeyMaterial)
+}
+
+
+class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+  var delegate :ReadKeyMaterialDelegate!
   
+  var captureSession: AVCaptureSession?
+  var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+  var qrCodeFrameView: UIView?
+  
+  @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var infoLabel: UILabel!
+  
+
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    
+    if let input = try? AVCaptureDeviceInput(device: captureDevice) {
+      initializeCaptureDevice(input)
+    } else {
+      print("error missing camera")
+    }
     
     // Do any additional setup after loading the view.
   }
@@ -24,8 +47,74 @@ class ReadQrCodeViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+  
+  func initializeCaptureDevice(input: AVCaptureDeviceInput) {
+    // Initialize captureSession Object
+    captureSession = AVCaptureSession()
     
-
+    // Set the input device on the capture session
+    captureSession?.addInput(input)
+    
+    // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session
+    let captureMetadataOutput = AVCaptureMetadataOutput()
+    captureSession?.addOutput(captureMetadataOutput)
+    
+    // Set delegate and use the default dispatch queue to execute the call back
+    captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+    captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+    
+    // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
+    videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+    videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+    videoPreviewLayer?.frame = view.layer.bounds
+    view.layer.addSublayer(videoPreviewLayer!)
+    
+    captureSession?.startRunning()
+    view.bringSubviewToFront(cancelButton)
+    view.bringSubviewToFront(infoLabel)
+    
+    // Initialize QR Code Frame to highlight the QR code
+    qrCodeFrameView = UIView()
+    qrCodeFrameView?.layer.borderColor = UIColor.greenColor().CGColor
+    qrCodeFrameView?.layer.borderWidth = 2
+    view.addSubview(qrCodeFrameView!)
+    view.bringSubviewToFront(qrCodeFrameView!)
+  }
+  
+  
+  func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    if metadataObjects == nil || metadataObjects.count == 0 {
+      qrCodeFrameView?.frame = CGRectZero
+      infoLabel.text = "No trustline data found"
+      return
+    }
+    
+    let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+    
+    if metadataObj.type == AVMetadataObjectTypeQRCode {
+      let codeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj) as! AVMetadataMachineReadableCodeObject
+      qrCodeFrameView?.frame = codeObject.bounds
+      
+      if let data = metadataObj.stringValue {
+        if let keyMaterial = KeyMaterial(fromBase64: data) {
+          infoLabel.text = "Trustline secret data found"
+          delegate.keyMaterialRead(self, readKeyMaterial: keyMaterial)
+        }
+      }
+    }
+  }
+  
+  func stop() {
+    captureSession?.stopRunning()
+  }
+  
+  @IBAction func onCancel(sender: AnyObject) {
+    captureSession?.stopRunning()
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  
   /*
   // MARK: - Navigation
 

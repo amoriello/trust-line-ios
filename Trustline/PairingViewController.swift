@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PairingViewController: UIViewController {
+class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   var bleManager :BleManager2!
   var token :Token2!
   var keyMaterial = KeyMaterial()
@@ -132,6 +132,17 @@ class PairingViewController: UIViewController {
     }
   }
   
+  
+  // MARK: - ReadKeyMaterialDelegate
+  func keyMaterialRead(controller: ReadQrCodeViewController, readKeyMaterial: KeyMaterial) {
+    self.keyMaterial = readKeyMaterial
+    controller.stop()
+    controller.dismissViewControllerAnimated(true, completion: nil)
+    // Todo : find the token around, pair with this keyMaterial.
+    // Only show showNavigationSegue when a Token is paired
+    showMessage("Yeah!")
+  }
+  
 
   // MARK: - Navigation
 
@@ -150,6 +161,11 @@ class PairingViewController: UIViewController {
         qrCodeGeneratorVC.keyMaterial = keyMaterial
         qrCodeGeneratorVC.settings = settings
         qrCodeGeneratorVC.token = token
+        
+      case "showQrReader":
+        let readQrVC = segue.destinationViewController as! ReadQrCodeViewController
+        readQrVC.delegate = self
+        
       default: break;
       }
     }
