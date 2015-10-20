@@ -28,14 +28,14 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
 
     if settings.isPaired {
       showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
-      BleManagement.connectToPairedToken(bleManager, pairedDevice: settings.pairedDevice!, handler: { (token, error) in
+      BleManagement.connectToPairedToken(bleManager, pairedDevice: settings.pairedDevice!) { (token, error) in
         if let err = error {
           showError(error: err)
         } else {
           self.token = token!
           showMessage("Connected!", tapAction: {self.performSegueWithIdentifier("showNavigationSegue", sender: self)})
         }
-      })
+      }
     }
   }
   
