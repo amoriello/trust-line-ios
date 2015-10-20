@@ -18,6 +18,7 @@ class Token2 {
   var centralManager :CBCentralManager
   var tokenPeriperal :CBPeripheral
   var tokenPeriperalProtocolImpl :TokenPeripheralProtocolImpl
+  var identifier :NSUUID
   var tokenCommander :TokenCommander
   var keyMaterial :KeyMaterial
   
@@ -28,14 +29,13 @@ class Token2 {
   
   
   
-  
-  
-  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :KeyMaterial?, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
+  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :KeyMaterial?, identifier: NSUUID, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
     self.tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
     self.connectionStateHandler = connectionStateHandler
+    self.identifier = identifier
     
     if let material = keyMaterial {
       self.keyMaterial = material
@@ -115,7 +115,6 @@ class TokenCommander {
       }
       
       if response.isValid() {  // Token is Paired
-//        self.passKey = Array(response.bytes[2...17]);
         self.keyMaterial.passKey = Array(response.bytes[2...17])
         self.keyMaterial.crKey = Array(response.bytes[18...33])
         self.keyMaterial.reqKey = Array(response.bytes[34...49])
@@ -126,15 +125,15 @@ class TokenCommander {
         handler(nil);
         return;
       }
-      
-      handler(NSError(domain: "Invalid Response", code: 1, userInfo: nil))
+
+      handler(createError("Pairing Failed", description: "Invalid Response", status: response.status()))
     }
   }
   
   
   func CreatePassword(length: UInt8, handler: CreatePasswordHandler) {
     if length > 63 {
-      let error = NSError(domain: "Invalid password size", code: 1, userInfo: nil)
+      let error = createError("Create Password Failed", description: "Invalid password size", status: Response.Status.InvalidArgument)
       handler(cipheredPassword: [UInt8](), error: error)
       return;
     }
@@ -432,7 +431,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
           wCtx.isAck = false;
         } else {
           print("No ack for write");
-          handler!(Response(), error: createError("Error during communication"))
+          handler!(Response(), error: createError("Protocol", description: "Error during communication"))
           break;
         }
       }

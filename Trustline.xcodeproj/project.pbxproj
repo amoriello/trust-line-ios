@@ -13,12 +13,11 @@
 		C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C91C71951BC849C500579B15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71941BC849C500579B15 /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
 		C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */; settings = {ASSET_TAGS = (); }; };
-		C93D499F1BC1217200B19C0F /* BleToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D499E1BC1217200B19C0F /* BleToken.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D49A11BC1218900B19C0F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D49A01BC1218900B19C0F /* Command.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C960BAAE1BD6C9310096123F /* BleManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C960BAAD1BD6C9310096123F /* BleManagement.swift */; settings = {ASSET_TAGS = (); }; };
 		C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */; };
-		C9ACF8D71BC11DA80040D21A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D61BC11DA80040D21A /* ViewController.swift */; };
 		C9ACF8DA1BC11DA80040D21A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8D81BC11DA80040D21A /* Main.storyboard */; };
 		C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */; };
 		C9ACF8DF1BC11DA80040D21A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8DE1BC11DA80040D21A /* Assets.xcassets */; };
@@ -60,13 +59,12 @@
 		C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		C91C71941BC849C500579B15 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHelpers.swift; sourceTree = "<group>"; };
-		C93D499E1BC1217200B19C0F /* BleToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleToken.swift; sourceTree = "<group>"; };
 		C93D49A01BC1218900B19C0F /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratorViewController.swift; sourceTree = "<group>"; };
 		C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadQrCodeViewController.swift; sourceTree = "<group>"; };
+		C960BAAD1BD6C9310096123F /* BleManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleManagement.swift; sourceTree = "<group>"; };
 		C9ACF8D11BC11DA80040D21A /* Trustline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trustline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C9ACF8D61BC11DA80040D21A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C9ACF8D91BC11DA80040D21A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C9ACF8DC1BC11DA80040D21A /* Trustline.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Trustline.xcdatamodel; sourceTree = "<group>"; };
 		C9ACF8DE1BC11DA80040D21A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 		C91C718B1BC45F3F00579B15 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C9ACF8D61BC11DA80040D21A /* ViewController.swift */,
 				C9D4739E1BCA6F2A00FE2E0B /* AccountTableViewCell.swift */,
 				C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */,
 				C91C71861BC310E400579B15 /* AccountsTableViewController.swift */,
@@ -164,7 +161,6 @@
 		C91C718D1BC4604900579B15 /* Ble */ = {
 			isa = PBXGroup;
 			children = (
-				C93D499E1BC1217200B19C0F /* BleToken.swift */,
 				C93D49A01BC1218900B19C0F /* Command.swift */,
 				C9D473961BC90B3F00FE2E0B /* BleManager.swift */,
 				C9D473981BC91EF900FE2E0B /* Token.swift */,
@@ -176,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */,
+				C960BAAD1BD6C9310096123F /* BleManagement.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -420,15 +417,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */,
+				C960BAAE1BD6C9310096123F /* BleManagement.swift in Sources */,
 				C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */,
 				C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */,
 				C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */,
 				C91C71831BC3067300579B15 /* Account.swift in Sources */,
 				C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */,
 				C9D473991BC91EF900FE2E0B /* Token.swift in Sources */,
-				C9ACF8D71BC11DA80040D21A /* ViewController.swift in Sources */,
 				C91C71951BC849C500579B15 /* Settings.swift in Sources */,
-				C93D499F1BC1217200B19C0F /* BleToken.swift in Sources */,
 				C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */,
 				C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */,
 				C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */,

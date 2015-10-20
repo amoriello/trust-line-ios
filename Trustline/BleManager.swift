@@ -11,7 +11,9 @@ import CoreBluetooth
 
 
 
-
+let g_tokenServiceCBUUID = CBUUID(string:"713D0000-503E-4C75-BA94-3148F18D941E")
+let g_tokenReadCharacteristicUUID = CBUUID(string:"713D0002-503E-4C75-BA94-3148F18D941E")
+let g_tokenWriteCharacteristicUUID = CBUUID(string:"713D0003-503E-4C75-BA94-3148F18D941E")
 
 //----------------------------------------------------------------------------------------
 class BleManager2: NSObject, CBCentralManagerDelegate {
@@ -25,7 +27,7 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
   var managerStateErrorHandler :ManagerStateErrorHandler
   var discoverHandler :DiscoverHandler?
   var keyMaterial :KeyMaterial?
-  var pairedIdentifier :NSUUID?
+  var pairedDevice :PairedDevice?
   var discoveredPaired = false
   
   var tokenServiceCBUUID = g_tokenServiceCBUUID
@@ -36,14 +38,16 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
   }
   
 
-  func discoverTokens(completion: DiscoverHandler) {
+  func discoverTokens(pairedDevice :PairedDevice? = nil, completion: DiscoverHandler) {
     print("initializing central manager");
     discoverHandler = completion
+    self.pairedDevice = pairedDevice
     
     if centralManager == nil {
       print("Creating central manager")
       centralManager = CBCentralManager(delegate:self, queue:nil)
     } else {
+      tokens = []
       centralManager.scanForPeripheralsWithServices([tokenServiceCBUUID], options: nil)
     }
 
@@ -64,19 +68,19 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
     
     switch (central.state) {
     case .PoweredOff:
-      notify(createError("CoreBluetooth BLE hardware is powered off"));
+      notify(createError("Bluetooth error", description: "Hardware is powered off"));
       
     case .Resetting:
-      notify(createError("CoreBluetooth BLE hardware is resetting"));
+      notify(createError("Bluetooth error", description: "Hardware is resetting"));
       
     case .Unauthorized:
-      notify(createError("CoreBluetooth BLE state is unauthorized"))
+      notify(createError("Bluetooth error", description: "State is unauthorized"))
       
     case .Unknown:
-      notify(createError("CoreBluetooth BLE state is unknown"))
+      notify(createError("Bluetooth error", description: "State is unknown"))
       
     case .Unsupported:
-      notify(createError("CoreBluetooth BLE hardware is unsupported on this platform"))
+      notify(createError("Bluetooth error", description: "Hardware is unsupported on this platform"))
       
     case .PoweredOn:
       if discoverHandler != nil {
@@ -90,26 +94,25 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
   func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
     print("Discovered \(peripheral.name), RSSI: \(RSSI) UUID: \(peripheral.identifier.UUIDString)")
 
-    if let pairedTokenIdentifier = pairedIdentifier {
-      if peripheral.identifier == pairedTokenIdentifier {
-        let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, connectionStateHandler: managerStateErrorHandler)
+    if pairedDevice != nil {
+      if peripheral.identifier == pairedDevice?.identifier {
+        let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, identifier: peripheral.identifier, connectionStateHandler: managerStateErrorHandler)
         discoveredPaired = true;
         discoverHandler!([token], nil)
         centralManager.stopScan()
         return
       }
     }
-    tokens.append(Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, connectionStateHandler: managerStateErrorHandler))
+    
+    tokens.append(Token2(centralManager: centralManager, peripheral: peripheral,
+                         keyMaterial: keyMaterial, identifier: peripheral.identifier,
+                         connectionStateHandler: managerStateErrorHandler))
   }
   
   
   func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
     print("Here")
-    if let err = error {
-      managerStateErrorHandler(err);
-    } else {
-      managerStateErrorHandler(createError("Disconnected"))
-    }
+    managerStateErrorHandler(error);
   }
 
   func scanTimeout(timer: NSTimer) {

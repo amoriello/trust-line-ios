@@ -27,7 +27,6 @@ class QrCodeGeneratorViewController: UIViewController {
     super.didReceiveMemoryWarning()
       // Dispose of any resources that can be recreated.
   }
-    
 
   func generateQrCode(keyMaterial: KeyMaterial) -> UIImage {
     // generate qrcode image

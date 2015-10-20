@@ -10,10 +10,17 @@ import Foundation
 import SwiftSpinner
 
 
-func createError(description: String, code: Int = 1) -> NSError {
-  let userInfo = [NSLocalizedDescriptionKey: description]
+func createError(title: String, description: String, code: Int = 1) -> NSError {
+  var userInfo = [NSLocalizedDescriptionKey: description]
+  userInfo["Title"] = title
   return NSError(domain: "TrustLine", code: code, userInfo: userInfo)
 }
+
+
+func createError(title: String, description: String, status: Response.Status) -> NSError {
+  return createError(title, description: description, code: (Int)(status.rawValue))
+}
+
 
 func delay(seconds seconds: Double, completion:()->()) {
   let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
@@ -23,8 +30,15 @@ func delay(seconds seconds: Double, completion:()->()) {
   }
 }
 
-func showError(title: String, error: NSError) {
-  SwiftSpinner.show(title, animated: false).addTapHandler({SwiftSpinner.hide()}, subtitle: error.localizedDescription)
+func showError(title: String? = "Wooww!", error: NSError) {
+  let printTitle :String!
+  if let customTitle = error.userInfo["Title"] {
+    printTitle = customTitle as! String
+  } else {
+    printTitle = title
+  }
+  
+  SwiftSpinner.show(printTitle, animated: false).addTapHandler({SwiftSpinner.hide()}, subtitle: error.localizedDescription)
   print("Error: \(title): \(error.description)")
 }
 
