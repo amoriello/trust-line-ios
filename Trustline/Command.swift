@@ -26,6 +26,8 @@ class Command {
     ReturnPassword,
     LockComputer,
     TypeString,
+    ResetKeys,
+    
     TestEcho,
     TestPassword,
     TestKey,
