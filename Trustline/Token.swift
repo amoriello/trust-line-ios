@@ -19,8 +19,8 @@ class Token2 {
   var tokenPeriperal :CBPeripheral
   var tokenPeriperalProtocolImpl :TokenPeripheralProtocolImpl
   var identifier :NSUUID
-  var tokenCommander :TokenCommander
-  var keyMaterial :KeyMaterial
+  var tokenCommander :TokenCommander!
+  private var keyMaterial :KeyMaterial?
   
   // MARK - member varibales
   var isConnected = false
@@ -39,12 +39,15 @@ class Token2 {
     
     if let material = keyMaterial {
       self.keyMaterial = material
-    } else {
-      self.keyMaterial = KeyMaterial()
+      self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial!, protocolImpl: tokenPeriperalProtocolImpl)
     }
-    
-    self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial, protocolImpl: tokenPeriperalProtocolImpl)
   }
+  
+  func setKeyMaterial(keyMaterial: KeyMaterial) {
+    self.keyMaterial = keyMaterial
+    self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial!, protocolImpl: tokenPeriperalProtocolImpl)
+  }
+  
   
   func connect(hanlder: CompletionHandler) {
     self.tokenPeriperalProtocolImpl.connectionHandler = self.connectHandlerHook
@@ -64,6 +67,10 @@ class Token2 {
     tokenCommander.keystrokesPassword(password, additionalKeys: additionalKeys, handler: handler)
   }
   
+  func resetNewKeys(keyMaterialFromQrCode keyMaterial: KeyMaterial, handler: CompletionHandler) {
+    tokenCommander.resetNewKeys(keyMaterial, handler: handler)
+  }
+  
   
   func connectHandlerHook(error: NSError?) {
     if let _ = error {
@@ -79,9 +86,6 @@ class Token2 {
     
     connectionStateHandler(error)
   }
-  
-  
-  
 }
 
 
@@ -166,14 +170,18 @@ class TokenCommander {
     }
 
     send(cmd) { (reponse, error) in
-      if let _ = error {
-        handler(error)
-      } else {
-        handler(nil)
-      }
+      handler(error)
     }
   }
 
+  
+  func resetNewKeys(keyMaterial: KeyMaterial, handler: CompletionHandler) {
+    let cmd = Command(cmdId: .ResetKeys, arg: keyMaterial.data())!
+    
+    send(cmd) { (response, error) in
+      handler(error)
+    }
+  }
   
   
   func send(cmd: Command, handler: ResponseHandler) {
@@ -348,7 +356,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       rCtx = ReadCtx();
       wCtx = WriteCtx();
       currentResponse = Response();
-      handler!(Response(), error: err);
+      async { self.handler!(Response(), error: err); }
       return;
     }
     
@@ -378,9 +386,14 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       wCtx = WriteCtx();
       let responseCopy = currentResponse;
       currentResponse = Response();
-      handler!(responseCopy, error: nil);
+      
+      if responseCopy.isValid() {
+        async { self.handler!(responseCopy, error: nil) }
+      } else {
+        let error = createError("Command Error", description: "Todo: Description here code \(responseCopy.status().rawValue)")
+        async { self.handler!(Response(), error: error) }
+      }
     }
-    
   }
   
   
@@ -431,7 +444,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
           wCtx.isAck = false;
         } else {
           print("No ack for write");
-          handler!(Response(), error: createError("Protocol", description: "Error during communication"))
+          async { self.handler!(Response(), error: createError("Protocol", description: "Error during communication")) }
           break;
         }
       }
@@ -442,6 +455,10 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
 
   func writeDataToBle(data: NSData, type: CBCharacteristicWriteType = .WithoutResponse) {
     tokenPeripheral.writeValue(data, forCharacteristic: tokenWriteCharacteristic, type: type);
+  }
+  
+  private func async(handler: () -> (Void)) {
+    dispatch_async(dispatch_get_main_queue(), handler)
   }
   
 }
