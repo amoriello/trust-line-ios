@@ -9,17 +9,21 @@
 import Foundation
 
 class BleManagement {
-  typealias PairHandler = (token: Token2?, error: NSError?) -> (Void)
-  typealias ConnectedHandler = (token: Token2?, error: NSError?) -> (Void)
+  typealias Handler = (token: Token2?, error: NSError?) -> (Void)
   
   // Discovers and pair to a new token
   
-  class func pairWithNewToken(bleManager :BleManager2, handler: PairHandler) {
-    doPairWithNewToken(bleManager, handler: handler)
+  class func pairWithNewToken(bleManager :BleManager2, handler: Handler) {
+    findIsolatedToken(bleManager, onFoundToken: connectAndPair, handler: handler);
   }
   
   
-  class func connectToPairedToken(bleManager :BleManager2, pairedDevice :PairedDevice, handler :ConnectedHandler) {
+  class func findAndConnectToken(bleManager: BleManager2, handler: Handler) {
+    findIsolatedToken(bleManager, onFoundToken: connect, handler: handler)
+  }
+  
+
+  class func connectToPairedToken(bleManager :BleManager2, pairedDevice :PairedDevice, handler :Handler) {
     doConnectToPairedToken(bleManager, pairedDevice: pairedDevice, handler: handler)
   }
   
@@ -27,8 +31,10 @@ class BleManagement {
   
   
   // MARK: - Implementation details for pairing with new token
-  private class func doPairWithNewToken(bleManager :BleManager2, handler: PairHandler) {
-    showMessage("Searching Tokens", hideOnTap: false, showAnnimation: true)
+  private typealias FoundIsolatedTokenHandler = (token: Token2, handler: Handler) -> (Void)
+  
+  private class func findIsolatedToken(bleManager :BleManager2, onFoundToken: FoundIsolatedTokenHandler, handler: Handler) {
+    showMessage("Searching Token", hideOnTap: false, showAnnimation: true)
     
     bleManager.discoverTokens { (tokens, error) in
       if error != nil {
@@ -47,16 +53,32 @@ class BleManagement {
       }
       
       showMessage("Token found", hideOnTap: false, showAnnimation: true)
-      showMessage("Connecting...", hideOnTap: false, showAnnimation: true)
-      
       
       let token = tokens[0];
-      connectAndPair(token, handler: handler)
+      onFoundToken(token: token, handler: handler)
     }
   }
   
-  // Connect to a token
-  private class func connectAndPair(token: Token2, handler: PairHandler) {
+  
+
+  private class func connect(token: Token2, handler: Handler) {
+    showMessage("Connecting...", hideOnTap: false, showAnnimation: true)
+
+    token.connect { (error) -> (Void) in
+      if error != nil {
+        async { handler(token: nil, error: error) }
+        return
+      }
+      
+      showMessage("Connected!", hideOnTap: false, showAnnimation: true)
+      async { handler(token: token, error: error) }
+    }
+  }
+  
+  // Connect and pair to a token
+  private class func connectAndPair(token: Token2, handler: Handler) {
+    showMessage("Connecting...", hideOnTap: false, showAnnimation: true)
+
     token.connect { (error) -> (Void) in
       if error != nil {
         async { handler(token: nil, error: error) }
@@ -71,7 +93,7 @@ class BleManagement {
   }
   
   // Pair with a connected token
-  private class func pairWithConnectedToken(token: Token2, handler: PairHandler) {
+  private class func pairWithConnectedToken(token: Token2, handler: Handler) {
     token.pair { (error) in
       async { handler(token: token, error: error) }
     }
@@ -79,7 +101,7 @@ class BleManagement {
   
   
   // MARK: - Implementation details for connecting with existing token
-  private class func doConnectToPairedToken(bleManager :BleManager2, pairedDevice :PairedDevice, handler: PairHandler) {
+  private class func doConnectToPairedToken(bleManager :BleManager2, pairedDevice :PairedDevice, handler: Handler) {
     showMessage("Searching token", hideOnTap: false, showAnnimation: true)
     
     

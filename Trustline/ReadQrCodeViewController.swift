@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol ReadKeyMaterialDelegate {
-  func keyMaterialRead(controller: ReadQrCodeViewController, readKeyMaterial: KeyMaterial)
+  func onSyncToken(controller: ReadQrCodeViewController, token: Token2?, readKeyMaterial: KeyMaterial?)
 }
 
 
@@ -21,31 +21,49 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var qrCodeFrameView: UIView?
   
+  var bleManager :BleManager2!
+  // This one is meant to be found and set in this viewController
+  var token :Token2?
+  var readKeyMaterial :KeyMaterial?
+  
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var infoLabel: UILabel!
   
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-    
-    if let input = try? AVCaptureDeviceInput(device: captureDevice) {
-      initializeCaptureDevice(input)
-    } else {
-      print("error missing camera")
-    }
-    
     // Do any additional setup after loading the view.
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    
+    BleManagement.findAndConnectToken(bleManager) { (token, error) -> (Void) in
+      if let err = error {  // Cannot find any token
+        showError(error: err) { self.delegate.onSyncToken(self, token: nil, readKeyMaterial: nil) }
+      } else {
+        self.token = token
+        showMessage("Scan QrCode") { self.startCapture() }
+      }
+    }
+    
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  
+  private func startCapture() {
+    let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+    
+    if let input = try? AVCaptureDeviceInput(device: captureDevice) {
+      initializeCaptureDevice(input)
+    } else {
+      let err = createError("Camera error", description: "Cannot initialize camera")
+      showError(error: err) {self.delegate.onSyncToken(self, token: nil, readKeyMaterial: nil)}
+    }
   }
   
   
@@ -99,7 +117,9 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
       if let data = metadataObj.stringValue {
         if let keyMaterial = KeyMaterial(fromBase64: data) {
           infoLabel.text = "Trustline secret data found"
-          delegate.keyMaterialRead(self, readKeyMaterial: keyMaterial)
+          self.readKeyMaterial = keyMaterial
+          syncToken(token!, readKeyMaterial: readKeyMaterial!)
+          captureSession?.stopRunning()
         }
       }
     }
@@ -108,6 +128,24 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
   func stop() {
     captureSession?.stopRunning()
   }
+  
+  private func syncToken(token: Token2, readKeyMaterial: KeyMaterial) {
+    showMessage("Synchronizing...", hideOnTap: false, showAnnimation: true);
+    token.resetNewKeys(keyMaterialFromQrCode: readKeyMaterial) { (error) -> (Void) in
+      if let err = error {
+        showError(error: err) { self.delegate.onSyncToken(self, token: nil, readKeyMaterial: nil) }
+      } else {
+        print("|||||||||||||||||||||||||||||||||||| readKeyMaterial")
+        token.setKeyMaterial(readKeyMaterial)
+        print("|||||||||||||||||||||||||||||||||||| endReadKeyMaterial")
+        
+        token.pair({ (error) -> (Void) in
+          self.delegate.onSyncToken(self, token: token, readKeyMaterial: readKeyMaterial)
+        })
+      }
+    }
+  }
+  
   
   @IBAction func onCancel(sender: AnyObject) {
     captureSession?.stopRunning()

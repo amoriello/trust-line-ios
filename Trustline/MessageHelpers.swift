@@ -30,7 +30,7 @@ func delay(seconds seconds: Double, completion:()->()) {
   }
 }
 
-func showError(title: String? = "Wooww!", error: NSError) {
+func showError(title: String? = "Wooww!", error: NSError, onTap tapAction: ()->(Void) = { }) {
   let printTitle :String!
   if let customTitle = error.userInfo["Title"] {
     printTitle = customTitle as! String
@@ -38,20 +38,17 @@ func showError(title: String? = "Wooww!", error: NSError) {
     printTitle = title
   }
   
-  SwiftSpinner.show(printTitle, animated: false).addTapHandler({SwiftSpinner.hide()}, subtitle: error.localizedDescription)
+  SwiftSpinner.show(printTitle, animated: false).addTapHandler({SwiftSpinner.hide(); tapAction() }, subtitle: error.localizedDescription)
   print("Error: \(title): \(error.description)")
 }
 
 
-func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true, showAnnimation :Bool = false) {
-  SwiftSpinner.show(title, animated: showAnnimation).addTapHandler({ if hideOnTap { SwiftSpinner.hide() } }, subtitle: subtitle)
+
+func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true, showAnnimation :Bool = false, onTap tapAction: ()->(Void) = {}) {
+  SwiftSpinner.show(title, animated: showAnnimation).addTapHandler({ if hideOnTap { SwiftSpinner.hide(); tapAction() } }, subtitle: subtitle)
   print("Message: \(title): \(subtitle)")
 }
 
-func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true, showAnnimation :Bool = false, tapAction: ()->(Void)) {
-  SwiftSpinner.show(title, animated: showAnnimation).addTapHandler({ if hideOnTap { SwiftSpinner.hide() }; tapAction() }, subtitle: subtitle)
-  print("Message: \(title): \(subtitle)")
-}
 
 func hideMessage() {
   SwiftSpinner.hide()

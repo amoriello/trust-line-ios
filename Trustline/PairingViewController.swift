@@ -33,7 +33,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
           showError(error: err)
         } else {
           self.token = token!
-          showMessage("Connected!", tapAction: {self.performSegueWithIdentifier("showNavigationSegue", sender: self)})
+          showMessage("Connected!") { self.performSegueWithIdentifier("showNavigationSegue", sender: self) }
         }
       }
     }
@@ -41,14 +41,14 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   
 
   @IBAction func onPairNewPushed(sender: AnyObject) {
-    showMessage("Searching Tokens...", hideOnTap: false, showAnnimation: true)
+    showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
     
     BleManagement.pairWithNewToken(bleManager) { (token, error) in
       if let err = error {
         showError(error: err)
       } else {
         self.token = token!
-        showMessage("Token Paired and Ready", tapAction: {self.performSegueWithIdentifier("showQRGenerator", sender: self)})
+        showMessage("Token Paired and Ready") {self.performSegueWithIdentifier("showQRGenerator", sender: self) }
       }
     }
   }
@@ -70,13 +70,22 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   
   
   // MARK: - ReadKeyMaterialDelegate
-  func keyMaterialRead(controller: ReadQrCodeViewController, readKeyMaterial: KeyMaterial) {
-    self.keyMaterial = readKeyMaterial
+  func onSyncToken(controller: ReadQrCodeViewController, token: Token2?, readKeyMaterial: KeyMaterial?) {
+    // Todo : find the token around, pair with this keyMaterial.
+    // Only show showNavigationSegue when a Token is paired.
+    
+    if token != nil {
+      self.token = token!
+      self.keyMaterial = readKeyMaterial!
+      
+      controller.stop()
+      controller.dismissViewControllerAnimated(true, completion: nil)
+      showMessage("Token synchronization success!") { self.performSegueWithIdentifier("showNavigationSegue", sender: self) }
+      return
+    }
+
     controller.stop()
     controller.dismissViewControllerAnimated(true, completion: nil)
-    // Todo : find the token around, pair with this keyMaterial.
-    // Only show showNavigationSegue when a Token is paired
-    showMessage("Yeah!")
   }
   
 
@@ -101,6 +110,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
       case "showQrReader":
         let readQrVC = segue.destinationViewController as! ReadQrCodeViewController
         readQrVC.delegate = self
+        readQrVC.bleManager = self.bleManager
         
       default: break;
       }
