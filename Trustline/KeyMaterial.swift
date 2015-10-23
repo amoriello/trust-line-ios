@@ -39,14 +39,19 @@ class KeyMaterial {
     return nil
   }
   
-  func base64Data() -> NSData {
+  func data() -> [UInt8] {
     var result: [UInt8] = []
     
     result.append(version)
     result.appendContentsOf(passKey!)
     result.appendContentsOf(crKey!)
     result.appendContentsOf(reqKey!)
-    
-    return NSData(bytes: result, length: result.count).base64EncodedDataWithOptions(.Encoding64CharacterLineLength)
+
+    return result
+  }
+  
+  func base64Data() -> NSData {
+    let keyData = data()
+    return NSData(bytes: keyData, length: keyData.count).base64EncodedDataWithOptions(.Encoding64CharacterLineLength)
   }
 }
