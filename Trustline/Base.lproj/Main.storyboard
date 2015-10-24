@@ -308,11 +308,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0MU-GI-eIT">
-                                <rect key="frame" x="80" y="518" width="163" height="30"/>
+                                <rect key="frame" x="20" y="518" width="280" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
-                                <state key="normal" title="or pair with existing one">
+                                <state key="normal" title="or create a new one from older secrets">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -425,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tbQ-Qj-Lzu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="-34"/>
+            <point key="canvasLocation" x="143" y="-60"/>
         </scene>
         <!--Read Qr Code View Controller-->
         <scene sceneID="9ge-rn-hdi">
@@ -466,7 +466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQm-OE-fmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="143" y="1397"/>
+            <point key="canvasLocation" x="143" y="1429"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1WG-Og-fX9">
@@ -500,6 +500,6 @@
         <image name="safe" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1HU-Oj-0oq"/>
+        <segue reference="s8i-IE-XHI"/>
     </inferredMetricsTieBreakers>
 </document>
