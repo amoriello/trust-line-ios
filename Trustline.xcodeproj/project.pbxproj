@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C91C71831BC3067300579B15 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71821BC3067300579B15 /* Account.swift */; settings = {ASSET_TAGS = (); }; };
-		C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71861BC310E400579B15 /* AccountsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C91C71951BC849C500579B15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71941BC849C500579B15 /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
-		C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */; settings = {ASSET_TAGS = (); }; };
-		C93D49A11BC1218900B19C0F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D49A01BC1218900B19C0F /* Command.swift */; settings = {ASSET_TAGS = (); }; };
-		C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C960BAAE1BD6C9310096123F /* BleManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C960BAAD1BD6C9310096123F /* BleManagement.swift */; settings = {ASSET_TAGS = (); }; };
+		C9076C4E1BDAD3EB00A9490C /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9076C4D1BDAD3EB00A9490C /* DKCircleButton.m */; };
+		C91C71831BC3067300579B15 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71821BC3067300579B15 /* Account.swift */; };
+		C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71861BC310E400579B15 /* AccountsTableViewController.swift */; };
+		C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */; };
+		C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */; };
+		C91C71951BC849C500579B15 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71941BC849C500579B15 /* Settings.swift */; };
+		C93BC3961BCAD3300094DF1A /* MessageHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */; };
+		C93D49A11BC1218900B19C0F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D49A01BC1218900B19C0F /* Command.swift */; };
+		C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */; };
+		C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */; };
+		C960BAAE1BD6C9310096123F /* BleManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C960BAAD1BD6C9310096123F /* BleManagement.swift */; };
 		C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */; };
 		C9ACF8DA1BC11DA80040D21A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8D81BC11DA80040D21A /* Main.storyboard */; };
 		C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */; };
@@ -24,11 +25,11 @@
 		C9ACF8E21BC11DA80040D21A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8E01BC11DA80040D21A /* LaunchScreen.storyboard */; };
 		C9ACF8ED1BC11DA90040D21A /* TrustlineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8EC1BC11DA90040D21A /* TrustlineTests.swift */; };
 		C9ACF8F81BC11DA90040D21A /* TrustlineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8F71BC11DA90040D21A /* TrustlineUITests.swift */; };
-		C9B684441BD106320096590B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B684431BD106320096590B /* PairingViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473961BC90B3F00FE2E0B /* BleManager.swift */; settings = {ASSET_TAGS = (); }; };
-		C9D473991BC91EF900FE2E0B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473981BC91EF900FE2E0B /* Token.swift */; settings = {ASSET_TAGS = (); }; };
-		C9D4739B1BC91F3000FE2E0B /* KeyMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */; settings = {ASSET_TAGS = (); }; };
-		C9D4739F1BCA6F2A00FE2E0B /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739E1BCA6F2A00FE2E0B /* AccountTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		C9B684441BD106320096590B /* PairingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B684431BD106320096590B /* PairingViewController.swift */; };
+		C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473961BC90B3F00FE2E0B /* BleManager.swift */; };
+		C9D473991BC91EF900FE2E0B /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D473981BC91EF900FE2E0B /* Token.swift */; };
+		C9D4739B1BC91F3000FE2E0B /* KeyMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */; };
+		C9D4739F1BCA6F2A00FE2E0B /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D4739E1BCA6F2A00FE2E0B /* AccountTableViewCell.swift */; };
 		E407975E356EA248299AD716 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1A17CE91AF788180EC9881E /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,9 @@
 		7D8C76E81B926CD6F4B9F0B0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8E9046DD85802A95BD21BC5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A1A17CE91AF788180EC9881E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9076C4B1BDAD3EA00A9490C /* Trustline-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trustline-Bridging-Header.h"; sourceTree = "<group>"; };
+		C9076C4C1BDAD3EB00A9490C /* DKCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKCircleButton.h; path = DKCircleButton/DKCircleButton.h; sourceTree = "<group>"; };
+		C9076C4D1BDAD3EB00A9490C /* DKCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DKCircleButton.m; path = DKCircleButton/DKCircleButton.m; sourceTree = "<group>"; };
 		C91C71821BC3067300579B15 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		C91C71861BC310E400579B15 /* AccountsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
 		C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +172,16 @@
 			name = Ble;
 			sourceTree = "<group>";
 		};
+		C938E9BE1BDB860100A2F1EA /* DKCircleButton */ = {
+			isa = PBXGroup;
+			children = (
+				C9076C4B1BDAD3EA00A9490C /* Trustline-Bridging-Header.h */,
+				C9076C4C1BDAD3EB00A9490C /* DKCircleButton.h */,
+				C9076C4D1BDAD3EB00A9490C /* DKCircleButton.m */,
+			);
+			name = DKCircleButton;
+			sourceTree = "<group>";
+		};
 		C93BC3971BCAD33D0094DF1A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,12 +217,13 @@
 			isa = PBXGroup;
 			children = (
 				C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */,
+				C9ACF8E01BC11DA80040D21A /* LaunchScreen.storyboard */,
 				C93BC3971BCAD33D0094DF1A /* Helpers */,
 				C91C71811BC3063500579B15 /* Model */,
 				C91C718C1BC4603400579B15 /* View */,
 				C91C718B1BC45F3F00579B15 /* Controllers */,
 				C91C718D1BC4604900579B15 /* Ble */,
-				C9ACF8E01BC11DA80040D21A /* LaunchScreen.storyboard */,
+				C938E9BE1BDB860100A2F1EA /* DKCircleButton */,
 				C9ACF8E31BC11DA80040D21A /* Info.plist */,
 				C9ACF8DE1BC11DA80040D21A /* Assets.xcassets */,
 				C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */,
@@ -299,6 +314,7 @@
 		C9ACF8C91BC11DA80040D21A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = amoriello.hutti;
 				TargetAttributes = {
@@ -426,6 +442,7 @@
 				C9D473991BC91EF900FE2E0B /* Token.swift in Sources */,
 				C91C71951BC849C500579B15 /* Settings.swift in Sources */,
 				C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */,
+				C9076C4E1BDAD3EB00A9490C /* DKCircleButton.m in Sources */,
 				C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */,
 				C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */,
 				C93D49A11BC1218900B19C0F /* Command.swift in Sources */,
@@ -575,11 +592,14 @@
 			baseConfigurationReference = 8E9046DD85802A95BD21BC5C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Matthieu Loriol (2C868TB7D7)";
 				INFOPLIST_FILE = Trustline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trustline;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Trustline/Trustline-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -588,11 +608,13 @@
 			baseConfigurationReference = 7D8C76E81B926CD6F4B9F0B0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Matthieu Loriol (2C868TB7D7)";
 				INFOPLIST_FILE = Trustline/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trustline;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Trustline/Trustline-Bridging-Header.h";
 			};
 			name = Release;
 		};
