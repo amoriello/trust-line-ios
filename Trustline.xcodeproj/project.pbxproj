@@ -133,6 +133,7 @@
 		C91C71811BC3063500579B15 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */,
 				C91C71821BC3067300579B15 /* Account.swift */,
 				C91C71941BC849C500579B15 /* Settings.swift */,
 				C9D4739A1BC91F3000FE2E0B /* KeyMaterial.swift */,
@@ -226,7 +227,6 @@
 				C938E9BE1BDB860100A2F1EA /* DKCircleButton */,
 				C9ACF8E31BC11DA80040D21A /* Info.plist */,
 				C9ACF8DE1BC11DA80040D21A /* Assets.xcassets */,
-				C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */,
 			);
 			path = Trustline;
 			sourceTree = "<group>";

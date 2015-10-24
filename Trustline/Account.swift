@@ -15,7 +15,7 @@ class AccountInfos {
   var accountDict = AccountDict();
   
   init() {
-    createFakeInfo()
+    //createFakeInfo()
   }
   
   

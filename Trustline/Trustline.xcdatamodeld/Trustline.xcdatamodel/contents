@@ -1,4 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
+    <entity name="Account" syncable="YES">
+        <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="securityQAs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SecurityQA" inverseName="account" inverseEntity="SecurityQA" syncable="YES"/>
+        <relationship name="token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PairedToken" inverseName="accounts" inverseEntity="PairedToken" syncable="YES"/>
+        <relationship name="usages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UsageInfo" inverseName="account" inverseEntity="UsageInfo" syncable="YES"/>
+    </entity>
+    <entity name="KeyMaterial" syncable="YES">
+        <attribute name="crKey" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="reqKey" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PairedToken" inverseName="keyMaterial" inverseEntity="PairedToken" syncable="YES"/>
+    </entity>
+    <entity name="PairedToken" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Account" inverseName="token" inverseEntity="Account" syncable="YES"/>
+        <relationship name="keyMaterial" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KeyMaterial" inverseName="token" inverseEntity="KeyMaterial" syncable="YES"/>
+        <relationship name="settings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="tokens" inverseEntity="Settings" syncable="YES"/>
+    </entity>
+    <entity name="SecurityQA" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="question" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="securityQAs" inverseEntity="Account" syncable="YES"/>
+    </entity>
+    <entity name="Settings" syncable="YES">
+        <attribute name="keyboardLayout" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="useiCloud" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="strengths" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Strength" inverseName="settings" inverseEntity="Strength" syncable="YES"/>
+        <relationship name="tokens" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PairedToken" inverseName="settings" inverseEntity="PairedToken" syncable="YES"/>
+    </entity>
+    <entity name="Strength" syncable="YES">
+        <attribute name="nbChars" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="pickerDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="settings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="strengths" inverseEntity="Settings" syncable="YES"/>
+    </entity>
+    <entity name="UsageInfo" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="usages" inverseEntity="Account" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Account" positionX="-29" positionY="-405" width="128" height="133"/>
+        <element name="UsageInfo" positionX="-99" positionY="-187" width="128" height="88"/>
+        <element name="SecurityQA" positionX="-227" positionY="-475" width="128" height="88"/>
+        <element name="PairedToken" positionX="153" positionY="-450" width="128" height="103"/>
+        <element name="Settings" positionX="369" positionY="-510" width="128" height="103"/>
+        <element name="Strength" positionX="540" positionY="-381" width="128" height="88"/>
+        <element name="KeyMaterial" positionX="198" positionY="-282" width="128" height="88"/>
+    </elements>
 </model>
