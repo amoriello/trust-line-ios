@@ -3,22 +3,24 @@ trust line iOS app
 
 Do not use yet unless you know what you're doing.
 
+
+------------------
+
 #### Pairing procedure
+
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_pairing.gif)
 
 - You need to connect the token to a powersource, like a USB port.
-
 - Make sure the bluetooth is enabled
-
 - Push the pair button (central) in order to start the paring procedure
-
 - The trustline secrets are the token secrets keys. They are reprensented in the form of a QR Code to be printed.
 This is a critical piece of information. It will be required if you loose or break your current token.
 This QRCode can decrypt your password, so keep it somewhere safe. Note that Airprint feature will be added soon.
 
-
+------------------
 
 #### Create a new password
+
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_create_password.gif)
 
 - Create a new account
@@ -27,8 +29,9 @@ This QRCode can decrypt your password, so keep it somewhere safe. Note that Airp
 - Also note that neihter the account name, nor the login are encrypted
 - The encrypted password sent from the token is stored into the iPhone (and iCloud if enabled : not implemented yet)
 
-
+------------------
 #### Send keystrokes
+
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_keyboard.gif)
 
 When your token is powered to a computer via USB port, it simulates a HID keyboard :
@@ -38,6 +41,6 @@ When your token is powered to a computer via USB port, it simulates a HID keyboa
 - When the color is yellow (further green) : the password is typed, followed by "ENTER"
 
 
-
+------------------
 
 More features to come
