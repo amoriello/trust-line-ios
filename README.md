@@ -13,9 +13,8 @@ Do not use yet unless you know what you're doing.
 - You need to connect the token to a powersource, like a USB port.
 - Make sure the bluetooth is enabled
 - Push the pair button (central) in order to start the paring procedure
-- The trustline secrets are the token secrets keys. They are reprensented in the form of a QR Code to be printed.
-This is a critical piece of information. It will be required if you loose or break your current token.
-This QRCode can decrypt your password, so keep it somewhere safe. Note that Airprint feature will be added soon.
+- The trustline secrets are the token secrets keys. They are represented in the form of a QR Code to be printed.
+This is a critical piece of information. This QRCode can decrypt your password, so keep it somewhere safe. Note that Airprint feature will be added soon.
 
 ------------------
 
