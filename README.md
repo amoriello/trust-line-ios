@@ -35,7 +35,7 @@ When your token is powered to a computer via USB port, it simulates a HID keyboa
 - Sliding a row from left to rigth will send the encrypted password to the token
 - The token will decrypt the password and type it where your focus is
 - When the color is green : the password is typed
-- When the color is yellow (litle further green) : the password is typed, followed by "ENTER"
+- When the color is yellow (further green) : the password is typed, followed by "ENTER"
 
 
 
