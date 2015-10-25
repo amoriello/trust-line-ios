@@ -2,8 +2,11 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
     <entity name="Account" syncable="YES">
         <attribute name="creation" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="enc_login" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="enc_password" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="enc_title" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="isEncrypted" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="password" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pairedToken" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PairedToken" inverseName="accounts" inverseEntity="PairedToken" syncable="YES"/>
         <relationship name="securityQAs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SecurityQA" inverseName="account" inverseEntity="SecurityQA" syncable="YES"/>
@@ -25,6 +28,7 @@
     </entity>
     <entity name="Profile" syncable="YES">
         <attribute name="creation" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="keyMaterial" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="KeyMaterial" inverseName="profile" inverseEntity="KeyMaterial" syncable="YES"/>
         <relationship name="pairedTokens" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PairedToken" inverseName="profile" inverseEntity="PairedToken" syncable="YES"/>
         <relationship name="settings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="profile" inverseEntity="Settings" syncable="YES"/>
@@ -51,10 +55,10 @@
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="usages" inverseEntity="Account" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Account" positionX="-209" positionY="-765" width="128" height="148"/>
+        <element name="Account" positionX="-209" positionY="-765" width="128" height="193"/>
         <element name="KeyMaterial" positionX="-29" positionY="-945" width="128" height="118"/>
         <element name="PairedToken" positionX="-38" positionY="-738" width="128" height="118"/>
-        <element name="Profile" positionX="135" positionY="-832" width="128" height="103"/>
+        <element name="Profile" positionX="135" positionY="-832" width="128" height="118"/>
         <element name="SecurityQA" positionX="-387" positionY="-772" width="128" height="88"/>
         <element name="Settings" positionX="306" positionY="-726" width="128" height="105"/>
         <element name="Strength" positionX="475" positionY="-666" width="128" height="88"/>
