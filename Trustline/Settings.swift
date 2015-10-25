@@ -2,47 +2,31 @@
 //  Settings.swift
 //  Trustline
 //
-//  Created by matt on 09/10/2015.
+//  Created by matt on 25/10/2015.
 //  Copyright © 2015 amoriello.hutti. All rights reserved.
 //
 
-import Foundation
+import CoreData
 
-class PairedDevice {
-  var identifier :NSUUID?
-}
-
-class TrustLineSettings {
-  var isPaired: Bool = false
-  var pairedDevice: PairedDevice?
-
+class CDSettings: NSManagedObject {
+  @NSManaged private var keyboardLayout: Int16
   
-  class Strength {
-    var picketDescription: String
-    var userDescription: String
-    var nbCharacters: UInt8
+  enum KeyboardLayoutOptions: Int16 {
+    case EnglishUS
+  }
+  
+  @NSManaged var useiCloud: Bool
+  
+  @NSManaged var profile: CDProfile
+  @NSManaged var strengths: [CDStrength]
+  
+  var layoutOption: KeyboardLayoutOptions {
+    get {
+      return KeyboardLayoutOptions(rawValue: self.keyboardLayout)!
+    }
     
-    init(picketDescription: String, userDescription: String, nbCharacters: UInt8) {
-      self.picketDescription = picketDescription
-      self.userDescription = userDescription
-      self.nbCharacters = nbCharacters
+    set {
+      self.keyboardLayout = newValue.rawValue
     }
   }
-  
-  enum KeyboardLayout: UInt8 {
-    case Qwerty = 1, Azerty
-  }
-
-  var strengths: [Strength] = { [
-    Strength(picketDescription: "Serious (8)", userDescription: "a serious", nbCharacters: 8),
-    Strength(picketDescription: "Strong (15)", userDescription: "a strong", nbCharacters: 15),
-    Strength(picketDescription: "Insane (25)", userDescription: "an insane", nbCharacters: 25),
-    Strength(picketDescription: "Ludicrous (40)", userDescription: "a ludicrous", nbCharacters: 40)
-    ]}()
-  
-  var defaultStrengthIndex = 1;
-  
-  var currentLayout :KeyboardLayout = .Qwerty
-  
-  var useICloud = false;
 }
