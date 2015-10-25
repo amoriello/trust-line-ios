@@ -10,6 +10,8 @@ Do not use yet unless you know what you're doing.
 
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_pairing.gif)
 
+This is the first view. You only need to go through this step once.
+
 - You need to connect the token to a power source, like a USB port.
 - Make sure the bluetooth is enabled
 - Push the pair button (central) in order to start the paring procedure
@@ -22,11 +24,11 @@ This is a critical piece of information. This QRCode can decrypt your password, 
 
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_create_password.gif)
 
-- Create a new account
+- Create a new account (Will contain a title, an optional login, and your password (encrypted version)
 - You can also specify your login, and a size (strength) for your password
 - Note that login is optional
-- Also note that neihter the account name, nor the login are encrypted
-- The encrypted password sent from the token is stored into the iPhone (and iCloud if enabled : not implemented yet)
+- Also note that neihter the account name, nor the login are encrypted by default (see #4)
+- the account is saved on the phone, and synchronized via iCloud (if activated)
 
 ------------------
 #### Send keystrokes
