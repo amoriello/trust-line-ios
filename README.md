@@ -33,8 +33,8 @@ This is a critical piece of information. This QRCode can decrypt your password, 
 
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_keyboard.gif)
 
-When your token is powered to a computer via USB port, it simulates a HID keyboard :
-- Sliding a row from left to rigth will send the encrypted password to the token
+When your token is connected to a computer via USB port, it simulates a HID keyboard :
+- Sliding a row from left to rigth will send the encrypted password to the token, and ask the token to type it.
 - The token will decrypt the password and type it where your focus is
 - When the color is green : release the row, then the password is typed
 - When the color is yellow (further green) : release the row, then the password is typed, followed by "ENTER"
