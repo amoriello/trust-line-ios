@@ -10,7 +10,7 @@ Do not use yet unless you know what you're doing.
 
 ![](https://github.com/amoriello/trust-line-ios/raw/develop/demos/demo_pairing.gif)
 
-- You need to connect the token to a powersource, like a USB port.
+- You need to connect the token to a power source, like a USB port.
 - Make sure the bluetooth is enabled
 - Push the pair button (central) in order to start the paring procedure
 - The trustline secrets are the token secrets keys. They are represented in the form of a QR Code to be printed.
@@ -36,8 +36,8 @@ This is a critical piece of information. This QRCode can decrypt your password, 
 When your token is powered to a computer via USB port, it simulates a HID keyboard :
 - Sliding a row from left to rigth will send the encrypted password to the token
 - The token will decrypt the password and type it where your focus is
-- When the color is green : the password is typed
-- When the color is yellow (further green) : the password is typed, followed by "ENTER"
+- When the color is green : release the row, then the password is typed
+- When the color is yellow (further green) : release the row, then the password is typed, followed by "ENTER"
 
 
 ------------------
