@@ -16,10 +16,8 @@ class CDAccount: NSManagedObject {
   @NSManaged var enc_password: NSData
   @NSManaged var enc_title: NSData?
   
-  @NSManaged var isEncrypted: Bool
-  
   @NSManaged var login: String?
-  @NSManaged var title: String
+  @NSManaged var title: String?
   
   @NSManaged var profile: CDProfile
   @NSManaged var securityQAs: [CDSecurityQA]
