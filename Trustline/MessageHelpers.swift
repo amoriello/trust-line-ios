@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import SwiftSpinner
 
 
@@ -44,9 +45,11 @@ func showError(title: String? = "Wooww!", error: NSError, onTap tapAction: ()->(
 
 
 
-func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true, showAnnimation :Bool = false, onTap tapAction: ()->(Void) = {}) {
+func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true, showAnnimation :Bool = false, font: UIFont? = nil, onTap tapAction: ()->(Void) = {}) {
+  SwiftSpinner.setTitleFont(font)
   SwiftSpinner.show(title, animated: showAnnimation).addTapHandler({ if hideOnTap { SwiftSpinner.hide(); tapAction() } }, subtitle: subtitle)
   print("Message: \(title): \(subtitle)")
+  SwiftSpinner.setTitleFont(nil)
 }
 
 

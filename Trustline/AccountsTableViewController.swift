@@ -26,10 +26,6 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     
     unlockCapabilities()
     
-    //bleManager = BleManager2(managerStateErrorHandler: self.bleManagerStateChange, keyMaterial: keyMaterial)
-    //showMessage("Searching Tokens...", hideOnTap: false, showAnnimation: true)
-    //initializeToken();
-    
     accountSectionTitles = Array(accountInfos.accountDict.keys);
     accountSectionTitles.sortInPlace();
   }
@@ -59,9 +55,10 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     let account = accountAtIndexPath(indexPath)
     
     cell.account = account
-    cell.onKeyboardTriggered(self.onKeyboardTriggered)
-    cell.onKeyboardEnterTriggered(self.onKeyboardEnterTriggered)
-    cell.onClipBoardTriggered(self.onClipboardTriggered)
+    cell.keyboardTriggeredHandler = self.onKeyboardTriggered
+    cell.keyboardEnterTriggeredHandler = self.onKeyboardEnterTriggered
+    cell.showPasswordTriggeredHandler = self.onShowPasswordTriggered
+    cell.clipboardTriggeredHandler = self.onClipboardTriggered
     
     return cell;
   }
@@ -167,6 +164,24 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     }
   }
   
+
+  func onShowPasswordTriggered(account: Account) {
+    if token == nil {
+      showMessage("Cannot handle action", subtitle: "Token is not connected")
+      return
+    }
+    
+    showMessage("Retrieving password...", hideOnTap: false, showAnnimation: true)
+    
+    token.retrievePassword(account.password) { (clearPassword, error) in
+      if let err = error {
+        showError(error: err)
+      } else {
+        let passwordFont = UIFont(name: "Courier", size: 15)
+        showMessage(clearPassword, font: passwordFont)
+      }
+    }
+  }
   
 
   func onClipboardTriggered(account: Account) {
@@ -174,5 +189,20 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
       showMessage("Cannot handle action", subtitle: "Token is not connected")
       return
     }
+    
+    showMessage("Retrieving password...", hideOnTap: false, showAnnimation: true)
+    
+    token.retrievePassword(account.password) { (clearPassword, error) in
+      if let err = error {
+        showError(error: err)
+      } else {
+        UIPasteboard.generalPasteboard().string = clearPassword;
+        showMessage("Password copied to clipboard")
+      }
+    }
   }
+  
+  
+  
+  
 }

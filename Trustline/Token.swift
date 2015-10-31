@@ -8,11 +8,41 @@
 
 import Foundation
 import CoreBluetooth
+import CryptoSwift
+
+
+private let kHexChars = Array("0123456789abcdef".utf8) as [UInt8];
+
+extension NSData {
+  
+  public func hexString() -> String {
+    guard length > 0 else {
+      return ""
+    }
+    
+    let buffer = UnsafeBufferPointer<UInt8>(start: UnsafePointer(bytes), count: length)
+    var output = [UInt8](count: length*2 + 1, repeatedValue: 0)
+    var i: Int = 0
+    for b in buffer {
+      let h = Int((b & 0xf0) >> 4)
+      let l = Int(b & 0x0f)
+      output[i++] = kHexChars[h]
+      output[i++] = kHexChars[l]
+    }
+    
+    return String.fromCString(UnsafePointer(output))!
+  }
+}
+
+
+
+
 
 class Token2 {
   // MARK - Type definitions
   typealias CompletionHandler = (error: NSError?) -> (Void);
   typealias DataCompletionHandler = (data: [UInt8], error: NSError?) -> (Void);
+  typealias RetrievePasswordHandler = (clearPassword: String, error: NSError?) -> (Void);
   
   // MARK - Variable on init
   var centralManager :CBCentralManager
@@ -72,6 +102,11 @@ class Token2 {
   }
   
   
+  func retrievePassword(password: [UInt8], handler: RetrievePasswordHandler) {
+    tokenCommander.retrievePassword(password, handler: handler)
+  }
+  
+  
   func connectHandlerHook(error: NSError?) {
     if let _ = error {
       isConnected = false;
@@ -93,6 +128,7 @@ class TokenCommander {
   // MARK - Type definitions
   typealias ResponseHandler = (Response, error: NSError?) -> (Void);
   typealias CreatePasswordHandler = (cipheredPassword:[UInt8], error: NSError?) -> (Void);
+  typealias RetrievePasswordHandler = (clearPassword: String, error: NSError?) -> (Void);
   typealias PairWithDeviceHandler = (NSError?) -> (Void);
   typealias CompletionHandler = (NSError?) -> (Void)
   typealias AuthCmdHandler = (nonce: [UInt8], error: NSError?) -> (Void);
@@ -174,6 +210,41 @@ class TokenCommander {
     }
   }
 
+  
+  func retrievePassword(password: [UInt8], handler: RetrievePasswordHandler) {
+    let cmd = Command(cmdId: .ReturnPassword, arg: password)!
+    
+    send(cmd) { (response, error) in
+      if error != nil {
+        handler(clearPassword: "", error: error)
+        return
+      }
+      
+      let argDataSize = response.argData()!.count
+      
+      if argDataSize != 80 {
+        let error = createError("Invalid response", description: "Bad response length")
+        handler(clearPassword: "", error: error)
+        return
+      }
+      
+      //handler(clearPassword: "", error: error)
+
+      let iv = Array(response.argData()![0...15])
+      let cipheredPassword = Array(response.argData()![16...argDataSize - 1])
+      
+      do {
+        let clearData :[UInt8] = try AES(key: self.keyMaterial.reqKey!, iv: iv)!.decrypt(cipheredPassword)
+        let clearPassword = String(bytes: clearData, encoding: NSUTF8StringEncoding)!
+        handler(clearPassword: clearPassword, error: nil)
+        return
+      } catch {
+        let error = createError("Invalid response", description: "Bad cryptographic input")
+        handler(clearPassword: "", error: error)
+      }
+    }
+  }
+  
   
   func resetNewKeys(keyMaterial: KeyMaterial, handler: CompletionHandler) {
     let cmd = Command(cmdId: .ResetKeys, arg: keyMaterial.data())!
@@ -360,8 +431,8 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       return;
     }
     
-    //print("Successful Read:");
-    //print(data.hexString());
+    // print("Successful Read:");
+    // print(data.hexString());
     // Successful read
     
     if data.length == 1 && wCtx.isWaitingAck { // Wait for ack
@@ -431,7 +502,9 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       let bytes_to_write = min(size, kMaxBurst - wCtx.bytesSent);
       let rangeToSend = NSRange(location: session_bytes_sent, length: bytes_to_write)
       let bytesToSend = data.subdataWithRange(rangeToSend)
-      //print("sending \(bytesToSend.hexString())")
+      
+      // print("sending \(bytesToSend.hexString())")
+
       writeDataToBle(bytesToSend);
       
       size -= bytes_to_write;

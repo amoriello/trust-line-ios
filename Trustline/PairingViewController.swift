@@ -71,9 +71,6 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   
   // MARK: - ReadKeyMaterialDelegate
   func onSyncToken(controller: ReadQrCodeViewController, token: Token2?, readKeyMaterial: KeyMaterial?) {
-    // Todo : find the token around, pair with this keyMaterial.
-    // Only show showNavigationSegue when a Token is paired.
-    
     if token != nil {
       self.token = token!
       self.keyMaterial = readKeyMaterial!

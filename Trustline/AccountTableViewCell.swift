@@ -19,6 +19,7 @@ class AccountTableViewCell: UITableViewCell {
   
   var keyboardTriggeredHandler: CellActionTriggeredHandler?
   var keyboardEnterTriggeredHandler: CellActionTriggeredHandler?
+  var showPasswordTriggeredHandler: CellActionTriggeredHandler?
   var clipboardTriggeredHandler: CellActionTriggeredHandler?
   
   var account: Account! {
@@ -30,7 +31,7 @@ class AccountTableViewCell: UITableViewCell {
   let greenColor = UIColor(red: 91/255.0, green: 220/255.0, blue: 88/255.0, alpha: 1)
   let blueColor  = UIColor(red: 24/255.0, green: 182/255.0, blue: 222/255.0, alpha: 1)
   let yellowColor  = UIColor(red: 254/255.0, green: 217/255.0, blue: 56/255.0, alpha: 1)
-  
+
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -42,19 +43,6 @@ class AccountTableViewCell: UITableViewCell {
     super.setSelected(selected, animated: animated)
 
     // Configure the view for the selected state
-  }
-  
-  
-  func onKeyboardTriggered(handler: CellActionTriggeredHandler) {
-    keyboardTriggeredHandler = handler
-  }
-  
-  func onKeyboardEnterTriggered(handler: CellActionTriggeredHandler) {
-    keyboardEnterTriggeredHandler = handler;
-  }
-  
-  func onClipBoardTriggered(handler: CellActionTriggeredHandler) {
-    clipboardTriggeredHandler = handler;
   }
   
   
@@ -102,7 +90,20 @@ class AccountTableViewCell: UITableViewCell {
       }
     }
     
-    let copyToClipboardAction = DRCellSlideAction(forFraction: -0.35)
+    
+    let showPasswordAction = DRCellSlideAction(forFraction: -0.35)
+    showPasswordAction.activeBackgroundColor = blueColor
+    showPasswordAction.icon = UIImage(named: "visible")
+    showPasswordAction.elasticity = 10
+    showPasswordAction.didTriggerBlock = {(tableView, indexPath) in
+      print("Show password")
+      if let handler = self.showPasswordTriggeredHandler {
+        handler(self.account)
+      }
+    }
+    
+    
+    let copyToClipboardAction = DRCellSlideAction(forFraction: -0.55)
     copyToClipboardAction.activeBackgroundColor = blueColor
     copyToClipboardAction.icon = UIImage(named: "clipboard")
     copyToClipboardAction.elasticity = 10
@@ -115,6 +116,7 @@ class AccountTableViewCell: UITableViewCell {
     
     slideGestureRecognizer.addActions(sendKeystrokesAction)
     slideGestureRecognizer.addActions(sendKeystrokesEnterAction)
+    slideGestureRecognizer.addActions(showPasswordAction)
     slideGestureRecognizer.addActions(copyToClipboardAction)
     
     self.addGestureRecognizer(slideGestureRecognizer)
