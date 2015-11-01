@@ -49,7 +49,6 @@ func showMessage(title: String, subtitle: String? = nil, hideOnTap: Bool = true,
   SwiftSpinner.setTitleFont(font)
   SwiftSpinner.show(title, animated: showAnnimation).addTapHandler({ if hideOnTap { SwiftSpinner.hide(); tapAction() } }, subtitle: subtitle)
   print("Message: \(title): \(subtitle)")
-  SwiftSpinner.setTitleFont(nil)
 }
 
 

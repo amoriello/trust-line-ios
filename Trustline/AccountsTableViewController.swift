@@ -223,7 +223,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
       if let err = error {
         showError(error: err)
       } else {
-        let passwordFont = UIFont(name: "Courier New", size: 15)
+        let passwordFont = UIFont(name: "Menlo-Regular", size: 18)
         let phoneticDesciprion = self.phoneticDescription(clearPassword)
         showMessage(clearPassword, subtitle: phoneticDesciprion, font: passwordFont)
       }
