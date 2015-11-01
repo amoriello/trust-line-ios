@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9013FBA1BE60C10004C4836 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9013FB91BE60C10004C4836 /* Login.swift */; };
 		C9076C4E1BDAD3EB00A9490C /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9076C4D1BDAD3EB00A9490C /* DKCircleButton.m */; };
 		C91C71831BC3067300579B15 /* AccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71821BC3067300579B15 /* AccountTest.swift */; };
 		C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71861BC310E400579B15 /* AccountsTableViewController.swift */; };
@@ -62,6 +63,7 @@
 		7D8C76E81B926CD6F4B9F0B0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8E9046DD85802A95BD21BC5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A1A17CE91AF788180EC9881E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9013FB91BE60C10004C4836 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		C9076C4B1BDAD3EA00A9490C /* Trustline-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trustline-Bridging-Header.h"; sourceTree = "<group>"; };
 		C9076C4C1BDAD3EB00A9490C /* DKCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DKCircleButton.h; path = DKCircleButton/DKCircleButton.h; sourceTree = "<group>"; };
 		C9076C4D1BDAD3EB00A9490C /* DKCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DKCircleButton.m; path = DKCircleButton/DKCircleButton.m; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				C954255D1BDD4F94000638D8 /* Strength.swift */,
 				C954255F1BDD4FC7000638D8 /* PairedToken.swift */,
 				C95425611BDD50CF000638D8 /* UsageInfo.swift */,
+				C9013FB91BE60C10004C4836 /* Login.swift */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */,
 				C95425581BDD4F63000638D8 /* Profile.swift in Sources */,
 				C9076C4E1BDAD3EB00A9490C /* DKCircleButton.m in Sources */,
+				C9013FBA1BE60C10004C4836 /* Login.swift in Sources */,
 				C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */,
 				C95425561BDD4F52000638D8 /* KeyMaterial.swift in Sources */,
 				C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */,

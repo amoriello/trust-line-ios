@@ -2,11 +2,9 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
     <entity name="CDAccount" syncable="YES">
         <attribute name="creation" attributeType="Date" syncable="YES"/>
-        <attribute name="enc_login" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="enc_password" attributeType="Binary" syncable="YES"/>
-        <attribute name="enc_title" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="login" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDLogin" inverseName="accounts" inverseEntity="CDLogin" syncable="YES"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDProfile" inverseName="accounts" inverseEntity="CDProfile" syncable="YES"/>
         <relationship name="securityQAs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSecurityQA" inverseName="account" inverseEntity="CDSecurityQA" syncable="YES"/>
         <relationship name="usages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDUsageInfo" inverseName="account" inverseEntity="CDUsageInfo" syncable="YES"/>
@@ -16,6 +14,10 @@
         <attribute name="crKey" attributeType="Binary" syncable="YES"/>
         <attribute name="reqKey" attributeType="Binary" syncable="YES"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDProfile" inverseName="keyMaterial" inverseEntity="CDProfile" syncable="YES"/>
+    </entity>
+    <entity name="CDLogin" syncable="YES">
+        <attribute name="enc_string" attributeType="Binary" syncable="YES"/>
+        <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDAccount" inverseName="login" inverseEntity="CDAccount" syncable="YES"/>
     </entity>
     <entity name="CDPairedToken" syncable="YES">
         <attribute name="creation" attributeType="Date" syncable="YES"/>
@@ -52,13 +54,14 @@
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDAccount" inverseName="usages" inverseEntity="CDAccount" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDAccount" positionX="-81" positionY="-868" width="128" height="180"/>
+        <element name="CDAccount" positionX="-81" positionY="-951" width="128" height="150"/>
         <element name="CDKeyMaterial" positionX="-38" positionY="-639" width="128" height="103"/>
         <element name="CDPairedToken" positionX="133" positionY="-610" width="128" height="88"/>
         <element name="CDProfile" positionX="126" positionY="-828" width="128" height="133"/>
-        <element name="CDSecurityQA" positionX="-245" positionY="-799" width="128" height="88"/>
+        <element name="CDSecurityQA" positionX="-297" positionY="-837" width="128" height="88"/>
         <element name="CDSettings" positionX="306" positionY="-738" width="128" height="103"/>
         <element name="CDStrength" positionX="475" positionY="-666" width="128" height="88"/>
-        <element name="CDUsageInfo" positionX="-263" positionY="-693" width="128" height="88"/>
+        <element name="CDUsageInfo" positionX="-252" positionY="-729" width="128" height="90"/>
+        <element name="CDLogin" positionX="-56" positionY="-747" width="128" height="73"/>
     </elements>
 </model>

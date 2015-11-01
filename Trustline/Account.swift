@@ -12,11 +12,10 @@ import CoreData
 class CDAccount: NSManagedObject {
   @NSManaged var creation: NSDate
 
-  @NSManaged var enc_login: NSData?
+  @NSManaged var login: CDLogin?
   @NSManaged var enc_password: NSData
   @NSManaged var enc_title: NSData?
   
-  @NSManaged var login: String?
   @NSManaged var title: String?
   
   @NSManaged var profile: CDProfile
