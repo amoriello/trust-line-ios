@@ -155,13 +155,14 @@ class TokenCommander {
       }
       
       if response.isValid() {  // Token is Paired
-        self.keyMaterial.passKey = Array(response.bytes[2...17])
-        self.keyMaterial.crKey = Array(response.bytes[18...33])
-        self.keyMaterial.reqKey = Array(response.bytes[34...49])
+        let keySize = self.keyMaterial.keySize;
+        self.keyMaterial.passKey = Array(response.bytes[2...1 + keySize])
+        self.keyMaterial.crKey   = Array(response.bytes[2 + keySize...1 + (2 * keySize)])
+        self.keyMaterial.comKey  = Array(response.bytes[2 + (2 * keySize)...1 + (3 * keySize)])
         
         print("Pass Key: \(self.keyMaterial.passKey)");
         print("Cr   Key: \(self.keyMaterial.crKey)");
-        print("Req  Key: \(self.keyMaterial.reqKey)");
+        print("Req  Key: \(self.keyMaterial.comKey)");
         handler(nil);
         return;
       }
@@ -227,14 +228,12 @@ class TokenCommander {
         handler(clearPassword: "", error: error)
         return
       }
-      
-      //handler(clearPassword: "", error: error)
 
-      let iv = Array(response.argData()![0...15])
+      let iv = Array(response.argData()![0...self.keyMaterial.keySize - 1])
       let cipheredPassword = Array(response.argData()![16...argDataSize - 1])
       
       do {
-        let clearData :[UInt8] = try AES(key: self.keyMaterial.reqKey!, iv: iv)!.decrypt(cipheredPassword)
+        let clearData :[UInt8] = try AES(key: self.keyMaterial.comKey!, iv: iv)!.decrypt(cipheredPassword)
         let clearPassword = String(bytes: clearData, encoding: NSUTF8StringEncoding)!
         handler(clearPassword: clearPassword, error: nil)
         return

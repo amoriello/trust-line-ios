@@ -11,16 +11,19 @@ import Foundation
 
 class KeyMaterial {
   var version :UInt8 = 1;
+  
+  let keySize = 16;
+  
   var passKey :[UInt8]?
   var crKey   :[UInt8]?
-  var reqKey  :[UInt8]?
+  var comKey  :[UInt8]?
   
   init() {
   }
   
   init(crKey: [UInt8], reqKey: [UInt8]) {
     self.crKey = crKey
-    self.reqKey = reqKey
+    self.comKey = reqKey
   }
   
   
@@ -28,11 +31,11 @@ class KeyMaterial {
     let res = NSData(base64EncodedString: data, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
 
     if let data = res?.arrayOfBytes() {
-      if data.count == 49 {
+      if data.count == 1 + (3 * keySize) {
         version = data[0]
-        passKey = Array(data[1...16])
-        crKey = Array(data[17...32])
-        reqKey = Array(data[33...48])
+        passKey = Array(data[1...keySize])
+        crKey   = Array(data[1 + keySize...2 * keySize])
+        comKey  = Array(data[1 + (2 * keySize)...3 * keySize])
         return
       }
     }
@@ -45,7 +48,7 @@ class KeyMaterial {
     result.append(version)
     result.appendContentsOf(passKey!)
     result.appendContentsOf(crKey!)
-    result.appendContentsOf(reqKey!)
+    result.appendContentsOf(comKey!)
 
     return result
   }
