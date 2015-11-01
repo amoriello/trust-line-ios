@@ -120,7 +120,53 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     return account
   }
   
-
+  func phoneticDescription(password: String) -> String {
+    let phoneticAlphabet : [Character : String] = [
+      "a" : "alfa",
+      "b" : "bravo",
+      "c" : "charlie",
+      "d" : "delta",
+      "e" : "echo",
+      "f" : "foxtrot",
+      "g" : "golf",
+      "h" : "hotel",
+      "i" : "india",
+      "j" : "juliette",
+      "k" : "kilo",
+      "l" : "lima",
+      "m" : "mike",
+      "n" : "november",
+      "o" : "oscar",
+      "p" : "papa",
+      "q" : "quebec",
+      "r" : "romeo",
+      "s" : "sierra",
+      "t" : "tango",
+      "u" : "uniform",
+      "v" : "victor",
+      "w" : "whiskey",
+      "x" : "xray",
+      "y" : "yankee",
+      "z" : "zulu"]
+    
+    var resultString = ""
+    
+    for character in password.characters {
+      let lowerCaseCharacter = String(character).lowercaseString.characters.first!;
+      if let phoneticName = phoneticAlphabet[lowerCaseCharacter] {
+        if character == lowerCaseCharacter {
+          resultString += " " + phoneticName
+        } else {
+          resultString += " " + phoneticName.uppercaseString
+        }
+      } else {
+        // Character is a numeric or special one
+        resultString += " " + String(character)
+      }
+    }
+    return resultString
+  }
+  
   
   // MARK: - Shortcuts Events Management
   func onKeyboardTriggered(account: Account) {
@@ -177,8 +223,9 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
       if let err = error {
         showError(error: err)
       } else {
-        let passwordFont = UIFont(name: "Courier", size: 15)
-        showMessage(clearPassword, font: passwordFont)
+        let passwordFont = UIFont(name: "Courier New", size: 15)
+        let phoneticDesciprion = self.phoneticDescription(clearPassword)
+        showMessage(clearPassword, subtitle: phoneticDesciprion, font: passwordFont)
       }
     }
   }
