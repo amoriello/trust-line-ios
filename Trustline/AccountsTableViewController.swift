@@ -15,7 +15,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   // Set by PairingViewController
   var bleManager :BleManager2!
   var token :Token2!
-  var settings :TrustLineSettings!
+  var profile: CDProfile!
 
   var navigationLocked = true;
   
@@ -80,7 +80,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
           }
         case "addAccount":
           let addAccountVC = segue.destinationViewController as! AddAccountViewController
-          addAccountVC.settings = settings
+          addAccountVC.settings = profile.settings
           addAccountVC.token = token
           addAccountVC.delegate = self
         

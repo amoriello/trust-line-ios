@@ -9,14 +9,15 @@
 import CoreData
 import CoreBluetooth
 
+@objc(CDPairedToken)
 class CDPairedToken: NSManagedObject {
   @NSManaged private var tokenIdentifier: String
   
   @NSManaged var creation: NSDate
   
-  var identifier: CBUUID {
+  var identifier: NSUUID {
     get {
-      return CBUUID(string: self.tokenIdentifier)
+      return NSUUID(UUIDString: self.tokenIdentifier)!
     }
     
     set {

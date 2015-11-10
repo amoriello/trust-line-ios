@@ -23,8 +23,8 @@ class BleManagement {
   }
   
 
-  class func connectToPairedToken(bleManager :BleManager2, pairedDevice :PairedDevice, handler :Handler) {
-    doConnectToPairedToken(bleManager, pairedDevice: pairedDevice, handler: handler)
+  class func connectToPairedToken(bleManager :BleManager2, pairedTokens : [CDPairedToken], handler :Handler) {
+    doConnectToPairedToken(bleManager, pairedTokens: pairedTokens, handler: handler)
   }
   
   
@@ -101,11 +101,11 @@ class BleManagement {
   
   
   // MARK: - Implementation details for connecting with existing token
-  private class func doConnectToPairedToken(bleManager :BleManager2, pairedDevice :PairedDevice, handler: Handler) {
+  private class func doConnectToPairedToken(bleManager :BleManager2, pairedTokens :[CDPairedToken], handler: Handler) {
     showMessage("Searching token", hideOnTap: false, showAnnimation: true)
     
-    
-    bleManager.discoverTokens(pairedDevice) { (tokens, error) -> (Void) in
+    //Todo : make it discover multiple
+    bleManager.discoverTokens(pairedTokens) { (tokens, error) -> (Void) in
       if error != nil {
         async { handler(token: nil, error: error) }
         return

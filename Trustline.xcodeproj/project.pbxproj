@@ -27,6 +27,7 @@
 		C95425601BDD4FC7000638D8 /* PairedToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954255F1BDD4FC7000638D8 /* PairedToken.swift */; };
 		C95425621BDD50CF000638D8 /* UsageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95425611BDD50CF000638D8 /* UsageInfo.swift */; };
 		C960BAAE1BD6C9310096123F /* BleManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C960BAAD1BD6C9310096123F /* BleManagement.swift */; };
+		C96C5C041BF1449A00EBA377 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96C5C031BF1449A00EBA377 /* CoreData.swift */; };
 		C9ACF8D51BC11DA80040D21A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */; };
 		C9ACF8DA1BC11DA80040D21A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9ACF8D81BC11DA80040D21A /* Main.storyboard */; };
 		C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */; };
@@ -85,6 +86,7 @@
 		C954255F1BDD4FC7000638D8 /* PairedToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PairedToken.swift; sourceTree = "<group>"; };
 		C95425611BDD50CF000638D8 /* UsageInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageInfo.swift; sourceTree = "<group>"; };
 		C960BAAD1BD6C9310096123F /* BleManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BleManagement.swift; sourceTree = "<group>"; };
+		C96C5C031BF1449A00EBA377 /* CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		C9ACF8D11BC11DA80040D21A /* Trustline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trustline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9ACF8D91BC11DA80040D21A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				C93BC3951BCAD3300094DF1A /* MessageHelpers.swift */,
 				C960BAAD1BD6C9310096123F /* BleManagement.swift */,
+				C96C5C031BF1449A00EBA377 /* CoreData.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -471,6 +474,7 @@
 				C960BAAE1BD6C9310096123F /* BleManagement.swift in Sources */,
 				C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */,
 				C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */,
+				C96C5C041BF1449A00EBA377 /* CoreData.swift in Sources */,
 				C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */,
 				C954255A1BDD4F71000638D8 /* SecurityQA.swift in Sources */,
 				C91C71831BC3067300579B15 /* AccountTest.swift in Sources */,

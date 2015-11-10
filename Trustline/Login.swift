@@ -11,5 +11,5 @@ import CoreData
 
 class CDLogin: NSManagedObject {
   @NSManaged var enc_string: NSData
-  @NSManaged var accounts: [CDAccount]
+  @NSManaged var accounts: Set<CDAccount>?
 }

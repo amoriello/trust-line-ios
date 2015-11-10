@@ -26,22 +26,22 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
 
   var managerStateErrorHandler :ManagerStateErrorHandler
   var discoverHandler :DiscoverHandler?
-  var keyMaterial :KeyMaterial?
-  var pairedDevice :PairedDevice?
+  var keyMaterial :CDKeyMaterial
+  var pairedTokens : [CDPairedToken]?
   var discoveredPaired = false
   
   var tokenServiceCBUUID = g_tokenServiceCBUUID
   
-  init(managerStateErrorHandler: ManagerStateErrorHandler, keyMaterial :KeyMaterial?) {
+  init(managerStateErrorHandler: ManagerStateErrorHandler, keyMaterial :CDKeyMaterial) {
     self.managerStateErrorHandler = managerStateErrorHandler
     self.keyMaterial = keyMaterial
   }
   
 
-  func discoverTokens(pairedDevice :PairedDevice? = nil, completion: DiscoverHandler) {
+  func discoverTokens(pairedTokens :[CDPairedToken]? = nil, completion: DiscoverHandler) {
     print("initializing central manager");
     discoverHandler = completion
-    self.pairedDevice = pairedDevice
+    self.pairedTokens = pairedTokens
     
     if centralManager == nil {
       print("Creating central manager")
@@ -94,13 +94,15 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
   func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
     print("Discovered \(peripheral.name), RSSI: \(RSSI) UUID: \(peripheral.identifier.UUIDString)")
 
-    if pairedDevice != nil {
-      if peripheral.identifier == pairedDevice?.identifier {
-        let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, identifier: peripheral.identifier, connectionStateHandler: managerStateErrorHandler)
-        discoveredPaired = true;
-        discoverHandler!([token], nil)
-        centralManager.stopScan()
-        return
+    if pairedTokens != nil {
+      for pairedToken in pairedTokens! {
+        if peripheral.identifier == pairedToken.identifier {
+          let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, identifier: peripheral.identifier, connectionStateHandler: managerStateErrorHandler)
+          discoveredPaired = true;
+          discoverHandler!([token], nil)
+          centralManager.stopScan()
+          return
+        }
       }
     }
     

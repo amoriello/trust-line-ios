@@ -12,8 +12,8 @@ class QrCodeGeneratorViewController: UIViewController {
   
   @IBOutlet weak var codeImageView: UIImageView!
   
-  var settings: TrustLineSettings!
-  var keyMaterial: KeyMaterial!
+  var profile: CDProfile!
+  var keyMaterial: CDKeyMaterial!
   var token: Token2!
 
   override func viewDidLoad() {
@@ -28,7 +28,7 @@ class QrCodeGeneratorViewController: UIViewController {
       // Dispose of any resources that can be recreated.
   }
 
-  func generateQrCode(keyMaterial: KeyMaterial) -> UIImage {
+  func generateQrCode(keyMaterial: CDKeyMaterial) -> UIImage {
     // generate qrcode image
     let qrFilter = CIFilter(name: "CIQRCodeGenerator")!
     qrFilter.setDefaults()
@@ -54,7 +54,7 @@ class QrCodeGeneratorViewController: UIViewController {
         let navigationVC = segue.destinationViewController as! UINavigationController
         let accountsNavigationVC = navigationVC.childViewControllers[0] as! AccountsTableViewController
         accountsNavigationVC.token = token
-        accountsNavigationVC.settings = settings
+        accountsNavigationVC.profile = profile
 
       default: break;
       }

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+@objc(CDAccount)
 class CDAccount: NSManagedObject {
   @NSManaged var creation: NSDate
 
@@ -19,6 +20,6 @@ class CDAccount: NSManagedObject {
   @NSManaged var title: String?
   
   @NSManaged var profile: CDProfile
-  @NSManaged var securityQAs: [CDSecurityQA]
-  @NSManaged var usages: [CDUsageInfo]
+  @NSManaged var securityQAs: Set<CDSecurityQA>?
+  @NSManaged var usages: Set<CDUsageInfo>
 }
