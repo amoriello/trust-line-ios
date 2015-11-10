@@ -8,8 +8,9 @@
 
 import CoreData
 
+@objc(CDStrength)
 class CDStrength: NSManagedObject {
   @NSManaged var nbChars: Int16
   @NSManaged var pickerDescription: String
-  @NSManaged var settings: [CDSettings]
+  @NSManaged var settings: Set<CDSettings>
 }

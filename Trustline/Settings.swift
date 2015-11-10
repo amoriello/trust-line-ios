@@ -8,17 +8,20 @@
 
 import CoreData
 
+@objc(CDSettings)
 class CDSettings: NSManagedObject {
   @NSManaged private var keyboardLayout: Int16
   
   enum KeyboardLayoutOptions: Int16 {
-    case EnglishUS
+    case EnglishUS = 0
   }
   
   @NSManaged var useiCloud: Bool
   
   @NSManaged var profile: CDProfile
-  @NSManaged var strengths: [CDStrength]
+//  @NSManaged var strengths: NSSet
+  @NSManaged var strengths: Set<CDStrength>
+
   
   var layoutOption: KeyboardLayoutOptions {
     get {

@@ -8,13 +8,15 @@
 
 import CoreData
 
+@objc(CDProfile)
 class CDProfile: NSManagedObject {
-  @NSManaged var creation: NSDate
   @NSManaged var name: String
+  @NSManaged var creation: NSDate
   
-  
-  @NSManaged var accounts: [CDAccount]
+  @NSManaged var accounts: Set<CDAccount>
   @NSManaged var keyMaterial: CDKeyMaterial
-  @NSManaged var pairedTokens: [CDPairedToken]
+
+  @NSManaged var pairedTokens: Set<CDPairedToken>
   @NSManaged var settings: CDSettings
 }
+
