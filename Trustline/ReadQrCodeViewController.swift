@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol ReadKeyMaterialDelegate {
-  func onSyncToken(controller: ReadQrCodeViewController, token: Token2?, readKeyMaterial: KeyMaterial?)
+  func onSyncToken(controller: ReadQrCodeViewController, token: Token2?)
 }
 
 
@@ -23,8 +23,8 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
   
   var bleManager :BleManager2!
   // This one is meant to be found and set in this viewController
-  var token :Token2?
-  var readKeyMaterial :KeyMaterial?
+  var token :Token2!
+  var keyMaterial :CDKeyMaterial!
   
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var infoLabel: UILabel!
@@ -40,7 +40,7 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
     
     BleManagement.findAndConnectToken(bleManager) { (token, error) -> (Void) in
       if let err = error {  // Cannot find any token
-        showError(error: err) { self.delegate.onSyncToken(self, token: nil, readKeyMaterial: nil) }
+        showError(error: err) { self.delegate.onSyncToken(self, token: nil) }
       } else {
         self.token = token
         showMessage("Scan QrCode") { self.startCapture() }
@@ -62,7 +62,7 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
       initializeCaptureDevice(input)
     } else {
       let err = createError("Camera error", description: "Cannot initialize camera")
-      showError(error: err) {self.delegate.onSyncToken(self, token: nil, readKeyMaterial: nil)}
+      showError(error: err) {self.delegate.onSyncToken(self, token: nil)}
     }
   }
   
@@ -115,10 +115,11 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
       qrCodeFrameView?.frame = codeObject.bounds
       
       if let data = metadataObj.stringValue {
-        if let keyMaterial = KeyMaterial(fromBase64: data) {
+        if let _ = keyMaterial!.loadFrom(fromBase64: data) {
+          infoLabel.text = "Not a trustline secret"
+        } else {
           infoLabel.text = "Trustline secret data found"
-          self.readKeyMaterial = keyMaterial
-          syncToken(token!, readKeyMaterial: readKeyMaterial!)
+          syncToken(token, readKeyMaterial: self.keyMaterial)
           captureSession?.stopRunning()
         }
       }
@@ -129,18 +130,15 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
     captureSession?.stopRunning()
   }
   
-  private func syncToken(token: Token2, readKeyMaterial: KeyMaterial) {
+  private func syncToken(token: Token2, readKeyMaterial: CDKeyMaterial) {
     showMessage("Synchronizing...", hideOnTap: false, showAnnimation: true);
     token.resetNewKeys(keyMaterialFromQrCode: readKeyMaterial) { (error) -> (Void) in
       if let err = error {
-        showError(error: err) { self.delegate.onSyncToken(self, token: nil, readKeyMaterial: nil) }
+        showError(error: err) { self.delegate.onSyncToken(self, token: nil) }
       } else {
-        print("|||||||||||||||||||||||||||||||||||| readKeyMaterial")
         token.setKeyMaterial(readKeyMaterial)
-        print("|||||||||||||||||||||||||||||||||||| endReadKeyMaterial")
-        
         token.pair({ (error) -> (Void) in
-          self.delegate.onSyncToken(self, token: token, readKeyMaterial: readKeyMaterial)
+          self.delegate.onSyncToken(self, token: token)
         })
       }
     }

@@ -21,15 +21,18 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
 
   var delegate: AddAccountDelegate?
   
-  var settings :TrustLineSettings!
+  var settings: CDSettings!
   var token: Token2!
+  var strengths: [CDStrength]!
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    strengths = Array(settings.strengths)
+    strengths.sortInPlace { $0.nbChars < $1.nbChars }
+    
     // Do any additional setup after loading the view.
-    picker.selectRow(settings.defaultStrengthIndex, inComponent: 0, animated: false)
+    picker.selectRow(1, inComponent: 0, animated: false)
   }
 
   override func didReceiveMemoryWarning() {
@@ -44,12 +47,12 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
   }
 
   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return settings.strengths.count;
+    return strengths.count
   }
   
   func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    let strength = settings.strengths[row];
-    return strength.picketDescription;
+    let strength = strengths[row]
+    return strength.pickerDescription
   }
   
   
@@ -63,16 +66,16 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
     let accountTitle = accountName.text!;
     let accountLogin = login.text
     let row = picker.selectedRowInComponent(0);
-    let strength = settings.strengths[row]
+    let strength = strengths[row]
 
     if token == nil {
       showMessage("No token connected")
       return
     }
 
-    showMessage("Creating a password...", subtitle: "Working on \(strength.userDescription) one!", hideOnTap: false, showAnnimation: true)
+    showMessage("Creating a password", subtitle: "This could take some time...", hideOnTap: false, showAnnimation: true)
     
-    token.createPassword(strength.nbCharacters) { (data, error) -> (Void) in
+    token.createPassword(UInt8(strength.nbChars)) { (data, error) -> (Void) in
       if let err = error {
         showError("Wowww", error: err)
       } else {

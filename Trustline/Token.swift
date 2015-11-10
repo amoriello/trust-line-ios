@@ -9,6 +9,7 @@
 import Foundation
 import CoreBluetooth
 import CryptoSwift
+import CoreData
 
 
 private let kHexChars = Array("0123456789abcdef".utf8) as [UInt8];
@@ -47,10 +48,13 @@ class Token2 {
   // MARK - Variable on init
   var centralManager :CBCentralManager
   var tokenPeriperal :CBPeripheral
-  var tokenPeriperalProtocolImpl :TokenPeripheralProtocolImpl
+  var tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
   var identifier :NSUUID
   var tokenCommander :TokenCommander!
-  private var keyMaterial :KeyMaterial?
+  var keyMaterial : CDKeyMaterial!
+  
+  let managedObjectCtx = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+  
   
   // MARK - member varibales
   var isConnected = false
@@ -59,25 +63,30 @@ class Token2 {
   
   
   
-  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :KeyMaterial?, identifier: NSUUID, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
+  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :CDKeyMaterial, identifier: NSUUID, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
-    self.tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
     self.connectionStateHandler = connectionStateHandler
     self.identifier = identifier
+    self.keyMaterial = keyMaterial
     
-    if let material = keyMaterial {
-      self.keyMaterial = material
-      self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial!, protocolImpl: tokenPeriperalProtocolImpl)
-    }
+    self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial, protocolImpl: tokenPeriperalProtocolImpl)
   }
   
-  func setKeyMaterial(keyMaterial: KeyMaterial) {
+  
+  func createKeyMaterial() -> CDKeyMaterial {
+    let kmEntity = NSEntityDescription.entityForName("CDKeyMaterial", inManagedObjectContext: managedObjectCtx)!
+    let keyMaterial = NSManagedObject(entity: kmEntity, insertIntoManagedObjectContext: managedObjectCtx) as! CDKeyMaterial
+    
+    return keyMaterial
+  }
+  
+  func setKeyMaterial(keyMaterial: CDKeyMaterial) {
     self.keyMaterial = keyMaterial
+    // reset commander with new material
     self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial!, protocolImpl: tokenPeriperalProtocolImpl)
   }
-  
   
   func connect(hanlder: CompletionHandler) {
     self.tokenPeriperalProtocolImpl.connectionHandler = self.connectHandlerHook
@@ -97,7 +106,7 @@ class Token2 {
     tokenCommander.keystrokesPassword(password, additionalKeys: additionalKeys, handler: handler)
   }
   
-  func resetNewKeys(keyMaterialFromQrCode keyMaterial: KeyMaterial, handler: CompletionHandler) {
+  func resetNewKeys(keyMaterialFromQrCode keyMaterial: CDKeyMaterial, handler: CompletionHandler) {
     tokenCommander.resetNewKeys(keyMaterial, handler: handler)
   }
   
@@ -135,10 +144,10 @@ class TokenCommander {
   
   
   var passKey = [UInt8]()
-  var keyMaterial :KeyMaterial
+  var keyMaterial :CDKeyMaterial
   var protocolImpl :TokenPeripheralProtocolImpl
   
-  init(keyMaterial :KeyMaterial, protocolImpl :TokenPeripheralProtocolImpl) {
+  init(keyMaterial :CDKeyMaterial, protocolImpl :TokenPeripheralProtocolImpl) {
     self.keyMaterial = keyMaterial;
     self.protocolImpl = protocolImpl;
   }
@@ -156,9 +165,15 @@ class TokenCommander {
       
       if response.isValid() {  // Token is Paired
         let keySize = self.keyMaterial.keySize;
-        self.keyMaterial.passKey = Array(response.bytes[2...1 + keySize])
-        self.keyMaterial.crKey   = Array(response.bytes[2 + keySize...1 + (2 * keySize)])
-        self.keyMaterial.comKey  = Array(response.bytes[2 + (2 * keySize)...1 + (3 * keySize)])
+        
+        let passKey = Array(response.bytes[2...1 + keySize])
+        let crKey   = Array(response.bytes[2 + keySize...1 + (2 * keySize)])
+        let comKey  = Array(response.bytes[2 + (2 * keySize)...1 + (3 * keySize)])
+        
+        self.keyMaterial.creation = NSDate()
+        self.keyMaterial.passKey = NSData(bytes: passKey, length: passKey.count)
+        self.keyMaterial.crKey = NSData(bytes: crKey, length: crKey.count)
+        self.keyMaterial.comKey = NSData(bytes: comKey, length: comKey.count)
         
         print("Pass Key: \(self.keyMaterial.passKey)");
         print("Cr   Key: \(self.keyMaterial.crKey)");
@@ -233,7 +248,7 @@ class TokenCommander {
       let cipheredPassword = Array(response.argData()![16...argDataSize - 1])
       
       do {
-        let clearData :[UInt8] = try AES(key: self.keyMaterial.comKey!, iv: iv)!.decrypt(cipheredPassword)
+        let clearData :[UInt8] = try AES(key: self.keyMaterial.comKey.arrayOfBytes(), iv: iv)!.decrypt(cipheredPassword)
         let clearPassword = String(bytes: clearData, encoding: NSUTF8StringEncoding)!
         handler(clearPassword: clearPassword, error: nil)
         return
@@ -245,7 +260,7 @@ class TokenCommander {
   }
   
   
-  func resetNewKeys(keyMaterial: KeyMaterial, handler: CompletionHandler) {
+  func resetNewKeys(keyMaterial: CDKeyMaterial, handler: CompletionHandler) {
     let cmd = Command(cmdId: .ResetKeys, arg: keyMaterial.data())!
     
     send(cmd) { (response, error) in
@@ -289,7 +304,7 @@ class TokenCommander {
         return;
       }
       
-      cmd.setSecurityToken(nonce, key: self.keyMaterial.crKey!);
+      cmd.setSecurityToken(nonce, key: self.keyMaterial.crKey.arrayOfBytes());
       
       self.doSend(cmd, handler: handler);
     }
@@ -343,7 +358,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
   override init() {
     rCtx = ReadCtx();
     wCtx = WriteCtx();
-    dispatchQueue = dispatch_queue_create("MY Queue", nil);
+    dispatchQueue = dispatch_queue_create("BleQueue", nil);
     
     super.init();
   }
@@ -416,7 +431,7 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
     
     dispatch_async(dispatchQueue, { [weak self] in
       self!.doWriteData(data);
-      });
+    });
   }
   
   
@@ -429,10 +444,6 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       async { self.handler!(Response(), error: err); }
       return;
     }
-    
-    // print("Successful Read:");
-    // print(data.hexString());
-    // Successful read
     
     if data.length == 1 && wCtx.isWaitingAck { // Wait for ack
       wCtx.isAck = true;
@@ -502,8 +513,6 @@ class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
       let rangeToSend = NSRange(location: session_bytes_sent, length: bytes_to_write)
       let bytesToSend = data.subdataWithRange(rangeToSend)
       
-      // print("sending \(bytesToSend.hexString())")
-
       writeDataToBle(bytesToSend);
       
       size -= bytes_to_write;
