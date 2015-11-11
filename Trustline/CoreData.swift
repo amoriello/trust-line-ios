@@ -90,7 +90,6 @@ func loadCDObjects<T:NamedCDComponent>(managedContext: NSManagedObjectContext) -
 
 
 class Default {
-  
   class func Profile(managedCtx: NSManagedObjectContext) -> CDProfile {
     let profile : CDProfile = createCDObject(managedCtx)
     let emptyKeyMaterial : CDKeyMaterial = createCDObject(managedCtx)
@@ -141,36 +140,46 @@ class Default {
 }
 
 
-func loadAccounts(managedContext: NSManagedObjectContext) -> [String: [CDAccount]]? {
-  var accountDict : [String : [CDAccount]]! = nil
-  
-  //------- Lambda
-  let addToDictionary = { (account: CDAccount) in
-    let keyCharacter = String(account.title![account.title!.startIndex]).uppercaseString
-    if let _ = accountDict[keyCharacter] {
-      accountDict[keyCharacter]?.append(account);
-    } else {
-      accountDict[keyCharacter] = [account];
-    }
-  }
-  
-  //------- Lambda
-  let isEncrypted = { (account: CDAccount) in
-    return account.title == nil
-  }
-  
-  var encryptedAccounts = [CDAccount]()
-  
-  if let accounts: [CDAccount] = loadCDObjects(managedContext) {
-    for account in accounts {
-      if isEncrypted(account) {
-        encryptedAccounts.append(account)
+class AccountHelper {
+  class func loadAccounts(token: Token2, managedContext: NSManagedObjectContext) -> [String: [CDAccount]]? {
+    var accountDict : [String : [CDAccount]]! = nil
+    
+    //------- Lambda
+    let addToDictionary = { (account: CDAccount) in
+      let keyCharacter = String(account.title![account.title!.startIndex]).uppercaseString
+      if let _ = accountDict[keyCharacter] {
+        accountDict[keyCharacter]?.append(account);
       } else {
-        addToDictionary(account)
+        accountDict[keyCharacter] = [account];
       }
     }
+    
+    //------- Lambda
+    let isEncrypted = { (account: CDAccount) in
+      return account.title == nil
+    }
+    
+    var encryptedAccounts = [CDAccount]()
+    
+    if let accounts: [CDAccount] = loadCDObjects(managedContext) {
+      for account in accounts {
+        if isEncrypted(account) {
+          encryptedAccounts.append(account)
+        } else {
+          addToDictionary(account)
+        }
+      }
+    }
+    
+    return accountDict
   }
-  return accountDict
+  
+  
+  private class func decryptAccounts(encryptedAccounts: [CDAccount], token: Token2) -> [CDAccount]? {
+    return nil
+  }
 }
+
+
 
 
