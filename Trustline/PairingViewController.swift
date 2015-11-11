@@ -72,6 +72,30 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   @IBAction func onPairNewPushed(sender: AnyObject) {
     showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
     
+    if profile.pairedTokens.count > 0 {
+      connectWithExistingToken()
+    } else {
+      pairWithNewToken()
+    }
+  }
+
+  
+  func connectWithExistingToken() {
+    showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
+    
+    BleManagement.connectToPairedToken(bleManager, pairedTokens: profile.pairedTokens) { (token, error) in
+      if let err = error {
+        showError(error: err)
+      } else {
+        hideMessage()
+        self.token = token!
+        self.performSegueWithIdentifier("showNavigationSegue", sender: self)
+      }
+    }
+  }
+  
+  
+  func pairWithNewToken() {
     BleManagement.pairWithNewToken(bleManager) { (token, error) in
       if let err = error {
         showError(error: err)
@@ -92,7 +116,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
       }
     }
   }
-
+  
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
