@@ -46,17 +46,14 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
 
     if profile.pairedTokens.count != 0 {
       showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
-      let keyMaterial = profile.keyMaterial;
-      let crKey = keyMaterial.crKey;
       
-      print("crKey: \(crKey.hexString())")
-      
-      BleManagement.connectToPairedToken(bleManager, pairedTokens: [CDPairedToken]()) { (token, error) in
+      BleManagement.connectToPairedToken(bleManager, pairedTokens: profile.pairedTokens) { (token, error) in
         if let err = error {
           showError(error: err)
         } else {
+          hideMessage()
           self.token = token!
-          showMessage("Connected!") { self.performSegueWithIdentifier("showNavigationSegue", sender: self) }
+          self.performSegueWithIdentifier("showNavigationSegue", sender: self)
         }
       }
     }
@@ -83,7 +80,6 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
         let pairedToken = self.createPairedToken(fromToken: self.token)
         self.profile.keyMaterial = self.token.keyMaterial!
         self.profile.pairedTokens = [pairedToken]
-        
         
         // Saving profile, settings, associated token and  keys
         if let result = try? self.managedObjectCtx.save() {

@@ -23,20 +23,19 @@ class BleManagement {
   }
   
 
-  class func connectToPairedToken(bleManager :BleManager2, pairedTokens : [CDPairedToken], handler :Handler) {
-    doConnectToPairedToken(bleManager, pairedTokens: pairedTokens, handler: handler)
+  class func connectToPairedToken(bleManager :BleManager2, pairedTokens : Set<CDPairedToken>, handler :Handler) {
+    findIsolatedToken(bleManager, pairedTokens: pairedTokens, onFoundToken: connect, handler: handler)
   }
-  
   
   
   
   // MARK: - Implementation details for pairing with new token
   private typealias FoundIsolatedTokenHandler = (token: Token2, handler: Handler) -> (Void)
   
-  private class func findIsolatedToken(bleManager :BleManager2, onFoundToken: FoundIsolatedTokenHandler, handler: Handler) {
+  private class func findIsolatedToken(bleManager :BleManager2, pairedTokens :Set<CDPairedToken>? = nil, onFoundToken: FoundIsolatedTokenHandler, handler: Handler) {
     showMessage("Searching Token", hideOnTap: false, showAnnimation: true)
     
-    bleManager.discoverTokens { (tokens, error) in
+    bleManager.discoverTokens(pairedTokens) { (tokens, error) in
       if error != nil {
         async { handler(token: nil, error: error) }
         return
@@ -60,7 +59,7 @@ class BleManagement {
   }
   
   
-
+  // Connect to a token
   private class func connect(token: Token2, handler: Handler) {
     showMessage("Connecting...", hideOnTap: false, showAnnimation: true)
 
@@ -75,6 +74,7 @@ class BleManagement {
     }
   }
   
+  
   // Connect and pair to a token
   private class func connectAndPair(token: Token2, handler: Handler) {
     showMessage("Connecting...", hideOnTap: false, showAnnimation: true)
@@ -88,39 +88,13 @@ class BleManagement {
       showMessage("Connected!", hideOnTap: false, showAnnimation: true)
       showMessage("Pairing...", hideOnTap: false, showAnnimation: true)
       
-      pairWithConnectedToken(token, handler: handler)
-    }
-  }
-  
-  // Pair with a connected token
-  private class func pairWithConnectedToken(token: Token2, handler: Handler) {
-    token.pair { (error) in
-      async { handler(token: token, error: error) }
-    }
-  }
-  
-  
-  // MARK: - Implementation details for connecting with existing token
-  private class func doConnectToPairedToken(bleManager :BleManager2, pairedTokens :[CDPairedToken], handler: Handler) {
-    showMessage("Searching token", hideOnTap: false, showAnnimation: true)
-    
-    //Todo : make it discover multiple
-    bleManager.discoverTokens(pairedTokens) { (tokens, error) -> (Void) in
-      if error != nil {
-        async { handler(token: nil, error: error) }
-        return
+      token.pair { error in
+        async { handler(token: token, error: error) }
       }
-      
-      if tokens.count == 0 {
-        async { handler(token: nil, error: createError("No token found", description: "Try to be closer to your token", code: 1)) }
-        return
-      }
-      
-      async { handler(token: tokens[0], error: nil) }
     }
   }
-  
 
+  
   private class func async(handler: () -> (Void)) {
     dispatch_async(dispatch_get_main_queue(), handler)
   }

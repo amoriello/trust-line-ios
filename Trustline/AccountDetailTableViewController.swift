@@ -9,7 +9,7 @@
 import UIKit
 
 class AccountDetailTableViewController: UITableViewController {
-  var account: Account!
+  var account: CDAccount!
   
   // MARK - IBOutlets
   @IBOutlet weak var accountTitle: UILabel!
@@ -19,13 +19,8 @@ class AccountDetailTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     self.accountTitle.text = account.title;
-    self.accountLogin.text = account.login;
+    self.accountLogin.text = "replace_this@gmail.com";
   }
 
   override func didReceiveMemoryWarning() {

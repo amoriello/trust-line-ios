@@ -10,7 +10,7 @@ import UIKit
 import DRCellSlideGestureRecognizer
 
 class AccountTableViewCell: UITableViewCell {
-  typealias CellActionTriggeredHandler = (Account) -> (Void)
+  typealias CellActionTriggeredHandler = (CDAccount) -> (Void)
   
   @IBOutlet weak var accountName: UILabel!
   @IBOutlet weak var login: UILabel!
@@ -22,7 +22,7 @@ class AccountTableViewCell: UITableViewCell {
   var showPasswordTriggeredHandler: CellActionTriggeredHandler?
   var clipboardTriggeredHandler: CellActionTriggeredHandler?
   
-  var account: Account! {
+  var account: CDAccount! {
     didSet {
       updateAccountViewCell()
     }
@@ -49,16 +49,21 @@ class AccountTableViewCell: UITableViewCell {
   private func updateAccountViewCell() {
     accountName.text = account.title
     
-    if let loginText = account.login {
-      login.text = loginText
+    if let _ = account.login {
+      login.text = "replace_this@gmail.com"
     } else {
       login.text = ""
     }
     
-    if let lastUseInfo = account.usageInfos.last {
+    let usages = Array(account.usages).sort {
+      $0.date.timeIntervalSinceReferenceDate < $1.date.timeIntervalSinceReferenceDate
+    }
+    
+    
+    if usages.count > 0 {
       let dateFormater = NSDateFormatter()
       dateFormater.dateFormat = "MMM, d 'at' HH:mm"
-      lastUse.text = dateFormater.stringFromDate(lastUseInfo.date)
+      lastUse.text = dateFormater.stringFromDate(usages.last!.date)
     } else {
       lastUse.text = "Nerver used"
     }

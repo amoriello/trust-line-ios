@@ -10,12 +10,15 @@ import UIKit
 import SwiftSpinner
 
 class AccountsTableViewController: UITableViewController, AddAccountDelegate {
-  var accountInfos = AccountInfos()
+  //var accountInfos = AccountInfos()
+  let managedObjectCtx = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+  
   
   // Set by PairingViewController
   var bleManager :BleManager2!
   var token :Token2!
   var profile: CDProfile!
+  var accountMgr: AccountManager!
 
   var navigationLocked = true;
   
@@ -23,13 +26,13 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     unlockCapabilities()
-    
-    accountSectionTitles = Array(accountInfos.accountDict.keys);
-    accountSectionTitles.sortInPlace();
   }
   
+  override func viewWillAppear(animated: Bool) {
+    accountMgr = AccountManager(profile: profile, managedCtx: managedObjectCtx)
+    accountSectionTitles = Array(accountMgr.accounts.keys).sort()
+  }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -38,7 +41,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
 
   // MARK: - Table view data source
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return accountInfos.accountDict.count
+    return accountMgr.accounts.count
   }
 
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -47,7 +50,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     let sectionTitle = accountSectionTitles[section];
-    return accountInfos.accountDict[sectionTitle]!.count;
+    return accountMgr.accounts[sectionTitle]!.count;
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -80,7 +83,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
           }
         case "addAccount":
           let addAccountVC = segue.destinationViewController as! AddAccountViewController
-          addAccountVC.settings = profile.settings
+          addAccountVC.accountMgr = accountMgr
           addAccountVC.token = token
           addAccountVC.delegate = self
         
@@ -102,9 +105,17 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   
   // MARK: - AddAccountDelegate
-  func accoundAdded(controller: AddAccountViewController, newAccount: Account) {
-    accountInfos.add(newAccount)
-    accountSectionTitles = Array(accountInfos.accountDict.keys);
+  func accoundAdded(controller: AddAccountViewController, newAccount: CDAccount) {
+    
+    accountMgr.add(newAccount)
+    do {
+     try managedObjectCtx.save()
+    } catch {
+      showError(error: error as NSError)
+      print("Cannot save new account: \(error)")
+    }
+    
+    accountSectionTitles = Array(accountMgr.accounts.keys);
     accountSectionTitles.sortInPlace();
     tableView.reloadData()
     controller.navigationController?.popViewControllerAnimated(true)
@@ -113,9 +124,9 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   
   // MARK: - Helper Methods
-  func accountAtIndexPath(indexPath: NSIndexPath) -> Account {
+  func accountAtIndexPath(indexPath: NSIndexPath) -> CDAccount {
     let sectionTitle = accountSectionTitles[indexPath.section]
-    let accounts = accountInfos.accountDict[sectionTitle]!
+    let accounts = accountMgr.accounts[sectionTitle]!
     let account = accounts[indexPath.row]
     return account
   }
@@ -169,7 +180,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   
   // MARK: - Shortcuts Events Management
-  func onKeyboardTriggered(account: Account) {
+  func onKeyboardTriggered(account: CDAccount) {
     if token == nil {
       showMessage("Cannot handle action", subtitle: "Token is not connected")
       return
@@ -177,11 +188,11 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
 
     
     showMessage("Sending Keystrokes...", hideOnTap: false, showAnnimation: true)
-    token.writePassword(account.password) { (error) in
+    token.writePassword(account.enc_password.arrayOfBytes()) { (error) in
       if let err = error {
         showError("Woww...", error: err)
       } else {
-        account.updateUsageInfo(.Keyboard)
+        self.accountMgr.updateUsageInfo(account, type: .Keyboard)
         self.tableView.reloadData()
         hideMessage()
       }
@@ -189,7 +200,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   }
 
   
-  func onKeyboardEnterTriggered(account: Account) {
+  func onKeyboardEnterTriggered(account: CDAccount) {
     if token == nil {
       showMessage("Cannot handle action", subtitle: "Token is not connected")
       return
@@ -199,11 +210,11 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     additionalKeys.append(0xB0);
     
     showMessage("Sending Keystrokes...", hideOnTap: false, showAnnimation: true)
-    token.writePassword(account.password, additionalKeys: additionalKeys) { (error) in
+    token.writePassword(account.enc_password.arrayOfBytes(), additionalKeys: additionalKeys) { (error) in
       if let err = error {
         showError("Woww...", error: err)
       } else {
-        account.updateUsageInfo(.Keyboard)
+        self.accountMgr.updateUsageInfo(account, type: .Keyboard)
         self.tableView.reloadData()
         hideMessage()
       }
@@ -211,7 +222,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   }
   
 
-  func onShowPasswordTriggered(account: Account) {
+  func onShowPasswordTriggered(account: CDAccount) {
     if token == nil {
       showMessage("Cannot handle action", subtitle: "Token is not connected")
       return
@@ -219,19 +230,20 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     
     showMessage("Retrieving password...", hideOnTap: false, showAnnimation: true)
     
-    token.retrievePassword(account.password) { (clearPassword, error) in
+    token.retrievePassword(account.enc_password.arrayOfBytes()) { (clearPassword, error) in
       if let err = error {
         showError(error: err)
       } else {
         let passwordFont = UIFont(name: "Menlo-Regular", size: 18)
         let phoneticDesciprion = self.phoneticDescription(clearPassword)
         showMessage(clearPassword, subtitle: phoneticDesciprion, font: passwordFont)
+        self.accountMgr.updateUsageInfo(account, type: .Display)
       }
     }
   }
   
 
-  func onClipboardTriggered(account: Account) {
+  func onClipboardTriggered(account: CDAccount) {
     if token == nil {
       showMessage("Cannot handle action", subtitle: "Token is not connected")
       return
@@ -239,11 +251,12 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     
     showMessage("Retrieving password...", hideOnTap: false, showAnnimation: true)
     
-    token.retrievePassword(account.password) { (clearPassword, error) in
+    token.retrievePassword(account.enc_password.arrayOfBytes()) { (clearPassword, error) in
       if let err = error {
         showError(error: err)
       } else {
         UIPasteboard.generalPasteboard().string = clearPassword;
+        self.accountMgr.updateUsageInfo(account, type: .Clipboard)
         showMessage("Password copied to clipboard")
       }
     }

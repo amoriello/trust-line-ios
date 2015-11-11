@@ -16,7 +16,8 @@
         <relationship name="profile" maxCount="1" deletionRule="Nullify" destinationEntity="CDProfile" inverseName="keyMaterial" inverseEntity="CDProfile" syncable="YES"/>
     </entity>
     <entity name="CDLogin" representedClassName="CDLogin" syncable="YES">
-        <attribute name="enc_string" attributeType="Binary" syncable="YES"/>
+        <attribute name="enc_string" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="string" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="accounts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDAccount" inverseName="login" inverseEntity="CDAccount" syncable="YES"/>
     </entity>
     <entity name="CDPairedToken" representedClassName="CDPairedToken" syncable="YES">
@@ -56,7 +57,7 @@
     <elements>
         <element name="CDAccount" positionX="-81" positionY="-951" width="128" height="150"/>
         <element name="CDKeyMaterial" positionX="-38" positionY="-639" width="128" height="105"/>
-        <element name="CDLogin" positionX="-56" positionY="-747" width="128" height="75"/>
+        <element name="CDLogin" positionX="-56" positionY="-747" width="128" height="90"/>
         <element name="CDPairedToken" positionX="133" positionY="-610" width="128" height="90"/>
         <element name="CDProfile" positionX="126" positionY="-828" width="128" height="135"/>
         <element name="CDSecurityQA" positionX="-297" positionY="-837" width="128" height="90"/>

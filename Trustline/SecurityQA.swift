@@ -8,6 +8,7 @@
 
 import CoreData
 
+@objc(CDSecurityQA)
 class CDSecurityQA: NSManagedObject {
   @NSManaged var question: String
   @NSManaged var answer: NSData

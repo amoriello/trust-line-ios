@@ -27,18 +27,18 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
   var managerStateErrorHandler :ManagerStateErrorHandler
   var discoverHandler :DiscoverHandler?
   var keyMaterial :CDKeyMaterial
-  var pairedTokens : [CDPairedToken]?
+  var pairedTokens : Set<CDPairedToken>?
   var discoveredPaired = false
   
   var tokenServiceCBUUID = g_tokenServiceCBUUID
   
-  init(managerStateErrorHandler: ManagerStateErrorHandler, keyMaterial :CDKeyMaterial) {
+  init(managerStateErrorHandler: ManagerStateErrorHandler, keyMaterial: CDKeyMaterial) {
     self.managerStateErrorHandler = managerStateErrorHandler
     self.keyMaterial = keyMaterial
   }
   
 
-  func discoverTokens(pairedTokens :[CDPairedToken]? = nil, completion: DiscoverHandler) {
+  func discoverTokens(pairedTokens :Set<CDPairedToken>? = nil, completion: DiscoverHandler) {
     print("initializing central manager");
     discoverHandler = completion
     self.pairedTokens = pairedTokens
@@ -113,12 +113,10 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
   
   
   func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-    print("Here")
     managerStateErrorHandler(error);
   }
 
   func scanTimeout(timer: NSTimer) {
-    print("Yeah!")
     if !discoveredPaired {
       centralManager.stopScan()
       // discoverHandler normaly set to nil in notify function
@@ -126,6 +124,8 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
         discoverHandler!(tokens, nil)
       }
     }
+    // Re-initialize value
+    discoveredPaired = false
   }
   
   func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
