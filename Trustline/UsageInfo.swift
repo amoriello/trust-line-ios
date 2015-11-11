@@ -8,11 +8,12 @@
 
 import CoreData
 
+@objc(CDUsageInfo)
 class CDUsageInfo: NSManagedObject {
   @NSManaged private var infoType: Int16
   
   enum UsageType: Int16 {
-    case Keyboard, Clipboard
+    case Keyboard, Clipboard, Display
   }
   
   @NSManaged var date: NSDate

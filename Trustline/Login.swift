@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
+@objc(CDLogin)
 class CDLogin: NSManagedObject {
-  @NSManaged var enc_string: NSData
+  @NSManaged var string: String?
+  @NSManaged var enc_string: NSData?
   @NSManaged var accounts: Set<CDAccount>?
 }

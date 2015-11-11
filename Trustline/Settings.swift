@@ -19,7 +19,6 @@ class CDSettings: NSManagedObject {
   @NSManaged var useiCloud: Bool
   
   @NSManaged var profile: CDProfile
-//  @NSManaged var strengths: NSSet
   @NSManaged var strengths: Set<CDStrength>
 
   

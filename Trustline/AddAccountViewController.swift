@@ -11,24 +11,27 @@ import SwiftSpinner
 
 
 protocol AddAccountDelegate {
-  func accoundAdded(controller: AddAccountViewController, newAccount: Account)
+  func accoundAdded(controller: AddAccountViewController, newAccount: CDAccount)
 }
 
 class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   @IBOutlet weak var picker: UIPickerView!
   @IBOutlet weak var accountName: UITextField!
   @IBOutlet weak var login: UITextField!
-
+  
   var delegate: AddAccountDelegate?
   
-  var settings: CDSettings!
+  var accountMgr: AccountManager!
   var token: Token2!
-  var strengths: [CDStrength]!
   
+  private var strengths: [CDStrength]!
+  private var profile: CDProfile!
+
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    strengths = Array(settings.strengths)
+    profile = accountMgr.profile
+    strengths = Array(profile.settings.strengths)
     strengths.sortInPlace { $0.nbChars < $1.nbChars }
     
     // Do any additional setup after loading the view.
@@ -64,7 +67,7 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
   
   @IBAction func onGenerate(sender: AnyObject) {
     let accountTitle = accountName.text!;
-    let accountLogin = login.text
+    let accountLogin = login.text!
     let row = picker.selectedRowInComponent(0);
     let strength = strengths[row]
 
@@ -80,11 +83,10 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
         showError("Wowww", error: err)
       } else {
         hideMessage()
-        print("############ Password Data: ")
-        print(data)
-        print(data.count)
-        print("############################")
-        let newAccount = Account(title: accountTitle, password: data, login: accountLogin)
+        
+        let newAccount = self.accountMgr.createAccount(accountTitle, login: accountLogin, password: data)
+
+        
         if self.delegate != nil {
           self.delegate?.accoundAdded(self, newAccount: newAccount)
         }

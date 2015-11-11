@@ -47,12 +47,12 @@ class Token2 {
   typealias DecryptAccountHandler = (account: CDAccount?, error: NSError?) -> (Void)
   
   // MARK - Variable on init
-  var centralManager :CBCentralManager
-  var tokenPeriperal :CBPeripheral
+  var centralManager: CBCentralManager
+  var tokenPeriperal: CBPeripheral
   var tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
-  var identifier :NSUUID
-  var tokenCommander :TokenCommander!
-  var keyMaterial : CDKeyMaterial!
+  var identifier: NSUUID
+  var tokenCommander: TokenCommander!
+  var keyMaterial: CDKeyMaterial!
   
   let managedObjectCtx = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
   
@@ -64,7 +64,7 @@ class Token2 {
   
   
   
-  init(centralManager :CBCentralManager, peripheral: CBPeripheral, keyMaterial :CDKeyMaterial, identifier: NSUUID, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
+  init(centralManager: CBCentralManager, peripheral: CBPeripheral, keyMaterial: CDKeyMaterial, identifier: NSUUID, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
@@ -75,13 +75,6 @@ class Token2 {
     self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial, protocolImpl: tokenPeriperalProtocolImpl)
   }
   
-  
-  func createKeyMaterial() -> CDKeyMaterial {
-    let kmEntity = NSEntityDescription.entityForName("CDKeyMaterial", inManagedObjectContext: managedObjectCtx)!
-    let keyMaterial = NSManagedObject(entity: kmEntity, insertIntoManagedObjectContext: managedObjectCtx) as! CDKeyMaterial
-    
-    return keyMaterial
-  }
   
   func setKeyMaterial(keyMaterial: CDKeyMaterial) {
     self.keyMaterial = keyMaterial
