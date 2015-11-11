@@ -41,9 +41,10 @@ extension NSData {
 
 class Token2 {
   // MARK - Type definitions
-  typealias CompletionHandler = (error: NSError?) -> (Void);
-  typealias DataCompletionHandler = (data: [UInt8], error: NSError?) -> (Void);
-  typealias RetrievePasswordHandler = (clearPassword: String, error: NSError?) -> (Void);
+  typealias CompletionHandler = (error: NSError?) -> (Void)
+  typealias DataCompletionHandler = (data: [UInt8], error: NSError?) -> (Void)
+  typealias RetrievePasswordHandler = (clearPassword: String, error: NSError?) -> (Void)
+  typealias DecryptAccountHandler = (account: CDAccount?, error: NSError?) -> (Void)
   
   // MARK - Variable on init
   var centralManager :CBCentralManager
@@ -113,6 +114,12 @@ class Token2 {
   
   func retrievePassword(password: [UInt8], handler: RetrievePasswordHandler) {
     tokenCommander.retrievePassword(password, handler: handler)
+  }
+  
+  
+  func decryptAccount(encryptedAccount: CDAccount, handler: DecryptAccountHandler) {
+    // not implemented yet
+    return handler(account: nil, error: createError("Error", description: "Not implemented yet"))
   }
   
   
