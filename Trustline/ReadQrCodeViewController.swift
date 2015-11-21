@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol ReadKeyMaterialDelegate {
-  func onSyncToken(controller: ReadQrCodeViewController, token: Token2?)
+  func onSyncToken(controller: ReadQrCodeViewController, token: Token?)
 }
 
 
@@ -21,9 +21,9 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var qrCodeFrameView: UIView?
   
-  var bleManager :BleManager2!
+  var bleManager :BleManager!
   // This one is meant to be found and set in this viewController
-  var token :Token2!
+  var token :Token!
   var keyMaterial :CDKeyMaterial!
   
   @IBOutlet weak var cancelButton: UIButton!
@@ -130,7 +130,7 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
     captureSession?.stopRunning()
   }
   
-  private func syncToken(token: Token2, readKeyMaterial: CDKeyMaterial) {
+  private func syncToken(token: Token, readKeyMaterial: CDKeyMaterial) {
     showMessage("Synchronizing...", hideOnTap: false, showAnnimation: true);
     token.resetNewKeys(keyMaterialFromQrCode: readKeyMaterial) { (error) -> (Void) in
       if let err = error {

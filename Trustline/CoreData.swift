@@ -143,7 +143,7 @@ class Default {
 class AccountHelper {
 
   
-  private class func decryptAccounts(encryptedAccounts: [CDAccount], token: Token2) -> [CDAccount]? {
+  private class func decryptAccounts(encryptedAccounts: [CDAccount], token: Token) -> [CDAccount]? {
     return nil
   }
 }

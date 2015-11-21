@@ -29,7 +29,7 @@ class AccountManager {
   }
   
   
-  func decryptAccounts(token: Token2, handler: ActionHandler) {
+  func decryptAccounts(token: Token, handler: ActionHandler) {
     handler(createError("No implemented Yet", description: "But it will be for sure."))
   }
   

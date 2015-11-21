@@ -16,13 +16,13 @@ let g_tokenReadCharacteristicUUID = CBUUID(string:"713D0002-503E-4C75-BA94-3148F
 let g_tokenWriteCharacteristicUUID = CBUUID(string:"713D0003-503E-4C75-BA94-3148F18D941E")
 
 //----------------------------------------------------------------------------------------
-class BleManager2: NSObject, CBCentralManagerDelegate {
-  typealias DiscoverHandler = ([Token2], NSError?) -> (Void)
-  typealias ConnectToPairedTokenHander = (Token2?, NSError?) -> (Void)
+class BleManager: NSObject, CBCentralManagerDelegate {
+  typealias DiscoverHandler = ([Token], NSError?) -> (Void)
+  typealias ConnectToPairedTokenHander = (Token?, NSError?) -> (Void)
   typealias ManagerStateErrorHandler = (NSError?) -> (Void)
   
   var centralManager :CBCentralManager!
-  var tokens :[Token2] = []
+  var tokens :[Token] = []
 
   var managerStateErrorHandler :ManagerStateErrorHandler
   var discoverHandler :DiscoverHandler?
@@ -97,7 +97,7 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
     if pairedTokens != nil {
       for pairedToken in pairedTokens! {
         if peripheral.identifier == pairedToken.identifier {
-          let token = Token2(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, identifier: peripheral.identifier, connectionStateHandler: managerStateErrorHandler)
+          let token = Token(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, identifier: peripheral.identifier, connectionStateHandler: managerStateErrorHandler)
           discoveredPaired = true;
           discoverHandler!([token], nil)
           centralManager.stopScan()
@@ -106,9 +106,9 @@ class BleManager2: NSObject, CBCentralManagerDelegate {
       }
     }
     
-    tokens.append(Token2(centralManager: centralManager, peripheral: peripheral,
-                         keyMaterial: keyMaterial, identifier: peripheral.identifier,
-                         connectionStateHandler: managerStateErrorHandler))
+    tokens.append(Token(centralManager: centralManager, peripheral: peripheral,
+                        keyMaterial: keyMaterial, identifier: peripheral.identifier,
+                        connectionStateHandler: managerStateErrorHandler))
   }
   
   

@@ -15,8 +15,8 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   
   // Set by PairingViewController
-  var bleManager :BleManager2!
-  var token :Token2!
+  var bleManager :BleManager!
+  var token :Token!
   var profile: CDProfile!
   var accountMgr: AccountManager!
 

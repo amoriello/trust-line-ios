@@ -22,7 +22,7 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
   var delegate: AddAccountDelegate?
   
   var accountMgr: AccountManager!
-  var token: Token2!
+  var token: Token!
   
   private var strengths: [CDStrength]!
   private var profile: CDProfile!

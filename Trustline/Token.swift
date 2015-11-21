@@ -39,7 +39,7 @@ extension NSData {
 
 
 
-class Token2 {
+class Token {
   // MARK - Type definitions
   typealias CompletionHandler = (error: NSError?) -> (Void)
   typealias DataCompletionHandler = (data: [UInt8], error: NSError?) -> (Void)
@@ -60,11 +60,11 @@ class Token2 {
   // MARK - member varibales
   var isConnected = false
   var connectHandler :CompletionHandler?
-  var connectionStateHandler: BleManager2.ManagerStateErrorHandler
+  var connectionStateHandler: BleManager.ManagerStateErrorHandler
   
   
   
-  init(centralManager: CBCentralManager, peripheral: CBPeripheral, keyMaterial: CDKeyMaterial, identifier: NSUUID, connectionStateHandler: BleManager2.ManagerStateErrorHandler) {
+  init(centralManager: CBCentralManager, peripheral: CBPeripheral, keyMaterial: CDKeyMaterial, identifier: NSUUID, connectionStateHandler: BleManager.ManagerStateErrorHandler) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
@@ -323,7 +323,7 @@ class TokenCommander {
 
 class TokenPeripheralProtocolImpl : NSObject, CBPeripheralDelegate {
   typealias ResponseHandler = (Response, error: NSError?) -> (Void);
-  typealias ConnectionHandler = BleManager2.ManagerStateErrorHandler
+  typealias ConnectionHandler = BleManager.ManagerStateErrorHandler
   
   private var handler: ResponseHandler?
   

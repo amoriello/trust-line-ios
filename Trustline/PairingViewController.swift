@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
-  var bleManager :BleManager2!
-  var token :Token2!
+  var bleManager :BleManager!
+  var token :Token!
   
   var settings2 : CDSettings!
   var profile : CDProfile!
@@ -42,7 +42,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
     }
     
     
-    bleManager = BleManager2(managerStateErrorHandler: self.bleManagerStateChange, keyMaterial: profile.keyMaterial)
+    bleManager = BleManager(managerStateErrorHandler: self.bleManagerStateChange, keyMaterial: profile.keyMaterial)
 
     if profile.pairedTokens.count != 0 {
       showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
@@ -60,7 +60,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   }
   
   
-  func createPairedToken(fromToken token: Token2) -> CDPairedToken {
+  func createPairedToken(fromToken token: Token) -> CDPairedToken {
     let pairedToken : CDPairedToken = createCDObject(managedObjectCtx)
     
     pairedToken.creation = NSDate()
@@ -134,7 +134,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
   
   
   // MARK: - ReadKeyMaterialDelegate
-  func onSyncToken(controller: ReadQrCodeViewController, token: Token2?) {
+  func onSyncToken(controller: ReadQrCodeViewController, token: Token?) {
     if token != nil {
       self.token = token!
       let pairedToken = createPairedToken(fromToken: self.token)

@@ -14,7 +14,7 @@ class QrCodeGeneratorViewController: UIViewController {
   
   var profile: CDProfile!
   var keyMaterial: CDKeyMaterial!
-  var token: Token2!
+  var token: Token!
 
   override func viewDidLoad() {
     super.viewDidLoad()
