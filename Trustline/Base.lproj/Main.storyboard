@@ -250,7 +250,7 @@
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="2Vd-z0-T2a" style="IBUITableViewCellStyleDefault" id="Zg5-f5-zdn">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="securityQACell" textLabel="2Vd-z0-T2a" style="IBUITableViewCellStyleDefault" id="Zg5-f5-zdn">
                                                             <rect key="frame" x="0.0" y="28" width="304" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zg5-f5-zdn" id="9bk-4s-AlE">
@@ -500,6 +500,6 @@
         <image name="safe" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1HU-Oj-0oq"/>
+        <segue reference="s8i-IE-XHI"/>
     </inferredMetricsTieBreakers>
 </document>
