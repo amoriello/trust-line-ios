@@ -18,6 +18,7 @@ class CDAccount: NSManagedObject {
   @NSManaged var enc_title: NSData?
   
   @NSManaged var title: String?
+  @NSManaged var firstLetterAsCap: String
   
   @NSManaged var profile: CDProfile
   @NSManaged var securityQAs: Set<CDSecurityQA>?

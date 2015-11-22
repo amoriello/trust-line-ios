@@ -54,8 +54,6 @@ class Token {
   var tokenCommander: TokenCommander!
   var keyMaterial: CDKeyMaterial!
   
-  let managedObjectCtx = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-  
   
   // MARK - member varibales
   var isConnected = false
@@ -249,7 +247,10 @@ class TokenCommander {
       
       do {
         let clearData :[UInt8] = try AES(key: self.keyMaterial.comKey.arrayOfBytes(), iv: iv)!.decrypt(cipheredPassword)
-        let clearPassword = String(bytes: clearData, encoding: NSUTF8StringEncoding)!
+        // remove trailing zeros
+        let data = clearData.filter { $0 != 0 }
+        
+        let clearPassword = String(bytes: data, encoding: NSUTF8StringEncoding)!
         handler(clearPassword: clearPassword, error: nil)
         return
       } catch {

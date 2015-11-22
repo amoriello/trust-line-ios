@@ -3,6 +3,7 @@
     <entity name="CDAccount" representedClassName="CDAccount" syncable="YES">
         <attribute name="creation" attributeType="Date" syncable="YES"/>
         <attribute name="enc_password" attributeType="Binary" syncable="YES"/>
+        <attribute name="firstLetterAsCap" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="login" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDLogin" inverseName="accounts" inverseEntity="CDLogin" syncable="YES"/>
         <relationship name="profile" maxCount="1" deletionRule="Nullify" destinationEntity="CDProfile" inverseName="accounts" inverseEntity="CDProfile" syncable="YES"/>
@@ -55,7 +56,7 @@
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="CDAccount" inverseName="usages" inverseEntity="CDAccount" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDAccount" positionX="-81" positionY="-951" width="128" height="150"/>
+        <element name="CDAccount" positionX="-81" positionY="-951" width="128" height="165"/>
         <element name="CDKeyMaterial" positionX="-38" positionY="-639" width="128" height="105"/>
         <element name="CDLogin" positionX="-56" positionY="-747" width="128" height="90"/>
         <element name="CDPairedToken" positionX="133" positionY="-610" width="128" height="90"/>

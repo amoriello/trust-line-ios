@@ -15,22 +15,24 @@ protocol AddAccountDelegate {
 }
 
 class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+  // MARK - Injected
+  var token: Token!
+  var profile: CDProfile!
+  var dataController: DataController!
+  var delegate: AddAccountDelegate!
+  
+  // MARK - IBOutlets
   @IBOutlet weak var picker: UIPickerView!
   @IBOutlet weak var accountName: UITextField!
   @IBOutlet weak var login: UITextField!
   
-  var delegate: AddAccountDelegate?
-  
-  var accountMgr: AccountManager!
-  var token: Token!
-  
+  // MARK - Member attributes
   private var strengths: [CDStrength]!
-  private var profile: CDProfile!
 
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    profile = accountMgr.profile
+    
     strengths = Array(profile.settings.strengths)
     strengths.sortInPlace { $0.nbChars < $1.nbChars }
     
@@ -84,7 +86,7 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
       } else {
         hideMessage()
         
-        let newAccount = self.accountMgr.createAccount(accountTitle, login: accountLogin, password: data)
+        let newAccount = self.dataController.createAccount(self.profile, title: accountTitle, login: accountLogin, password: data)
 
         
         if self.delegate != nil {
@@ -94,14 +96,4 @@ class AddAccountViewController: UIViewController, UIPickerViewDataSource, UIPick
       }
     }
   }
-  
-  /*
-  // MARK: - Navigation
-
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-  }
-  */
 }

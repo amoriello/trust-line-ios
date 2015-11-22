@@ -7,22 +7,20 @@
 //
 
 import UIKit
-import SwiftSpinner
+import CoreData
 
-class AccountsTableViewController: UITableViewController, AddAccountDelegate {
-  //var accountInfos = AccountInfos()
-  let managedObjectCtx = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+class AccountsTableViewController: UITableViewController, AddAccountDelegate, NSFetchedResultsControllerDelegate {
   
-  
-  // Set by PairingViewController
-  var bleManager :BleManager!
+  // MARK: - Injected
+  var dataController: DataController!
   var token :Token!
   var profile: CDProfile!
-  var accountMgr: AccountManager!
-
-  var navigationLocked = true;
   
-  var accountSectionTitles = [String]()
+  // MARK: - Attributes
+  var navigationLocked = true;
+  var fetchedAccountController: NSFetchedResultsController!
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,8 +28,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   }
   
   override func viewWillAppear(animated: Bool) {
-    accountMgr = AccountManager(profile: profile, managedCtx: managedObjectCtx)
-    accountSectionTitles = Array(accountMgr.accounts.keys).sort()
+    initializeFetchedAccountController(dataController.managedObjectContext)
   }
 
   override func didReceiveMemoryWarning() {
@@ -39,22 +36,25 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     // Dispose of any resources that can be recreated.
   }
 
-  // MARK: - Table view data source
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return accountMgr.accounts.count
-  }
-
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    return accountSectionTitles[section];
+  
+  func initializeFetchedAccountController(moc: NSManagedObjectContext) {
+    let request = NSFetchRequest(entityName: "CDAccount")
+    let firstLetterSort = NSSortDescriptor(key: "firstLetterAsCap", ascending:  true)
+    let accountTitleSort = NSSortDescriptor(key: "title", ascending: true)
+    request.sortDescriptors = [firstLetterSort, accountTitleSort]
+    
+    fetchedAccountController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc,
+                                                          sectionNameKeyPath: "firstLetterAsCap", cacheName: "rootCache")
+    self.fetchedAccountController.delegate = self
+    
+    do {
+      try self.fetchedAccountController.performFetch()
+    } catch {
+      fatalError("Failed to initialize fetchedAccountController: \(error)")
+    }
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let sectionTitle = accountSectionTitles[section];
-    return accountMgr.accounts[sectionTitle]!.count;
-  }
-  
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountTableViewCell;
+  func configureCell(cell: AccountTableViewCell, indexPath: NSIndexPath) {
     let account = accountAtIndexPath(indexPath)
     
     cell.account = account
@@ -62,10 +62,70 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
     cell.keyboardEnterTriggeredHandler = self.onKeyboardEnterTriggered
     cell.showPasswordTriggeredHandler = self.onShowPasswordTriggered
     cell.clipboardTriggeredHandler = self.onClipboardTriggered
-    
+  }
+  
+  // MARK: - Table view data source
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return fetchedAccountController.sections!.count
+  }
+  
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    let sections = fetchedAccountController.sections!
+    let sectionInfo = sections[section]
+    return sectionInfo.name
+  }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    let sections = fetchedAccountController.sections!
+    let sectionInfo = sections[section]
+    return sectionInfo.numberOfObjects
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("AccountCell", forIndexPath: indexPath) as! AccountTableViewCell;
+    configureCell(cell, indexPath: indexPath)
     return cell;
   }
   
+  
+  
+  // MARK: - NSFetchedResultsControllerDelegate
+  func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    self.tableView.beginUpdates()
+  }
+  
+  func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    switch type {
+    case .Insert:
+      self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+    case .Delete:
+      self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+    case .Move:
+      break
+    case .Update:
+      break
+    }
+  }
+  
+  func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    switch type {
+    case .Insert:
+      self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+    case .Delete:
+      self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+    case .Update:
+      let cell = self.tableView.cellForRowAtIndexPath(indexPath!)! as! AccountTableViewCell
+      self.configureCell(cell, indexPath: indexPath!)
+    case .Move:
+      self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+      self.tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+    }
+  }
+  
+  
+  func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    self.tableView.endUpdates()
+  }
   
   
   // MARK: - Navigation
@@ -83,8 +143,9 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
           }
         case "addAccount":
           let addAccountVC = segue.destinationViewController as! AddAccountViewController
-          addAccountVC.accountMgr = accountMgr
           addAccountVC.token = token
+          addAccountVC.profile = profile
+          addAccountVC.dataController = dataController
           addAccountVC.delegate = self
         
         default: break;
@@ -106,29 +167,14 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
   
   // MARK: - AddAccountDelegate
   func accoundAdded(controller: AddAccountViewController, newAccount: CDAccount) {
-    
-    accountMgr.add(newAccount)
-    do {
-     try managedObjectCtx.save()
-    } catch {
-      showError(error: error as NSError)
-      print("Cannot save new account: \(error)")
-    }
-    
-    accountSectionTitles = Array(accountMgr.accounts.keys);
-    accountSectionTitles.sortInPlace();
-    tableView.reloadData()
+    dataController.save()
     controller.navigationController?.popViewControllerAnimated(true)
   }
   
   
-  
   // MARK: - Helper Methods
   func accountAtIndexPath(indexPath: NSIndexPath) -> CDAccount {
-    let sectionTitle = accountSectionTitles[indexPath.section]
-    let accounts = accountMgr.accounts[sectionTitle]!
-    let account = accounts[indexPath.row]
-    return account
+    return fetchedAccountController.objectAtIndexPath(indexPath) as! CDAccount
   }
   
   func phoneticDescription(password: String) -> String {
@@ -192,7 +238,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
       if let err = error {
         showError("Woww...", error: err)
       } else {
-        self.accountMgr.updateUsageInfo(account, type: .Keyboard)
+        self.dataController.updateUsageInfo(account, type: .Keyboard)
         self.tableView.reloadData()
         hideMessage()
       }
@@ -214,7 +260,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
       if let err = error {
         showError("Woww...", error: err)
       } else {
-        self.accountMgr.updateUsageInfo(account, type: .Keyboard)
+        self.dataController.updateUsageInfo(account, type: .Keyboard)
         self.tableView.reloadData()
         hideMessage()
       }
@@ -237,7 +283,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
         let passwordFont = UIFont(name: "Menlo-Regular", size: 18)
         let phoneticDesciprion = self.phoneticDescription(clearPassword)
         showMessage(clearPassword, subtitle: phoneticDesciprion, font: passwordFont)
-        self.accountMgr.updateUsageInfo(account, type: .Display)
+        self.dataController.updateUsageInfo(account, type: .Display)
       }
     }
   }
@@ -256,13 +302,9 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate {
         showError(error: err)
       } else {
         UIPasteboard.generalPasteboard().string = clearPassword;
-        self.accountMgr.updateUsageInfo(account, type: .Clipboard)
+        self.dataController.updateUsageInfo(account, type: .Clipboard)
         showMessage("Password copied to clipboard")
       }
     }
   }
-  
-  
-  
-  
 }
