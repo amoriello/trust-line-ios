@@ -172,6 +172,7 @@
 		C91C718C1BC4603400579B15 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C9ACF8E01BC11DA80040D21A /* LaunchScreen.storyboard */,
 				C9ACF8D81BC11DA80040D21A /* Main.storyboard */,
 			);
 			name = View;
@@ -250,7 +251,6 @@
 			isa = PBXGroup;
 			children = (
 				C9ACF8D41BC11DA80040D21A /* AppDelegate.swift */,
-				C9ACF8E01BC11DA80040D21A /* LaunchScreen.storyboard */,
 				C93BC3971BCAD33D0094DF1A /* Helpers */,
 				C91C71811BC3063500579B15 /* Model */,
 				C91C718C1BC4603400579B15 /* View */,
