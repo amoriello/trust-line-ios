@@ -24,17 +24,15 @@ class BleManager: NSObject, CBCentralManagerDelegate {
   var centralManager :CBCentralManager!
   var tokens :[Token] = []
 
-  var managerStateErrorHandler :ManagerStateErrorHandler
-  var discoverHandler :DiscoverHandler?
-  var keyMaterial :CDKeyMaterial
-  var pairedTokens : Set<CDPairedToken>?
+  var managerStateErrorHandler: ManagerStateErrorHandler
+  var discoverHandler: DiscoverHandler?
+  var pairedTokens: Set<CDPairedToken>?
   var discoveredPaired = false
   
   var tokenServiceCBUUID = g_tokenServiceCBUUID
   
-  init(managerStateErrorHandler: ManagerStateErrorHandler, keyMaterial: CDKeyMaterial) {
+  init(managerStateErrorHandler: ManagerStateErrorHandler) {
     self.managerStateErrorHandler = managerStateErrorHandler
-    self.keyMaterial = keyMaterial
   }
   
 
@@ -68,19 +66,19 @@ class BleManager: NSObject, CBCentralManagerDelegate {
     
     switch (central.state) {
     case .PoweredOff:
-      notify(createError("Bluetooth error", description: "Hardware is powered off"));
+      notify(createError("Bluetooth", description: "Hardware is powered off"));
       
     case .Resetting:
-      notify(createError("Bluetooth error", description: "Hardware is resetting"));
+      notify(createError("Bluetooth", description: "Hardware is resetting"));
       
     case .Unauthorized:
-      notify(createError("Bluetooth error", description: "State is unauthorized"))
+      notify(createError("Bluetooth", description: "State is unauthorized"))
       
     case .Unknown:
-      notify(createError("Bluetooth error", description: "State is unknown"))
+      notify(createError("Bluetooth", description: "State is unknown"))
       
     case .Unsupported:
-      notify(createError("Bluetooth error", description: "Hardware is unsupported on this platform"))
+      notify(createError("Bluetooth", description: "Hardware is unsupported on this platform"))
       
     case .PoweredOn:
       if discoverHandler != nil {
@@ -97,17 +95,19 @@ class BleManager: NSObject, CBCentralManagerDelegate {
     if pairedTokens != nil {
       for pairedToken in pairedTokens! {
         if peripheral.identifier == pairedToken.identifier {
-          let token = Token(centralManager: centralManager, peripheral: peripheral, keyMaterial: keyMaterial, identifier: peripheral.identifier, connectionStateHandler: managerStateErrorHandler)
-          discoveredPaired = true;
-          discoverHandler!([token], nil)
-          centralManager.stopScan()
-          return
+          if let km = KeyMaterial.getFromUUID(peripheral.identifier) {
+            let token = Token(centralManager: centralManager, peripheral: peripheral, identifier: peripheral.identifier, keyMaterial: km, connectionStateHandler: managerStateErrorHandler)
+            discoveredPaired = true;
+            discoverHandler!([token], nil)
+            centralManager.stopScan()
+            return
+          }
         }
       }
     }
     
     tokens.append(Token(centralManager: centralManager, peripheral: peripheral,
-                        keyMaterial: keyMaterial, identifier: peripheral.identifier,
+                        identifier: peripheral.identifier,
                         connectionStateHandler: managerStateErrorHandler))
   }
   

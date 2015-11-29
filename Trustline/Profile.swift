@@ -14,7 +14,6 @@ class CDProfile: NSManagedObject {
   @NSManaged var creation: NSDate
   
   @NSManaged var accounts: Set<CDAccount>
-  @NSManaged var keyMaterial: CDKeyMaterial
 
   @NSManaged var pairedTokens: Set<CDPairedToken>
   @NSManaged var settings: CDSettings

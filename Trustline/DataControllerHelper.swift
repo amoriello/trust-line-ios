@@ -18,10 +18,6 @@ extension CDAccount : NamedCDComponent {
   @nonobjc static let ComponentName = "CDAccount"
 }
 
-extension CDKeyMaterial : NamedCDComponent {
-  @nonobjc static let ComponentName = "CDKeyMaterial"
-}
-
 extension CDProfile : NamedCDComponent {
   @nonobjc static let ComponentName = "CDProfile"
 }
@@ -92,14 +88,10 @@ func loadCDObjects<T:NamedCDComponent>(managedContext: NSManagedObjectContext) -
 class Default {
   class func Profile(managedCtx: NSManagedObjectContext) -> CDProfile {
     let profile : CDProfile = createCDObject(managedCtx)
-    let emptyKeyMaterial : CDKeyMaterial = createCDObject(managedCtx)
-    
-    emptyKeyMaterial.creation = NSDate()
     
     profile.creation = NSDate()
     profile.name = "default"
     profile.accounts = Set<CDAccount>()
-    profile.keyMaterial = emptyKeyMaterial
     
     let settings = Default.Settings(forProfile: profile, managedCtx: managedCtx)
     profile.settings = settings;

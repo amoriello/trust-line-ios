@@ -21,10 +21,10 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var qrCodeFrameView: UIView?
   
-  var bleManager :BleManager!
+  var bleManager: BleManager!
   // This one is meant to be found and set in this viewController
-  var token :Token!
-  var keyMaterial :CDKeyMaterial!
+  var token: Token!
+  var keyMaterial: KeyMaterial!
   
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var infoLabel: UILabel!
@@ -115,12 +115,13 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
       qrCodeFrameView?.frame = codeObject.bounds
       
       if let data = metadataObj.stringValue {
-        if let _ = keyMaterial!.loadFrom(fromBase64: data) {
-          infoLabel.text = "Not a trustline secret"
-        } else {
+        if let km = KeyMaterial(fromBase64: data) {
           infoLabel.text = "Trustline secret data found"
+          self.keyMaterial = km
           syncToken(token, readKeyMaterial: self.keyMaterial)
           captureSession?.stopRunning()
+        } else {
+          infoLabel.text = "Not a trustline secret"
         }
       }
     }
@@ -130,7 +131,7 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
     captureSession?.stopRunning()
   }
   
-  private func syncToken(token: Token, readKeyMaterial: CDKeyMaterial) {
+  private func syncToken(token: Token, readKeyMaterial: KeyMaterial) {
     showMessage("Synchronizing...", hideOnTap: false, showAnnimation: true);
     token.resetNewKeys(keyMaterialFromQrCode: readKeyMaterial) { (error) -> (Void) in
       if let err = error {

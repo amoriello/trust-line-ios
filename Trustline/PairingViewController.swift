@@ -44,7 +44,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
     }
     
     
-    bleManager = BleManager(managerStateErrorHandler: self.bleManagerStateChange, keyMaterial: profile.keyMaterial)
+    bleManager = BleManager(managerStateErrorHandler: self.bleManagerStateChange)
 
     if profile.pairedTokens.count != 0 {
       showMessage("Searching Token...", hideOnTap: false, showAnnimation: true)
@@ -104,9 +104,10 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
       } else {
         self.token = token!
         let pairedToken = self.createPairedToken(fromToken: self.token)
-        self.profile.keyMaterial = self.token.keyMaterial!
         self.profile.pairedTokens = [pairedToken]
-        
+
+        // Secure saving key material
+        KeyMaterial.secureSave(self.token.identifier, km: self.token.keyMaterial)
         // Saving profile, settings, associated token and  keys
         self.dataController.save()
         showMessage("Token Paired and Ready") {self.performSegueWithIdentifier("showQRGenerator", sender: self) }
@@ -158,13 +159,13 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
       case "showNavigationSegue":
         let navigationVC = segue.destinationViewController as! UINavigationController
         let accountsNavigationVC = navigationVC.childViewControllers[0] as! AccountsTableViewController
-        accountsNavigationVC.dataController = dataController
+        accountsNavigationVC.dataController = self.dataController
         accountsNavigationVC.token = token
         accountsNavigationVC.profile = profile
         
       case "showQRGenerator":
         let qrCodeGeneratorVC = segue.destinationViewController as! QrCodeGeneratorViewController
-        qrCodeGeneratorVC.keyMaterial = profile.keyMaterial
+        qrCodeGeneratorVC.keyMaterial = token.keyMaterial
         qrCodeGeneratorVC.profile = profile
         qrCodeGeneratorVC.token = token
         
@@ -172,7 +173,7 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
         let readQrVC = segue.destinationViewController as! ReadQrCodeViewController
         readQrVC.delegate = self
         readQrVC.bleManager = self.bleManager
-        readQrVC.keyMaterial = self.profile.keyMaterial
+        readQrVC.keyMaterial = token.keyMaterial
         
       default: break;
       }

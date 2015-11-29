@@ -7,14 +7,8 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="login" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDLogin" inverseName="accounts" inverseEntity="CDLogin" syncable="YES"/>
         <relationship name="profile" maxCount="1" deletionRule="Nullify" destinationEntity="CDProfile" inverseName="accounts" inverseEntity="CDProfile" syncable="YES"/>
-        <relationship name="securityQAs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSecurityQA" inverseName="account" inverseEntity="CDSecurityQA" syncable="YES"/>
-        <relationship name="usages" toMany="YES" deletionRule="Nullify" destinationEntity="CDUsageInfo" inverseName="account" inverseEntity="CDUsageInfo" syncable="YES"/>
-    </entity>
-    <entity name="CDKeyMaterial" representedClassName="CDKeyMaterial" syncable="YES">
-        <attribute name="comKey" attributeType="Binary" syncable="YES"/>
-        <attribute name="creation" attributeType="Date" syncable="YES"/>
-        <attribute name="crKey" attributeType="Binary" syncable="YES"/>
-        <relationship name="profile" maxCount="1" deletionRule="Nullify" destinationEntity="CDProfile" inverseName="keyMaterial" inverseEntity="CDProfile" syncable="YES"/>
+        <relationship name="securityQAs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDSecurityQA" inverseName="account" inverseEntity="CDSecurityQA" syncable="YES"/>
+        <relationship name="usages" toMany="YES" deletionRule="Cascade" destinationEntity="CDUsageInfo" inverseName="account" inverseEntity="CDUsageInfo" syncable="YES"/>
     </entity>
     <entity name="CDLogin" representedClassName="CDLogin" syncable="YES">
         <attribute name="enc_string" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -29,9 +23,8 @@
     <entity name="CDProfile" representedClassName="CDProfile" syncable="YES">
         <attribute name="creation" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="accounts" toMany="YES" deletionRule="Nullify" destinationEntity="CDAccount" inverseName="profile" inverseEntity="CDAccount" syncable="YES"/>
-        <relationship name="keyMaterial" maxCount="1" deletionRule="Nullify" destinationEntity="CDKeyMaterial" inverseName="profile" inverseEntity="CDKeyMaterial" syncable="YES"/>
-        <relationship name="pairedTokens" toMany="YES" deletionRule="Nullify" destinationEntity="CDPairedToken" inverseName="profile" inverseEntity="CDPairedToken" syncable="YES"/>
+        <relationship name="accounts" toMany="YES" deletionRule="Cascade" destinationEntity="CDAccount" inverseName="profile" inverseEntity="CDAccount" syncable="YES"/>
+        <relationship name="pairedTokens" toMany="YES" deletionRule="Cascade" destinationEntity="CDPairedToken" inverseName="profile" inverseEntity="CDPairedToken" syncable="YES"/>
         <relationship name="settings" maxCount="1" deletionRule="Nullify" destinationEntity="CDSettings" inverseName="profile" inverseEntity="CDSettings" syncable="YES"/>
     </entity>
     <entity name="CDSecurityQA" representedClassName="CDSecurityQA" syncable="YES">
@@ -57,10 +50,9 @@
     </entity>
     <elements>
         <element name="CDAccount" positionX="-81" positionY="-951" width="128" height="165"/>
-        <element name="CDKeyMaterial" positionX="-38" positionY="-639" width="128" height="105"/>
         <element name="CDLogin" positionX="-56" positionY="-747" width="128" height="90"/>
         <element name="CDPairedToken" positionX="133" positionY="-610" width="128" height="90"/>
-        <element name="CDProfile" positionX="126" positionY="-828" width="128" height="135"/>
+        <element name="CDProfile" positionX="126" positionY="-828" width="128" height="120"/>
         <element name="CDSecurityQA" positionX="-297" positionY="-837" width="128" height="90"/>
         <element name="CDSettings" positionX="306" positionY="-738" width="128" height="105"/>
         <element name="CDStrength" positionX="475" positionY="-666" width="128" height="90"/>

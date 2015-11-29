@@ -1,12 +1,14 @@
 PODS:
   - CryptoSwift (0.0.16)
   - DRCellSlideGestureRecognizer (1.0.0)
+  - KeychainAccess (2.3.1)
   - SwiftSpinner (0.8.0)
   - SwiftyJSON (2.3.0)
 
 DEPENDENCIES:
   - CryptoSwift
   - DRCellSlideGestureRecognizer
+  - KeychainAccess
   - SwiftSpinner
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
@@ -22,6 +24,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   CryptoSwift: 05b7e813763fc7a0e8726e962365d6e09f091098
   DRCellSlideGestureRecognizer: c7213100aa8b1a54b3388c2e73894039058c7795
+  KeychainAccess: d54b31c75745cfa595b3654590e8cb491a75d411
   SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
   SwiftyJSON: 8d6b61a70277ef2a5d710d372e06e7e2d87fb9e4
 

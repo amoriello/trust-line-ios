@@ -52,7 +52,7 @@ class Token {
   var tokenPeriperalProtocolImpl = TokenPeripheralProtocolImpl()
   var identifier: NSUUID
   var tokenCommander: TokenCommander!
-  var keyMaterial: CDKeyMaterial!
+  var keyMaterial: KeyMaterial!
   
   
   // MARK - member varibales
@@ -62,19 +62,25 @@ class Token {
   
   
   
-  init(centralManager: CBCentralManager, peripheral: CBPeripheral, keyMaterial: CDKeyMaterial, identifier: NSUUID, connectionStateHandler: BleManager.ManagerStateErrorHandler) {
+  init(centralManager: CBCentralManager, peripheral: CBPeripheral, identifier: NSUUID,  keyMaterial: KeyMaterial? = nil, connectionStateHandler: BleManager.ManagerStateErrorHandler) {
     self.centralManager = centralManager
     self.tokenPeriperal = peripheral
     self.tokenPeriperal.delegate = self.tokenPeriperalProtocolImpl
     self.connectionStateHandler = connectionStateHandler
     self.identifier = identifier
-    self.keyMaterial = keyMaterial
+    if (keyMaterial != nil) {
+      // Use the given one
+      self.keyMaterial = keyMaterial
+    } else {
+      // This is a new token, create a new KeyMaterial dedicated to this token
+      self.keyMaterial = KeyMaterial()
+    }
     
     self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial, protocolImpl: tokenPeriperalProtocolImpl)
   }
   
   
-  func setKeyMaterial(keyMaterial: CDKeyMaterial) {
+  func setKeyMaterial(keyMaterial: KeyMaterial) {
     self.keyMaterial = keyMaterial
     // reset commander with new material
     self.tokenCommander = TokenCommander(keyMaterial: self.keyMaterial!, protocolImpl: tokenPeriperalProtocolImpl)
@@ -98,7 +104,7 @@ class Token {
     tokenCommander.keystrokesPassword(password, additionalKeys: additionalKeys, handler: handler)
   }
   
-  func resetNewKeys(keyMaterialFromQrCode keyMaterial: CDKeyMaterial, handler: CompletionHandler) {
+  func resetNewKeys(keyMaterialFromQrCode keyMaterial: KeyMaterial, handler: CompletionHandler) {
     tokenCommander.resetNewKeys(keyMaterial, handler: handler)
   }
   
@@ -142,10 +148,10 @@ class TokenCommander {
   
   
   var passKey = [UInt8]()
-  var keyMaterial :CDKeyMaterial
+  var keyMaterial :KeyMaterial
   var protocolImpl :TokenPeripheralProtocolImpl
   
-  init(keyMaterial :CDKeyMaterial, protocolImpl :TokenPeripheralProtocolImpl) {
+  init(keyMaterial: KeyMaterial, protocolImpl: TokenPeripheralProtocolImpl) {
     self.keyMaterial = keyMaterial;
     self.protocolImpl = protocolImpl;
   }
@@ -168,7 +174,6 @@ class TokenCommander {
         let crKey   = Array(response.bytes[2 + keySize...1 + (2 * keySize)])
         let comKey  = Array(response.bytes[2 + (2 * keySize)...1 + (3 * keySize)])
         
-        self.keyMaterial.creation = NSDate()
         self.keyMaterial.passKey = NSData(bytes: passKey, length: passKey.count)
         self.keyMaterial.crKey = NSData(bytes: crKey, length: crKey.count)
         self.keyMaterial.comKey = NSData(bytes: comKey, length: comKey.count)
@@ -261,7 +266,7 @@ class TokenCommander {
   }
   
   
-  func resetNewKeys(keyMaterial: CDKeyMaterial, handler: CompletionHandler) {
+  func resetNewKeys(keyMaterial: KeyMaterial, handler: CompletionHandler) {
     let cmd = Command(cmdId: .ResetKeys, arg: keyMaterial.data())!
     
     send(cmd) { (response, error) in

@@ -13,7 +13,7 @@ class QrCodeGeneratorViewController: UIViewController {
   @IBOutlet weak var codeImageView: UIImageView!
   
   var profile: CDProfile!
-  var keyMaterial: CDKeyMaterial!
+  var keyMaterial: KeyMaterial!
   var token: Token!
 
   override func viewDidLoad() {
@@ -28,7 +28,7 @@ class QrCodeGeneratorViewController: UIViewController {
       // Dispose of any resources that can be recreated.
   }
 
-  func generateQrCode(keyMaterial: CDKeyMaterial) -> UIImage {
+  func generateQrCode(keyMaterial: KeyMaterial) -> UIImage {
     // generate qrcode image
     let qrFilter = CIFilter(name: "CIQRCodeGenerator")!
     qrFilter.setDefaults()

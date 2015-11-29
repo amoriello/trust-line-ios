@@ -13,12 +13,12 @@
 		C91C718F1BC5C0C100579B15 /* AccountDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */; };
 		C91C71911BC5CB6B00579B15 /* AddAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */; };
 		C9328F1B1C00C35B0093547E /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9328F1A1C00C35B0093547E /* DataController.swift */; };
+		C9328F1F1C03A4EF0093547E /* KeyMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9328F1E1C03A4EF0093547E /* KeyMaterial.swift */; };
 		C93BC3961BCAD3300094DF1A /* MessageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93BC3951BCAD3300094DF1A /* MessageHelper.swift */; };
 		C93D49A11BC1218900B19C0F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D49A01BC1218900B19C0F /* Command.swift */; };
 		C93D7A141BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */; };
 		C93D7A161BD43C8200B87DE5 /* ReadQrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */; };
 		C95425541BDD4F41000638D8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95425531BDD4F41000638D8 /* Account.swift */; };
-		C95425561BDD4F52000638D8 /* KeyMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95425551BDD4F52000638D8 /* KeyMaterial.swift */; };
 		C95425581BDD4F63000638D8 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95425571BDD4F63000638D8 /* Profile.swift */; };
 		C954255A1BDD4F71000638D8 /* SecurityQA.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95425591BDD4F71000638D8 /* SecurityQA.swift */; };
 		C954255C1BDD4F7D000638D8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C954255B1BDD4F7D000638D8 /* Settings.swift */; };
@@ -70,12 +70,12 @@
 		C91C718E1BC5C0C100579B15 /* AccountDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewController.swift; sourceTree = "<group>"; };
 		C91C71901BC5CB6B00579B15 /* AddAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccountViewController.swift; sourceTree = "<group>"; };
 		C9328F1A1C00C35B0093547E /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		C9328F1E1C03A4EF0093547E /* KeyMaterial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMaterial.swift; sourceTree = "<group>"; };
 		C93BC3951BCAD3300094DF1A /* MessageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHelper.swift; sourceTree = "<group>"; };
 		C93D49A01BC1218900B19C0F /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		C93D7A131BD4230B00B87DE5 /* QrCodeGeneratorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratorViewController.swift; sourceTree = "<group>"; };
 		C93D7A151BD43C8200B87DE5 /* ReadQrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadQrCodeViewController.swift; sourceTree = "<group>"; };
 		C95425531BDD4F41000638D8 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		C95425551BDD4F52000638D8 /* KeyMaterial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyMaterial.swift; sourceTree = "<group>"; };
 		C95425571BDD4F63000638D8 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		C95425591BDD4F71000638D8 /* SecurityQA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityQA.swift; sourceTree = "<group>"; };
 		C954255B1BDD4F7D000638D8 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -151,6 +151,7 @@
 			children = (
 				C95425521BDD4EE5000638D8 /* CoreData */,
 				C9328F1A1C00C35B0093547E /* DataController.swift */,
+				C9328F1E1C03A4EF0093547E /* KeyMaterial.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -213,7 +214,6 @@
 			children = (
 				C9ACF8DB1BC11DA80040D21A /* Trustline.xcdatamodeld */,
 				C95425531BDD4F41000638D8 /* Account.swift */,
-				C95425551BDD4F52000638D8 /* KeyMaterial.swift */,
 				C95425571BDD4F63000638D8 /* Profile.swift */,
 				C95425591BDD4F71000638D8 /* SecurityQA.swift */,
 				C954255B1BDD4F7D000638D8 /* Settings.swift */,
@@ -476,12 +476,12 @@
 				C93BC3961BCAD3300094DF1A /* MessageHelper.swift in Sources */,
 				C954255C1BDD4F7D000638D8 /* Settings.swift in Sources */,
 				C9D473991BC91EF900FE2E0B /* Token.swift in Sources */,
+				C9328F1F1C03A4EF0093547E /* KeyMaterial.swift in Sources */,
 				C9D473971BC90B3F00FE2E0B /* BleManager.swift in Sources */,
 				C95425581BDD4F63000638D8 /* Profile.swift in Sources */,
 				C9076C4E1BDAD3EB00A9490C /* DKCircleButton.m in Sources */,
 				C9013FBA1BE60C10004C4836 /* Login.swift in Sources */,
 				C91C71871BC310E400579B15 /* AccountsTableViewController.swift in Sources */,
-				C95425561BDD4F52000638D8 /* KeyMaterial.swift in Sources */,
 				C9ACF8DD1BC11DA80040D21A /* Trustline.xcdatamodeld in Sources */,
 				C954255E1BDD4F94000638D8 /* Strength.swift in Sources */,
 				C95425621BDD50CF000638D8 /* UsageInfo.swift in Sources */,

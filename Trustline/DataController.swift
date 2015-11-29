@@ -8,10 +8,13 @@
 
 import Foundation
 import CoreData
+import SwiftyJSON
 
 class DataController: NSObject {
   typealias CompletionHandler = (NSError?) -> Void
   var managedObjectContext: NSManagedObjectContext
+  
+  private var keyMaterials: [NSUUID:KeyMaterial]!
   
   init(completion: CompletionHandler? = nil) {
     guard let modelURL = NSBundle.mainBundle().URLForResource("Trustline", withExtension: "momd") else {
@@ -28,7 +31,7 @@ class DataController: NSObject {
     self.managedObjectContext.persistentStoreCoordinator = psc
     
     super.init()
-    
+
     // Lamda to initialize persistent store
     let initPersistentStore = { () -> NSError? in
       let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)

@@ -1,28 +1,59 @@
 //
-//  KeyMaterial.swift
+//  KeyMaterial2.swift
 //  Trustline
 //
-//  Created by matt on 25/10/2015.
+//  Created by matt on 23/11/2015.
 //  Copyright © 2015 amoriello.hutti. All rights reserved.
 //
 
-import CoreData
+import Foundation
+import SwiftyJSON
+import KeychainAccess
 
-@objc(CDKeyMaterial)
-class CDKeyMaterial: NSManagedObject {
+class KeyMaterial {
   let version : UInt8 = 1
   let keySize = 16
-
+  
   var passKey = NSData() // In memory only
   
-  @NSManaged var creation: NSDate
-  @NSManaged var crKey: NSData
-  @NSManaged var comKey: NSData
+  var crKey = NSData()
+  var comKey = NSData()
+  
+  
+  init() { }
+  
+  init?(fromBase64 data: String) {
+    if loadFrom(fromBase64: data) != nil {
+      return nil
+    }
+  }
+  
+  
+  class func getFromUUID(identifier: NSUUID) -> KeyMaterial? {
+    let keychain = Keychain(service: "com.Trustline")
 
-  @NSManaged var profile: CDProfile
+    if let kmString = keychain[identifier.UUIDString] {
+      return KeyMaterial(fromBase64: kmString)
+    } else {
+      return nil
+    }
+  }
   
   
-  func loadFrom(fromBase64 data: String) -> NSError? {
+  class func secureSave(identifier: NSUUID, km: KeyMaterial) {
+    let keychain = Keychain(service: "com.Trustline")
+    do {
+      try keychain
+        .accessibility(.WhenUnlockedThisDeviceOnly)
+        .synchronizable(false)
+        .set(km.base64Data(), key: identifier.UUIDString)
+    } catch {
+      print("error saving Key Material: \(error)")
+    }
+  }
+  
+  
+  private func loadFrom(fromBase64 data: String) -> NSError? {
     let res = NSData(base64EncodedString: data, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
     
     

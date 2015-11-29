@@ -26,8 +26,10 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate, NS
     super.viewDidLoad()
     unlockCapabilities()
   }
+
   
   override func viewWillAppear(animated: Bool) {
+    dataController = (UIApplication.sharedApplication().delegate as! AppDelegate).dataController
     initializeFetchedAccountController(dataController.managedObjectContext)
   }
 
