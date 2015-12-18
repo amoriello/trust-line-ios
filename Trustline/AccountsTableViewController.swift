@@ -61,7 +61,6 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate, NS
     
     cell.account = account
     cell.keyboardTriggeredHandler = self.onKeyboardTriggered
-    cell.keyboardEnterTriggeredHandler = self.onKeyboardEnterTriggered
     cell.showPasswordTriggeredHandler = self.onShowPasswordTriggered
     cell.clipboardTriggeredHandler = self.onClipboardTriggered
   }
@@ -234,26 +233,6 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate, NS
       return
     }
 
-    
-    showMessage("Sending Keystrokes...", hideOnTap: false, showAnnimation: true)
-    token.writePassword(account.enc_password.arrayOfBytes()) { (error) in
-      if let err = error {
-        showError("Woww...", error: err)
-      } else {
-        self.dataController.updateUsageInfo(account, type: .Keyboard)
-        self.tableView.reloadData()
-        hideMessage()
-      }
-    }
-  }
-
-  
-  func onKeyboardEnterTriggered(account: CDAccount) {
-    if token == nil {
-      showMessage("Cannot handle action", subtitle: "Token is not connected")
-      return
-    }
-
     var additionalKeys = [UInt8]();
     additionalKeys.append(0xB0);
     
@@ -268,7 +247,7 @@ class AccountsTableViewController: UITableViewController, AddAccountDelegate, NS
       }
     }
   }
-  
+
 
   func onShowPasswordTriggered(account: CDAccount) {
     if token == nil {
