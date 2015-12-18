@@ -26,16 +26,7 @@ class Command {
     ReturnPassword,
     LockComputer,
     TypeString,
-    ResetKeys,
-    
-    TestEcho,
-    TestPassword,
-    TestKey,
-    TestPasswordCrypto,
-    TestIsInitialized,
-    TestIsAuthorized,
-    TestChallenge,
-    NbCmd
+    ResetKeys
   }
   
   init?(cmdId: Id, arg: [UInt8] = []) {
@@ -50,9 +41,6 @@ class Command {
   
   
   func setId(cmdId: Id) -> Bool {
-    if (cmdId.rawValue >= Id.NbCmd.rawValue) {
-      return false;
-    }
     bytes[32] = cmdId.rawValue;
     return true;
   }
@@ -65,10 +53,6 @@ class Command {
     }
     
     bytes[33] = (UInt8)(arg.count);
-    print("========================== \(arg.count)")
-    print(arg)
-    print("========================== \(arg.count)")
-    
     
     if arg.count == 0 {
       return true;
@@ -83,10 +67,6 @@ class Command {
   
   
   func needAuth() -> Bool? {
-    if bytes.count < 31 {
-      return nil;
-    }
-    
     if let id = Id(rawValue: bytes[32]) {
       switch id {
       case .CreatePassword, .TypePassword, .ReturnPassword:

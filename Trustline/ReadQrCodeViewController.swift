@@ -21,8 +21,8 @@ class ReadQrCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
   var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   var qrCodeFrameView: UIView?
   
-  var bleManager: BleManager!
   // This one is meant to be found and set in this viewController
+  var bleManager: BleManager!
   var token: Token!
   var keyMaterial: KeyMaterial!
   
