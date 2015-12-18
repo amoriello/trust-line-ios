@@ -138,6 +138,8 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
       let pairedToken = createPairedToken(fromToken: self.token)
       profile.pairedTokens.insert(pairedToken)
       
+      // Secure saving KeyMaterial associated with this token
+      KeyMaterial.secureSave(self.token.identifier, km: self.token.keyMaterial)
       // Saving profile, settings, associated token and  keys
       self.dataController.save()
       
@@ -173,7 +175,6 @@ class PairingViewController: UIViewController, ReadKeyMaterialDelegate {
         let readQrVC = segue.destinationViewController as! ReadQrCodeViewController
         readQrVC.delegate = self
         readQrVC.bleManager = self.bleManager
-        readQrVC.keyMaterial = token.keyMaterial
         
       default: break;
       }

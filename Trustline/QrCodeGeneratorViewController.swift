@@ -32,7 +32,7 @@ class QrCodeGeneratorViewController: UIViewController {
     // generate qrcode image
     let qrFilter = CIFilter(name: "CIQRCodeGenerator")!
     qrFilter.setDefaults()
-    let base64keyMaterial = keyMaterial.base64Data()
+    let base64keyMaterial = keyMaterial.base64FullData()
     qrFilter.setValue(base64keyMaterial, forKey: "inputMessage")
     // High correction control level
     qrFilter.setValue("H", forKey: "inputCorrectionLevel")

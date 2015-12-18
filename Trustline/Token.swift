@@ -170,17 +170,20 @@ class TokenCommander {
       if response.isValid() {  // Token is Paired
         let keySize = self.keyMaterial.keySize;
         
-        let passKey = Array(response.bytes[2...1 + keySize])
-        let crKey   = Array(response.bytes[2 + keySize...1 + (2 * keySize)])
-        let comKey  = Array(response.bytes[2 + (2 * keySize)...1 + (3 * keySize)])
+        let passKey  = Array(response.bytes[2...1 + keySize])
+        let crKey    = Array(response.bytes[2 + (1 * keySize)...1 + (2 * keySize)])
+        let comKey   = Array(response.bytes[2 + (2 * keySize)...1 + (3 * keySize)])
+        let loginKey = Array(response.bytes[2 + (3 * keySize)...1 + (4 * keySize)])
         
         self.keyMaterial.passKey = NSData(bytes: passKey, length: passKey.count)
         self.keyMaterial.crKey = NSData(bytes: crKey, length: crKey.count)
         self.keyMaterial.comKey = NSData(bytes: comKey, length: comKey.count)
+        self.keyMaterial.loginKey = NSData(bytes: loginKey, length: loginKey.count)
         
         print("Pass Key: \(self.keyMaterial.passKey)");
         print("Cr   Key: \(self.keyMaterial.crKey)");
         print("Req  Key: \(self.keyMaterial.comKey)");
+        print("Login  Key: \(self.keyMaterial.comKey)");
         handler(nil);
         return;
       }
@@ -267,7 +270,7 @@ class TokenCommander {
   
   
   func resetNewKeys(keyMaterial: KeyMaterial, handler: CompletionHandler) {
-    let cmd = Command(cmdId: .ResetKeys, arg: keyMaterial.data())!
+    let cmd = Command(cmdId: .ResetKeys, arg: keyMaterial.fullData())!
     
     send(cmd) { (response, error) in
       handler(error)

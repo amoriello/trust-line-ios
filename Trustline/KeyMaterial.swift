@@ -14,11 +14,11 @@ class KeyMaterial {
   let version : UInt8 = 1
   let keySize = 16
   
-  var passKey = NSData() // In memory only
+  var passKey = NSData()  // In memory only
+  var loginKey = NSData() // In memory only
   
   var crKey = NSData()
   var comKey = NSData()
-  
   
   init() { }
   
@@ -46,7 +46,7 @@ class KeyMaterial {
       try keychain
         .accessibility(.WhenUnlockedThisDeviceOnly)
         .synchronizable(false)
-        .set(km.base64Data(), key: identifier.UUIDString)
+        .set(km.base64KeyChainData(), key: identifier.UUIDString)
     } catch {
       print("error saving Key Material: \(error)")
     }
@@ -56,12 +56,18 @@ class KeyMaterial {
   private func loadFrom(fromBase64 data: String) -> NSError? {
     let res = NSData(base64EncodedString: data, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
     
-    
     if let data = res {
-      if data.length == 1 + (3 * keySize) {
-        passKey = data.subdataWithRange(NSRange(location: 1 + (0 * keySize), length: keySize))
-        crKey   = data.subdataWithRange(NSRange(location: 1 + (1 * keySize), length: keySize))
-        comKey  = data.subdataWithRange(NSRange(location: 1 + (2 * keySize), length: keySize))
+      if data.length == 1 + (4 * keySize) { // fullData from QrCode
+        passKey  = data.subdataWithRange(NSRange(location: 1 + (0 * keySize), length: keySize))
+        crKey    = data.subdataWithRange(NSRange(location: 1 + (1 * keySize), length: keySize))
+        comKey   = data.subdataWithRange(NSRange(location: 1 + (2 * keySize), length: keySize))
+        loginKey = data.subdataWithRange(NSRange(location: 1 + (3 * keySize), length: keySize))
+        return nil
+      }
+      
+      if data.length == 1 + (2 * keySize) { // Keychain Data
+        crKey  = data.subdataWithRange(NSRange(location: 1 + (0 * keySize), length: keySize))
+        comKey = data.subdataWithRange(NSRange(location: 1 + (1 * keySize), length: keySize))
         return nil
       }
     }
@@ -69,20 +75,37 @@ class KeyMaterial {
   }
   
   
-  func base64Data() -> NSData {
-    let keyData = data()
-    return NSData(bytes: keyData, length: keyData.count).base64EncodedDataWithOptions(.Encoding64CharacterLineLength)
+  func base64FullData() -> NSData {
+    let data = fullData()
+    return NSData(bytes: data, length: data.count).base64EncodedDataWithOptions(.Encoding64CharacterLineLength)
   }
   
+  func base64KeyChainData() -> NSData {
+    let data = keychainData()
+    return NSData(bytes: data, length: data.count).base64EncodedDataWithOptions(.Encoding64CharacterLineLength)
+  }
   
-  func data() -> [UInt8] {
+  func fullData() -> [UInt8] {
     var result: [UInt8] = []
     
     result.append(version)
     result.appendContentsOf(passKey.arrayOfBytes())
     result.appendContentsOf(crKey.arrayOfBytes())
     result.appendContentsOf(comKey.arrayOfBytes())
+    result.appendContentsOf(loginKey.arrayOfBytes())
     
     return result
   }
+  
+  
+  func keychainData() -> [UInt8] {
+    var result: [UInt8] = []
+    
+    result.append(version)
+    result.appendContentsOf(crKey.arrayOfBytes())
+    result.appendContentsOf(comKey.arrayOfBytes())
+    
+    return result
+  }
+  
 }
