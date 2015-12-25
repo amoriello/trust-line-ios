@@ -139,12 +139,13 @@ class Token {
 
 class TokenCommander {
   // MARK - Type definitions
-  typealias ResponseHandler = (Response, error: NSError?) -> (Void);
-  typealias CreatePasswordHandler = (cipheredPassword:[UInt8], error: NSError?) -> (Void);
-  typealias RetrievePasswordHandler = (clearPassword: String, error: NSError?) -> (Void);
-  typealias PairWithDeviceHandler = (NSError?) -> (Void);
+  typealias ResponseHandler = (Response, error: NSError?) -> (Void)
+  typealias CreatePasswordHandler = (cipheredPassword:[UInt8], error: NSError?) -> (Void)
+  typealias RetrievePasswordHandler = (clearPassword: String, error: NSError?) -> (Void)
+  typealias PairWithDeviceHandler = (NSError?) -> (Void)
   typealias CompletionHandler = (NSError?) -> (Void)
-  typealias AuthCmdHandler = (nonce: [UInt8], error: NSError?) -> (Void);
+  typealias AuthCmdHandler = (nonce: [UInt8], error: NSError?) -> (Void)
+  typealias LoginKeyHandler = (loginKey: [UInt8], error: NSError?) -> (Void)
   
   
   var passKey = [UInt8]()
@@ -264,6 +265,41 @@ class TokenCommander {
       } catch {
         let error = createError("Invalid response", description: "Bad cryptographic input")
         handler(clearPassword: "", error: error)
+      }
+    }
+  }
+  
+  
+  
+  func retreiveLoginKey(handler: LoginKeyHandler) {
+    let cmd = Command(cmdId: .ReturnLoginKey)!
+    
+    send(cmd) { (response, error) in
+      if error != nil {
+        handler(loginKey: [UInt8](), error: error)
+        return
+      }
+      
+      
+      let argSize = response.argData()!.count
+      let expectedArgSize = 2 * self.keyMaterial.keySize  // IV + Encrypted Key.
+      
+      if argSize != expectedArgSize {
+        let error = createError("Invalid response", description: "Bad response length")
+        handler(loginKey: [UInt8](), error: error)
+        return
+      }
+      
+      let iv = Array(response.argData()![0...self.keyMaterial.keySize - 1])
+      let cipheredLoginKey = Array(response.argData()![16...argSize - 1])
+      
+      do {
+        let loginKey : [UInt8] = try AES(key: self.keyMaterial.comKey.arrayOfBytes(), iv: iv)!.decrypt(cipheredLoginKey)
+        self.keyMaterial.loginKey = NSData(bytes: loginKey, length: self.keyMaterial.keySize)
+        handler(loginKey: loginKey, error: nil)
+      } catch {
+        let error = createError("Invalid response", description: "Bad cryptographic input")
+        handler(loginKey: [UInt8](), error: error)
       }
     }
   }

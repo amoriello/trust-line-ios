@@ -26,7 +26,8 @@ class Command {
     ReturnPassword,
     LockComputer,
     TypeString,
-    ResetKeys
+    ResetKeys,
+    ReturnLoginKey
   }
   
   init?(cmdId: Id, arg: [UInt8] = []) {
@@ -101,10 +102,7 @@ class Command {
 
 class Response {
   var bytes = [UInt8]();
-  
   let sizeOfHeader = 2;
-  //let sizeOfSecurityToken = 32;
-  
   
   enum Status: UInt8 {
     case Ok = 0,
@@ -124,7 +122,6 @@ class Response {
       return false;
     }
     if (bytes.count > 1) {
-      //print("hdr.size: \(bytes[1])   bytes.count - 2: \(bytes.count - 2)")
       return bytes[1] == (UInt8)(bytes.count - 2);
     } else {
       return false;
